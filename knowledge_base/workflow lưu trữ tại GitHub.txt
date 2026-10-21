@@ -1,0 +1,5 @@
+workflow: lưu trữ tại GitHub
+- tạo nhánh bao gồm: nhánh main(production là nhánh deploy bản chính
+		     nhánh develop: nhánh phát triển: merge code cho dev, cherry pick code vào main
+	             các nhánh features: nhánh phát triển các chức năng(quy định đặt tên: feat/ten_chuc_nang || fix/ten-chuc_nang)|
+- thiết lập bộ CI/CD 

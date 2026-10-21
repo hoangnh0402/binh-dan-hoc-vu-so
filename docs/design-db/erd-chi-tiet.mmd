@@ -1,0 +1,385 @@
+%% ERD chi tiết — đầy đủ cột, kiểu dữ liệu SQL Server
+%% CSDL: SQL Server 2019+ · Collation: Vietnamese_100_CI_AS · Thời gian lưu UTC
+%% Kiểu DECIMAL ghi độ chính xác trong phần chú thích (Mermaid không cho dấu phẩy trong kiểu)
+%% Đặc tả đầy đủ: 02-tu-dien-du-lieu.md · Script DDL: 04-script-tao-csdl.md
+erDiagram
+    %% =====================================================
+    %% 1. NGƯỜI DÙNG & XÁC THỰC
+    %% =====================================================
+    roles {
+        smallint id PK
+        nvarchar(30) code UK "ADMIN | USER"
+        nvarchar(100) name
+        datetime2 created_at
+    }
+
+    users {
+        bigint id PK
+        nvarchar(255) email UK "unique khi deleted_at IS NULL"
+        nvarchar(100) password_hash "BCrypt"
+        nvarchar(100) full_name
+        smallint birth_year "NULL"
+        nvarchar(255) hometown "NULL"
+        nvarchar(255) workplace "NULL"
+        nvarchar(20) phone "NULL"
+        nvarchar(500) avatar_url "NULL"
+        nvarchar(30) status "PENDING_VERIFICATION | ACTIVE | LOCKED"
+        nvarchar(500) lock_reason "NULL"
+        datetime2 email_verified_at "NULL"
+        smallint failed_login_count
+        datetime2 locked_until "NULL"
+        datetime2 last_login_at "NULL"
+        bit show_on_leaderboard
+        datetime2 privacy_consent_at "NULL"
+        int version
+        datetime2 created_at
+        datetime2 updated_at
+        datetime2 deleted_at "NULL = chưa xóa"
+    }
+
+    user_roles {
+        bigint user_id PK, FK
+        smallint role_id PK, FK
+        datetime2 assigned_at
+    }
+
+    otp_codes {
+        bigint id PK
+        bigint user_id FK
+        nvarchar(30) purpose "REGISTER | RESET_PASSWORD"
+        nvarchar(100) code_hash
+        datetime2 expires_at
+        tinyint failed_attempts "0..5"
+        datetime2 consumed_at "NULL"
+        datetime2 invalidated_at "NULL"
+        nvarchar(45) request_ip "NULL"
+        datetime2 created_at
+    }
+
+    password_reset_tokens {
+        bigint id PK
+        bigint user_id FK
+        nvarchar(100) token_hash UK
+        nvarchar(20) source "SELF | ADMIN"
+        datetime2 expires_at
+        datetime2 used_at "NULL"
+        datetime2 created_at
+    }
+
+    refresh_tokens {
+        bigint id PK
+        bigint user_id FK
+        nvarchar(100) token_hash UK
+        bit remember_me
+        datetime2 expires_at
+        datetime2 revoked_at "NULL"
+        nvarchar(30) revoked_reason "NULL"
+        bigint replaced_by_id FK "NULL"
+        nvarchar(500) user_agent "NULL"
+        nvarchar(45) ip_address "NULL"
+        datetime2 created_at
+    }
+
+    %% =====================================================
+    %% 2. DANH MỤC & NỘI DUNG
+    %% =====================================================
+    uploaded_files {
+        bigint id PK
+        nvarchar(500) storage_key UK
+        nvarchar(500) public_url
+        nvarchar(255) original_name
+        nvarchar(100) content_type
+        bigint size_bytes
+        nvarchar(30) purpose
+        bigint uploaded_by FK
+        datetime2 created_at
+    }
+
+    organizations {
+        bigint id PK
+        nvarchar(200) name UK
+        nvarchar(220) slug UK
+        nvarchar(500) logo_url "NULL"
+        nvarchar(500) website "NULL"
+        nvarchar(255) contact_email "NULL"
+        nvarchar(max) description "NULL"
+        bit is_active
+        int version
+        datetime2 created_at
+        datetime2 updated_at
+    }
+
+    course_categories {
+        bigint id PK
+        bigint parent_id FK "NULL = cấp 1"
+        tinyint depth "1 | 2"
+        tinyint parent_depth FK "NULL hoặc 1"
+        nvarchar(150) name "UK cùng parent_id"
+        nvarchar(170) slug UK
+        nvarchar(1000) description "NULL"
+        nvarchar(500) icon_url "NULL"
+        int sort_order
+        bit is_active
+        int version
+        datetime2 created_at
+        datetime2 updated_at
+    }
+
+    courses {
+        bigint id PK
+        bigint category_id FK "phải là loại cấp 2"
+        tinyint category_depth FK "luôn = 2"
+        bigint organization_id FK
+        nvarchar(200) title
+        nvarchar(220) slug UK
+        nvarchar(300) short_description
+        nvarchar(max) description
+        nvarchar(max) outcomes "NULL"
+        nvarchar(max) target_audience "NULL"
+        nvarchar(max) prerequisites "NULL"
+        nvarchar(500) thumbnail_url "NULL"
+        nvarchar(20) course_level "BASIC | INTERMEDIATE | ADVANCED"
+        nvarchar(20) publish_status "DRAFT | PUBLISHED | ARCHIVED"
+        datetime2 start_date "NULL"
+        datetime2 end_date "NULL"
+        int estimated_minutes "NULL"
+        bit is_featured
+        nvarchar(max) certificate_criteria "JSON, NULL"
+        nvarchar(1000) search_text "không dấu, chữ thường"
+        int published_lesson_count
+        int enrollment_count
+        decimal rating_avg "DECIMAL(3,2)"
+        int rating_count
+        datetime2 published_at "NULL"
+        bigint created_by FK
+        bigint updated_by FK "NULL"
+        int version
+        datetime2 created_at
+        datetime2 updated_at
+    }
+
+    lessons {
+        bigint id PK
+        bigint course_id FK
+        nvarchar(200) title
+        int order_index "UK cùng course_id"
+        nvarchar(max) content "NULL, HTML"
+        nvarchar(500) video_url "NULL"
+        nvarchar(max) assignment "NULL, đề bài"
+        int estimated_minutes "NULL"
+        bit is_published
+        int version
+        datetime2 created_at
+        datetime2 updated_at
+    }
+
+    lesson_attachments {
+        bigint id PK
+        bigint lesson_id FK
+        bigint file_id FK
+        nvarchar(255) display_name
+        int order_index
+        datetime2 created_at
+    }
+
+    quizzes {
+        bigint id PK
+        bigint lesson_id FK, UK
+        nvarchar(200) title
+        tinyint pass_score_percent "mặc định 70"
+        int time_limit_seconds "NULL = không giới hạn"
+        int max_attempts "NULL = không giới hạn"
+        int retry_cooldown_seconds
+        bit shuffle_questions
+        bit shuffle_options
+        bit show_answers_after_submit
+        int version
+        datetime2 created_at
+        datetime2 updated_at
+    }
+
+    questions {
+        bigint id PK
+        bigint quiz_id FK
+        nvarchar(max) content
+        nvarchar(20) question_type "SINGLE_CHOICE | MULTIPLE_CHOICE | TRUE_FALSE"
+        decimal points "DECIMAL(5,2)"
+        nvarchar(max) explanation "NULL"
+        int order_index
+        bit is_active
+        int version
+        datetime2 created_at
+        datetime2 updated_at
+    }
+
+    question_options {
+        bigint id PK
+        bigint question_id FK
+        nvarchar(1000) content
+        bit is_correct
+        int order_index
+        bit is_active
+        datetime2 created_at
+        datetime2 updated_at
+    }
+
+    %% =====================================================
+    %% 3. HỌC TẬP
+    %% =====================================================
+    enrollments {
+        bigint id PK
+        bigint user_id FK "UK cùng course_id"
+        bigint course_id FK
+        nvarchar(20) status "IN_PROGRESS | COMPLETED | CANCELLED"
+        tinyint progress_percent "0..100"
+        int completed_lesson_count
+        bigint last_lesson_id FK "NULL"
+        datetime2 enrolled_at
+        datetime2 completed_at "NULL"
+        datetime2 cancelled_at "NULL"
+        int version
+        datetime2 updated_at
+    }
+
+    lesson_progress {
+        bigint id PK
+        bigint enrollment_id FK "UK cùng lesson_id"
+        bigint lesson_id FK
+        nvarchar(20) status "IN_PROGRESS | COMPLETED"
+        nvarchar(20) completion_method "QUIZ_PASSED | MANUAL, NULL"
+        datetime2 started_at
+        datetime2 completed_at "NULL"
+    }
+
+    quiz_attempts {
+        bigint id PK
+        bigint quiz_id FK
+        bigint user_id FK
+        bigint enrollment_id FK
+        int attempt_no "UK cùng user_id, quiz_id"
+        nvarchar(20) status "IN_PROGRESS | SUBMITTED | EXPIRED"
+        nvarchar(max) question_order "JSON, NULL"
+        datetime2 started_at "giờ máy chủ"
+        datetime2 expires_at "NULL"
+        datetime2 submitted_at "NULL"
+        int duration_seconds "NULL"
+        decimal score "DECIMAL(7,2), NULL"
+        decimal max_score "DECIMAL(7,2), NULL"
+        decimal score_percent "DECIMAL(5,2), NULL"
+        bit passed "NULL"
+        bit counts_for_ranking "NULL"
+    }
+
+    quiz_attempt_answers {
+        bigint id PK
+        bigint attempt_id FK "UK cùng question_id"
+        bigint question_id FK
+        bit is_correct "NULL khi chưa chấm"
+        decimal points_awarded "DECIMAL(5,2), NULL"
+        datetime2 answered_at
+    }
+
+    quiz_attempt_answer_options {
+        bigint answer_id PK, FK
+        bigint option_id PK, FK
+    }
+
+    %% =====================================================
+    %% 4. XẾP HẠNG
+    %% =====================================================
+    quiz_best_attempts {
+        bigint user_id PK, FK
+        bigint quiz_id PK, FK
+        bigint course_id FK
+        bigint attempt_id FK, UK
+        decimal score "DECIMAL(7,2)"
+        int duration_seconds
+        datetime2 achieved_at
+        datetime2 updated_at
+    }
+
+    rankings {
+        bigint user_id PK, FK
+        bigint course_id PK, FK
+        decimal total_score "DECIMAL(9,2)"
+        int total_duration_seconds
+        int completed_quiz_count
+        datetime2 last_achieved_at "NULL"
+        datetime2 updated_at
+    }
+
+    %% =====================================================
+    %% 5. ĐÁNH GIÁ & HỆ THỐNG
+    %% =====================================================
+    course_reviews {
+        bigint id PK
+        bigint course_id FK "UK cùng user_id"
+        bigint user_id FK
+        tinyint rating "1..5"
+        nvarchar(1000) comment "NULL"
+        bit is_hidden
+        nvarchar(500) hidden_reason "NULL"
+        bigint hidden_by FK "NULL"
+        datetime2 hidden_at "NULL"
+        datetime2 created_at
+        datetime2 updated_at
+    }
+
+    audit_logs {
+        bigint id PK
+        bigint actor_id FK "NULL = job hệ thống"
+        nvarchar(30) action_type
+        nvarchar(50) entity_type
+        bigint entity_id "NULL"
+        nvarchar(max) before_data "JSON, NULL"
+        nvarchar(max) after_data "JSON, NULL"
+        nvarchar(45) ip_address "NULL"
+        nvarchar(500) user_agent "NULL"
+        datetime2 created_at
+    }
+
+    %% =====================================================
+    %% QUAN HỆ
+    %% =====================================================
+    users ||--o{ user_roles : "có"
+    roles ||--o{ user_roles : "gán cho"
+    users ||--o{ otp_codes : "nhận"
+    users ||--o{ password_reset_tokens : "sở hữu"
+    users ||--o{ refresh_tokens : "sở hữu"
+    refresh_tokens |o--o| refresh_tokens : "được thay bởi"
+
+    users ||--o{ uploaded_files : "tải lên"
+    course_categories |o--o{ course_categories : "là cha của"
+    course_categories ||--o{ courses : "phân loại"
+    organizations ||--o{ courses : "cung cấp"
+    users ||--o{ courses : "tạo"
+    courses ||--o{ lessons : "gồm"
+    lessons ||--o{ lesson_attachments : "đính kèm"
+    uploaded_files ||--o{ lesson_attachments : "là tệp của"
+    lessons ||--o| quizzes : "có"
+    quizzes ||--o{ questions : "gồm"
+    questions ||--o{ question_options : "có"
+
+    users ||--o{ enrollments : "ghi danh"
+    courses ||--o{ enrollments : "có"
+    lessons |o--o{ enrollments : "bài học gần nhất"
+    enrollments ||--o{ lesson_progress : "theo dõi"
+    lessons ||--o{ lesson_progress : "được theo dõi"
+    users ||--o{ quiz_attempts : "làm"
+    quizzes ||--o{ quiz_attempts : "có"
+    enrollments ||--o{ quiz_attempts : "thuộc"
+    quiz_attempts ||--o{ quiz_attempt_answers : "gồm"
+    questions ||--o{ quiz_attempt_answers : "được trả lời"
+    quiz_attempt_answers ||--o{ quiz_attempt_answer_options : "chọn"
+    question_options ||--o{ quiz_attempt_answer_options : "được chọn"
+
+    users ||--o{ quiz_best_attempts : "có"
+    quizzes ||--o{ quiz_best_attempts : "có"
+    courses ||--o{ quiz_best_attempts : "thuộc"
+    quiz_attempts ||--o| quiz_best_attempts : "là lượt tốt nhất"
+    users ||--o{ rankings : "được xếp hạng"
+    courses ||--o{ rankings : "có bảng xếp hạng"
+
+    users ||--o{ course_reviews : "viết"
+    courses ||--o{ course_reviews : "nhận"
+    users |o--o{ audit_logs : "thực hiện"

@@ -1,0 +1,4 @@
+trang quản trị: 
+- quản lý người dung( CRUD)
+- quản lý khóa học 
+- quản lý loại khóa học( trong từng loại khóa học sẽ có loại khóa con)

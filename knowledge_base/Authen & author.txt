@@ -1,0 +1,6 @@
+Authen & author:
+- đăng nhập
+- đăng ký
+- quên mật khẩu
+- otp -> gửi mail
+

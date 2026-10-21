@@ -1,0 +1,51 @@
+%% ERD tổng quan — chỉ thể hiện các bảng và quan hệ
+%% CSDL: SQL Server 2019+ · Dự án: Bình Dân Học Vụ Số
+%% Bản chi tiết (đầy đủ cột): erd-chi-tiet.mmd
+erDiagram
+    %% ===== Người dùng & xác thực =====
+    users ||--o{ user_roles : "có"
+    roles ||--o{ user_roles : "gán cho"
+    users ||--o{ otp_codes : "nhận"
+    users ||--o{ password_reset_tokens : "sở hữu"
+    users ||--o{ refresh_tokens : "sở hữu"
+    refresh_tokens |o--o| refresh_tokens : "được thay bởi"
+
+    %% ===== Danh mục & nội dung =====
+    course_categories |o--o{ course_categories : "là cha của"
+    course_categories ||--o{ courses : "phân loại"
+    organizations ||--o{ courses : "cung cấp"
+    users ||--o{ courses : "tạo"
+    courses ||--o{ lessons : "gồm"
+    lessons ||--o{ lesson_attachments : "đính kèm"
+    uploaded_files ||--o{ lesson_attachments : "là tệp của"
+    users ||--o{ uploaded_files : "tải lên"
+    lessons ||--o| quizzes : "có"
+    quizzes ||--o{ questions : "gồm"
+    questions ||--o{ question_options : "có"
+
+    %% ===== Học tập =====
+    users ||--o{ enrollments : "ghi danh"
+    courses ||--o{ enrollments : "có"
+    lessons |o--o{ enrollments : "bài học gần nhất"
+    enrollments ||--o{ lesson_progress : "theo dõi"
+    lessons ||--o{ lesson_progress : "được theo dõi"
+    users ||--o{ quiz_attempts : "làm"
+    quizzes ||--o{ quiz_attempts : "có"
+    enrollments ||--o{ quiz_attempts : "thuộc"
+    quiz_attempts ||--o{ quiz_attempt_answers : "gồm"
+    questions ||--o{ quiz_attempt_answers : "được trả lời"
+    quiz_attempt_answers ||--o{ quiz_attempt_answer_options : "chọn"
+    question_options ||--o{ quiz_attempt_answer_options : "được chọn"
+
+    %% ===== Xếp hạng =====
+    users ||--o{ quiz_best_attempts : "có"
+    quizzes ||--o{ quiz_best_attempts : "có"
+    courses ||--o{ quiz_best_attempts : "thuộc"
+    quiz_attempts ||--o| quiz_best_attempts : "là lượt tốt nhất"
+    users ||--o{ rankings : "được xếp hạng"
+    courses ||--o{ rankings : "có bảng xếp hạng"
+
+    %% ===== Đánh giá & hệ thống =====
+    users ||--o{ course_reviews : "viết"
+    courses ||--o{ course_reviews : "nhận"
+    users |o--o{ audit_logs : "thực hiện"

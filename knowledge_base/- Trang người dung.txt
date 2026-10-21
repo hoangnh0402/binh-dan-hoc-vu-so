@@ -1,0 +1,17 @@
+- Trang người dung: 
++ tìm kiếm khóa học(trạng thái, lĩnh vực, trình độ, tổ chức đào tạo(có thể kết hợp điều kiện tìm kiếm))
++ Xem chi tiết cho một khóa học:(ý tưởng 1)
+	- Giới thiệu khóa học
+	- Nội dung khóa học
+	(Xem khóa học)
+(ý tưởng 2): giới thiệu, giáo trình, đánh giá, (chứng nhận)
+
+đăng ký học: them thanh check tiến độ học
+Vào học: bài học: đề bài, quiz, làm bài lần lượt có điều kiện(xong bài trước mới mở khóa bài sau)
+Xếp hang( tính theo số điểm, nếu bang điểm so thời gian làm bài)
+
+(Blog): mở rộng
+
+
+
+	

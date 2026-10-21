@@ -1,0 +1,8 @@
+Thiết kế DB:
+	Người dung: tên, năm sinh, quê, nơi công tác,......
+	Role: Admin, u ser
+	Loại khóa học(type) mục cấp 1:
+	Loại khóa học cấp 2(con của cấp 1)
+	Khóa học
+	ranking: id ngdung, id khoa học, diem
+	bai hoc
