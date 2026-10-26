@@ -142,6 +142,7 @@ erDiagram
         nvarchar(20) publish_status "DRAFT | PUBLISHED | ARCHIVED"
         datetime2 start_date "NULL"
         datetime2 end_date "NULL"
+        int learning_duration_days "mặc định 21, 1..365"
         int estimated_minutes "NULL"
         bit is_featured
         nvarchar(max) certificate_criteria "JSON, NULL"
@@ -230,13 +231,18 @@ erDiagram
         bigint id PK
         bigint user_id FK "UK cùng course_id"
         bigint course_id FK
-        nvarchar(20) status "IN_PROGRESS | COMPLETED | CANCELLED"
+        nvarchar(20) status "IN_PROGRESS | COMPLETED | CANCELLED | EXPIRED"
         tinyint progress_percent "0..100"
         int completed_lesson_count
         bigint last_lesson_id FK "NULL"
         datetime2 enrolled_at
         datetime2 completed_at "NULL"
         datetime2 cancelled_at "NULL"
+        int round_no "lần học thứ mấy"
+        datetime2 learning_started_at
+        datetime2 expires_at "hạn học"
+        datetime2 expired_at "NULL"
+        tinyint expiry_reminder_stage "0..2"
         int version
         datetime2 updated_at
     }

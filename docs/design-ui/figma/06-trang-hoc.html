@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trang học — SCR-LRN-01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  body { background: var(--canvas); }
+  .lbar { height: 64px; background: #fff; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 16px; padding: 0 24px; }
+  .lbar img { width: 40px; height: 40px; }
+  .lbar .ct { font-weight: 700; font-size: 17px; }
+  .lbar .sp { flex: 1; }
+  .warnbar { background: var(--warn-tint); border-bottom: 1px solid #f3d3a1; color: #6b3d00; padding: 12px 24px; display: flex; align-items: center; gap: 12px; font-size: 15px; }
+  .warnbar b { color: var(--warn); }
+  .lgrid { display: grid; grid-template-columns: 340px 1fr; min-height: 1100px; }
+  .outline { background: #fff; border-right: 1px solid var(--line); }
+  .outline .top { padding: 20px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
+  .ol { display: flex; gap: 12px; align-items: flex-start; padding: 14px 20px; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .ol .st { flex: none; margin-top: 1px; }
+  .ol.done .st { color: var(--success); }
+  .ol.cur { background: var(--red-tint); box-shadow: inset 4px 0 0 var(--red); }
+  .ol.cur .st { color: var(--red); }
+  .ol.lock { color: var(--ink-3); }
+  .ol .sub { font-size: 13px; color: var(--ink-3); margin-top: 2px; }
+  .content { padding: 32px 48px; display: flex; flex-direction: column; gap: 24px; max-width: 1000px; }
+  .video { aspect-ratio: 16/9; border-radius: var(--r-lg); background: linear-gradient(135deg, #3a2f2e, #1f1a1a); display: flex; align-items: center; justify-content: center; color: #fff; position: relative; }
+  .video .pl { width: 84px; height: 84px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; }
+  .video .bar { position: absolute; left: 20px; right: 20px; bottom: 18px; display: flex; gap: 12px; align-items: center; font-size: 13px; }
+  .video .bar .progress { flex: 1; background: rgba(255,255,255,.25); }
+  .prose { font-size: 18px; line-height: 1.7; display: flex; flex-direction: column; gap: 14px; }
+  .prose h2 { font-size: 24px; }
+  .prose ul { margin: 0; padding-left: 22px; }
+  .att { display: flex; gap: 12px; align-items: center; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r); background: #fff; }
+  .att .ic { width: 40px; height: 40px; border-radius: 8px; background: var(--red-tint); color: var(--red); display: flex; align-items: center; justify-content: center; }
+  .navbtns { display: flex; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 24px; }
+  .fs { display: flex; border: 1px solid var(--line-2); border-radius: 8px; overflow: hidden; }
+  .fs span { padding: 6px 12px; font-weight: 700; font-size: 14px; }
+  .fs span.on { background: var(--red); color: #fff; }
+</style>
+</head>
+<body>
+<div class="lbar">
+  <img src="../brand/logo-hpu2.png" alt="Logo HPU2">
+  <a class="btn btn-light btn-sm"><i data-i="chevron-left" class="sm"></i>Về khóa học</a>
+  <span class="ct">An toàn thông tin và phòng tránh lừa đảo trực tuyến</span>
+  <span class="sp"></span>
+  <span class="small muted">Cỡ chữ</span><div class="fs"><span>A-</span><span class="on">A</span><span>A+</span></div>
+  <span class="avatar sm">NA</span>
+</div>
+<div class="warnbar"><i data-i="alert"></i><span>Thời hạn học còn <b>2 ngày 6 giờ</b> (đến 15:15 ngày 06/11/2026). Bạn cần hoàn thành 4 bài còn lại, nếu không dữ liệu học tập sẽ bị xóa và phải học lại từ đầu.</span></div>
+
+<div class="lgrid">
+  <aside class="outline">
+    <div class="top">
+      <div class="row-between"><span class="bold">Tiến độ khóa học</span><span class="bold" style="color:var(--red)">33%</span></div>
+      <div class="progress"><i style="width:33%"></i></div>
+      <span class="deadline warn"><i data-i="hourglass" class="sm"></i>Hạn học: còn 2 ngày 6 giờ</span>
+    </div>
+    <div class="ol done"><i data-i="check-circle" class="st"></i><div><div>1. Vì sao cần an toàn thông tin?</div><div class="sub">Quiz đạt 10/10</div></div></div>
+    <div class="ol done"><i data-i="check-circle" class="st"></i><div><div>2. Tạo và quản lý mật khẩu an toàn</div><div class="sub">Quiz đạt 9/10</div></div></div>
+    <div class="ol cur"><i data-i="play" class="st"></i><div><div class="bold">3. Nhận diện tin nhắn, cuộc gọi lừa đảo</div><div class="sub">Đang học · 50 phút</div></div></div>
+    <div class="ol lock"><i data-i="lock" class="st"></i><div><div>4. Bảo vệ tài khoản mạng xã hội</div><div class="sub">Hoàn thành bài 3 để mở khóa</div></div></div>
+    <div class="ol lock"><i data-i="lock" class="st"></i><div><div>5. Giao dịch ngân hàng số an toàn</div><div class="sub">Hoàn thành bài 4 để mở khóa</div></div></div>
+    <div class="ol lock"><i data-i="lock" class="st"></i><div><div>6. Tổng kết và bài kiểm tra cuối khóa</div><div class="sub">Hoàn thành bài 5 để mở khóa</div></div></div>
+  </aside>
+
+  <main class="content">
+    <div>
+      <div class="small muted">Bài 3 / 6</div>
+      <h1 style="font-size:30px;font-weight:800;margin-top:4px">Nhận diện tin nhắn, cuộc gọi lừa đảo</h1>
+    </div>
+    <nav class="tabs"><a class="active">Nội dung</a><a>Đề bài</a><a>Quiz (10 câu)</a></nav>
+    <div class="video">
+      <span class="pl"><i data-i="play" class="lg"></i></span>
+      <div class="bar"><span>06:12</span><div class="progress"><i style="width:38%;background:#fff"></i></div><span>16:30</span></div>
+    </div>
+    <div class="prose">
+      <h2>1. Dấu hiệu nhận biết tin nhắn lừa đảo</h2>
+      <p>Kẻ gian thường giả danh ngân hàng, cơ quan nhà nước hoặc người quen để yêu cầu bạn bấm vào đường link, cung cấp mã OTP hoặc chuyển tiền gấp.</p>
+      <ul>
+        <li>Thúc giục, đe dọa: "tài khoản sẽ bị khóa trong 24 giờ".</li>
+        <li>Đường link lạ, sai chính tả tên miền, rút gọn link.</li>
+        <li>Yêu cầu cung cấp mã OTP, mật khẩu, số thẻ.</li>
+      </ul>
+      <div class="alert info"><i data-i="info"></i><span><b>Ghi nhớ:</b> Ngân hàng và cơ quan nhà nước không bao giờ yêu cầu bạn cung cấp mã OTP qua điện thoại hay tin nhắn.</span></div>
+    </div>
+    <div>
+      <h3 style="font-size:18px;margin-bottom:12px">Tài liệu đính kèm</h3>
+      <div class="grid-2" style="gap:12px">
+        <div class="att"><span class="ic"><i data-i="file"></i></span><div><div class="bold small">Cam-nang-nhan-dien-lua-dao.pdf</div><div class="xs muted">PDF · 2,4 MB</div></div><i data-i="download" style="margin-left:auto;color:var(--red)"></i></div>
+        <div class="att"><span class="ic"><i data-i="file"></i></span><div><div class="bold small">Phieu-thuc-hanh-bai-3.docx</div><div class="xs muted">DOCX · 180 KB</div></div><i data-i="download" style="margin-left:auto;color:var(--red)"></i></div>
+      </div>
+    </div>
+    <div class="navbtns">
+      <a class="btn btn-light btn-lg"><i data-i="chevron-left"></i>Bài trước</a>
+      <a class="btn btn-primary btn-lg">Làm quiz<i data-i="chevron-right"></i></a>
+    </div>
+  </main>
+</div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chi tiết khóa học — Chứng nhận — FR-CRS-08</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .conds { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+  .cond { display: flex; gap: 14px; align-items: center; padding: 16px 18px; }
+  .cond .ic { width: 44px; height: 44px; border-radius: 12px; background: var(--red-tint); color: var(--red); display: flex; align-items: center; justify-content: center; flex: none; }
+  .cert { margin-top: 8px; border-radius: var(--r-lg); background: #fffdf8; border: 10px solid #fff; box-shadow: 0 0 0 1px var(--line), var(--shadow); padding: 6px; }
+  .cert .in { border: 2px solid var(--red); border-radius: 6px; padding: 36px 48px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; position: relative; }
+  .cert .in::before { content: ""; position: absolute; inset: 6px; border: 1px solid var(--gold); border-radius: 4px; }
+  .cert img { width: 72px; height: 72px; }
+  .cert .school { font-size: 13px; font-weight: 800; letter-spacing: .12em; color: var(--red); text-transform: uppercase; }
+  .cert h3 { font-size: 30px; font-weight: 800; color: var(--red-dark); letter-spacing: .04em; text-transform: uppercase; }
+  .cert .name { font-size: 28px; font-weight: 700; font-style: italic; color: var(--ink); border-bottom: 1px solid var(--line-2); padding: 0 40px 4px; }
+  .cert .foot { width: 100%; display: flex; justify-content: space-between; margin-top: 18px; font-size: 13px; color: var(--ink-2); }
+  .watermark { position: absolute; right: 18px; top: 18px; }
+</style>
+</head>
+<body data-tab="chung-nhan" data-state="expired">
+<div data-header="user" data-active="khoa-hoc"></div>
+<div id="tab-content">
+  <div class="alert info" style="margin-top:24px"><i data-i="info"></i><span>Chứng nhận PDF có mã xác minh sẽ được cấp từ <b>giai đoạn 2</b>. Hiện tại trang này giới thiệu điều kiện và mẫu chứng nhận.</span></div>
+
+  <h2 class="t" style="font-size:22px;margin:28px 0 14px">Điều kiện nhận chứng nhận</h2>
+  <div class="conds">
+    <div class="card cond"><span class="ic"><i data-i="book"></i></span><div><b>Hoàn thành 100% bài học</b><div class="small muted">Cả 6 bài, trong thời hạn học 21 ngày</div></div></div>
+    <div class="card cond"><span class="ic"><i data-i="target"></i></span><div><b>Điểm quiz trung bình từ 70% trở lên</b><div class="small muted">Tính theo lượt làm có điểm cao nhất của mỗi bài</div></div></div>
+    <div class="card cond"><span class="ic"><i data-i="shield"></i></span><div><b>Có mã xác minh công khai</b><div class="small muted">Bất kỳ ai cũng tra cứu được tính hợp lệ của chứng nhận qua mã in trên PDF</div></div></div>
+  </div>
+
+  <h2 class="t" style="font-size:22px;margin:32px 0 14px">Mẫu chứng nhận</h2>
+  <div class="cert">
+    <div class="in">
+      <span class="chip gold watermark">MẪU</span>
+      <img src="../brand/logo-hpu2.png" alt="Logo Trường Đại học Sư phạm Hà Nội 2">
+      <span class="school">Trường Đại học Sư phạm Hà Nội 2</span>
+      <h3>Chứng nhận hoàn thành</h3>
+      <span class="muted">Chứng nhận học viên</span>
+      <span class="name">Họ và tên học viên</span>
+      <span class="muted" style="max-width:520px">đã hoàn thành khóa học <b style="color:var(--ink)">"An toàn thông tin và phòng tránh lừa đảo trực tuyến"</b> trên nền tảng Bình Dân Học Vụ Số</span>
+      <div class="foot"><span>Mã xác minh: BDHVS-XXXX-XXXX</span><span>Ngày cấp: dd/mm/yyyy</span></div>
+    </div>
+  </div>
+</div>
+<div data-footer></div>
+<script src="assets/layout.js"></script>
+<script src="assets/course-detail.js"></script>
+</body>
+</html>

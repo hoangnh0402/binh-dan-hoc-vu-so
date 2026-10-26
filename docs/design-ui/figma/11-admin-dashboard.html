@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Dashboard — SCR-ADM-01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .stats6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .two { display: grid; grid-template-columns: 1.7fr 1fr; gap: 20px; }
+  .chart { height: 260px; display: flex; align-items: flex-end; gap: 8px; padding: 0 4px; border-bottom: 1px solid var(--line); }
+  .chart .b { flex: 1; display: flex; align-items: flex-end; gap: 2px; height: 100%; }
+  .chart .b i { display: block; flex: 1; border-radius: 3px 3px 0 0; }
+  .chart .b i.e { background: var(--red); }
+  .chart .b i.u { background: var(--red-tint-2); }
+  .axis { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-3); margin-top: 8px; }
+  .leg { display: flex; gap: 18px; font-size: 13px; color: var(--ink-2); }
+  .leg span { display: inline-flex; gap: 8px; align-items: center; }
+  .leg i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  .top5 .it { display: flex; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .top5 .it:last-child { border-bottom: 0; }
+  .top5 .n { width: 28px; height: 28px; border-radius: 8px; background: var(--red-tint); color: var(--red); font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 14px; flex: none; }
+  .top5 .bar { height: 6px; background: var(--line); border-radius: 9px; margin-top: 6px; }
+  .top5 .bar i { display: block; height: 100%; background: var(--red); border-radius: 9px; }
+</style>
+</head>
+<body>
+<div class="admin">
+  <aside class="sidebar" data-sidebar data-active="dashboard"></aside>
+  <div class="admin-main">
+    <div class="admin-top">
+      <div class="crumb"><span>Quản trị</span><i data-i="chevron-right" class="sm"></i><b>Dashboard</b></div>
+      <div class="row"><button class="icon-btn"><i data-i="bell"></i><span class="dot"></span></button><div class="user-chip"><span class="avatar">QT</span><div><div class="n">Quản trị viên</div><div class="r">ADMIN</div></div></div></div>
+    </div>
+    <div class="admin-body">
+      <div class="page-h"><h1>Tổng quan hệ thống</h1><div class="row"><span class="chip outline">30 ngày gần nhất<i data-i="chevron-down" class="sm"></i></span><a class="btn btn-primary"><i data-i="plus"></i>Tạo khóa học</a></div></div>
+      <div class="stats6">
+        <div class="stat"><div class="k">Tổng người dùng<span class="ic"><i data-i="users"></i></span></div><div class="v">12.560</div><div class="d">+318 người dùng mới trong 7 ngày</div></div>
+        <div class="stat"><div class="k">Khóa học đã xuất bản<span class="ic"><i data-i="book"></i></span></div><div class="v">48</div><div class="d" style="color:var(--ink-2)">6 khóa sắp mở</div></div>
+        <div class="stat"><div class="k">Tổng lượt ghi danh<span class="ic"><i data-i="layers"></i></span></div><div class="v">21.904</div><div class="d">+1.204 trong 30 ngày</div></div>
+        <div class="stat"><div class="k">Lượt hoàn thành khóa học<span class="ic"><i data-i="award"></i></span></div><div class="v">5.812</div><div class="d">Tỉ lệ hoàn thành 26,5%</div></div>
+        <div class="stat"><div class="k">Hết hạn học (30 ngày)<span class="ic" style="background:var(--warn-tint);color:var(--warn)"><i data-i="hourglass"></i></span></div><div class="v">642</div><div class="d" style="color:var(--warn)">Dữ liệu học tập đã được xóa tự động</div></div>
+        <div class="stat"><div class="k">Đánh giá chờ kiểm duyệt<span class="ic"><i data-i="message"></i></span></div><div class="v">7</div><div class="d" style="color:var(--ink-2)">Đánh giá bị báo cáo vi phạm</div></div>
+      </div>
+      <div class="two">
+        <div class="panel">
+          <div class="panel-h"><h3>Người dùng mới &amp; lượt ghi danh theo ngày</h3><div class="leg"><span><i style="background:var(--red)"></i>Lượt ghi danh</span><span><i style="background:var(--red-tint-2)"></i>Người dùng mới</span></div></div>
+          <div class="panel-b">
+            <div class="chart" id="chart"></div>
+            <div class="axis"><span>27/09</span><span>04/10</span><span>11/10</span><span>18/10</span><span>26/10</span></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-h"><h3>Top 5 khóa học nhiều học viên</h3></div>
+          <div class="panel-b top5">
+            <div class="it"><span class="n">1</span><div style="flex:1"><div class="small bold">Kỹ năng sử dụng máy tính và Internet</div><div class="bar"><i style="width:100%"></i></div></div><b class="small">2.418</b></div>
+            <div class="it"><span class="n">2</span><div style="flex:1"><div class="small bold">An toàn thông tin, phòng tránh lừa đảo</div><div class="bar"><i style="width:81%"></i></div></div><b class="small">1.952</b></div>
+            <div class="it"><span class="n">3</span><div style="flex:1"><div class="small bold">Sử dụng điện thoại thông minh</div><div class="bar"><i style="width:72%"></i></div></div><b class="small">1.733</b></div>
+            <div class="it"><span class="n">4</span><div style="flex:1"><div class="small bold">Dịch vụ công trực tuyến và VNeID</div><div class="bar"><i style="width:54%"></i></div></div><b class="small">1.306</b></div>
+            <div class="it"><span class="n">5</span><div style="flex:1"><div class="small bold">Văn bản và bảng tính văn phòng</div><div class="bar"><i style="width:46%"></i></div></div><b class="small">1.120</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-h"><h3>Thao tác quản trị gần đây</h3><a class="small bold">Xem nhật ký</a></div>
+        <table class="table">
+          <thead><tr><th>Thời gian</th><th>Người thao tác</th><th>Hành động</th><th>Đối tượng</th></tr></thead>
+          <tbody>
+            <tr><td>26/10/2026 09:12</td><td>Quản trị viên</td><td><span class="chip">Cập nhật</span></td><td>Khóa học "Tiếng Anh giao tiếp hằng ngày" — thời hạn học 21 → 28 ngày</td></tr>
+            <tr><td>26/10/2026 08:40</td><td>Quản trị viên</td><td><span class="chip solid">Xuất bản</span></td><td>Khóa học "Ứng dụng AI trong dạy học phổ thông"</td></tr>
+            <tr><td>25/10/2026 16:05</td><td>Quản trị viên</td><td><span class="chip error">Khóa</span></td><td>Người dùng #2381 — vi phạm quy định đánh giá</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="assets/layout.js"></script>
+<script>
+  var e = [40, 52, 38, 61, 70, 55, 48, 66, 72, 80, 64, 58, 75, 88, 92, 70, 66, 81, 77, 95, 102, 84, 79, 90, 98, 110, 96, 88, 104, 118];
+  document.getElementById('chart').innerHTML = e.map(function (v, i) {
+    var u = Math.round(v * (0.35 + (i % 4) * 0.05));
+    return '<div class="b"><i class="u" style="height:' + (u * 2) + 'px"></i><i class="e" style="height:' + (v * 2) + 'px"></i></div>';
+  }).join('');
+</script>
+</body>
+</html>

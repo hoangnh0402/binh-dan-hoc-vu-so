@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Nhật ký thao tác — SCR-ADM-09</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .diff { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 4px 12px 16px; }
+  .diff pre { margin: 0; font-family: ui-monospace, Consolas, monospace; font-size: 13px; line-height: 1.6; background: #fbf6f5; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; white-space: pre-wrap; }
+  .diff .h { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); margin-bottom: 6px; }
+  .del { background: #ffe1de; color: #7a0d0d; }
+  .add { background: #d8f0de; color: #14592a; }
+  tr.exp td { background: var(--red-tint); }
+  .mono { font-family: ui-monospace, Consolas, monospace; font-size: 13px; color: var(--ink-2); }
+</style>
+</head>
+<body>
+<div class="admin">
+  <aside class="sidebar" data-sidebar data-active="nhat-ky"></aside>
+  <div class="admin-main">
+    <div class="admin-top">
+      <div class="crumb"><span>Quản trị</span><i data-i="chevron-right" class="sm"></i><b>Nhật ký thao tác</b></div>
+      <div class="row"><button class="icon-btn"><i data-i="bell"></i></button><div class="user-chip"><span class="avatar">QT</span><div><div class="n">Quản trị viên</div><div class="r">ADMIN</div></div></div></div>
+    </div>
+    <div class="admin-body">
+      <div class="page-h"><h1>Nhật ký thao tác</h1><span class="small muted">Lưu trữ tối thiểu 1 năm</span></div>
+      <div class="panel">
+        <div class="toolbar-a">
+          <span class="dd"><i data-i="user" class="sm"></i>Người thao tác: Tất cả<i data-i="chevron-down" class="sm"></i></span>
+          <span class="dd"><i data-i="layers" class="sm"></i>Đối tượng: Khóa học<i data-i="chevron-down" class="sm"></i></span>
+          <span class="dd"><i data-i="calendar" class="sm"></i>20/10/2026 – 26/10/2026</span>
+          <span style="flex:1"></span>
+          <a class="small bold">Xóa bộ lọc</a>
+        </div>
+        <table class="table compact">
+          <thead><tr><th>Thời gian</th><th>Người thao tác</th><th>Hành động</th><th>Đối tượng</th><th>IP</th><th></th></tr></thead>
+          <tbody>
+            <tr class="exp"><td>26/10/2026 09:12:41</td><td>Quản trị viên</td><td><span class="chip">Cập nhật</span></td><td><b>Khóa học #14</b><div class="sub">Tiếng Anh giao tiếp hằng ngày</div></td><td class="mono">203.162.x.x</td><td><i data-i="chevron-down" class="sm"></i></td></tr>
+            <tr><td colspan="6" style="padding:0">
+              <div class="diff">
+                <div><div class="h">Trước</div><pre>{
+  "learningDurationDays": <span class="del">21</span>,
+  "isFeatured": false,
+  "shortDescription": "Tự tin chào hỏi..."
+}</pre></div>
+                <div><div class="h">Sau</div><pre>{
+  "learningDurationDays": <span class="add">28</span>,
+  "isFeatured": <span class="add">true</span>,
+  "shortDescription": "Tự tin chào hỏi..."
+}</pre></div>
+              </div>
+            </td></tr>
+            <tr><td>26/10/2026 08:40:03</td><td>Quản trị viên</td><td><span class="chip solid">Xuất bản</span></td><td><b>Khóa học #21</b><div class="sub">Ứng dụng AI trong dạy học phổ thông</div></td><td class="mono">203.162.x.x</td><td><i data-i="chevron-right" class="sm"></i></td></tr>
+            <tr><td>25/10/2026 16:05:22</td><td>Quản trị viên</td><td><span class="chip error">Khóa</span></td><td><b>Người dùng #2381</b><div class="sub">Lý do: vi phạm quy định đánh giá</div></td><td class="mono">203.162.x.x</td><td><i data-i="chevron-right" class="sm"></i></td></tr>
+            <tr><td>25/10/2026 14:31:09</td><td>Quản trị viên</td><td><span class="chip gold">Tính lại xếp hạng</span></td><td><b>Khóa học #3</b><div class="sub">An toàn thông tin và phòng tránh lừa đảo</div></td><td class="mono">203.162.x.x</td><td><i data-i="chevron-right" class="sm"></i></td></tr>
+            <tr><td>24/10/2026 10:02:55</td><td>Quản trị viên</td><td><span class="chip">Cập nhật</span></td><td><b>Câu hỏi #306</b><div class="sub">Đổi đáp án đúng</div></td><td class="mono">203.162.x.x</td><td><i data-i="chevron-right" class="sm"></i></td></tr>
+            <tr><td>22/10/2026 10:15:37</td><td>Quản trị viên</td><td><span class="chip neutral">Ẩn</span></td><td><b>Đánh giá #8812</b><div class="sub">Ngôn từ xúc phạm</div></td><td class="mono">203.162.x.x</td><td><i data-i="chevron-right" class="sm"></i></td></tr>
+          </tbody>
+        </table>
+        <div class="pager-a" style="border-top:1px solid var(--line)"><span>Hiển thị 1–20 / 186 bản ghi</span><div class="pg"><a><i data-i="chevron-left" class="sm"></i></a><a class="on">1</a><a>2</a><a>…</a><a>10</a><a><i data-i="chevron-right" class="sm"></i></a></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

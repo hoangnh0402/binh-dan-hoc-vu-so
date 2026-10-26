@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quên mật khẩu — SCR-AUTH-04</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 40px 0 8px; align-items: start; }
+  .flow .form-card { width: auto; padding: 32px; gap: 18px; }
+  .lbl { font-size: 13px; font-weight: 800; color: var(--red); text-transform: uppercase; letter-spacing: .06em; }
+  .ic-c { width: 60px; height: 60px; border-radius: 50%; background: var(--red-tint); color: var(--red); display: flex; align-items: center; justify-content: center; }
+  .otp { display: flex; gap: 8px; }
+  .otp span { flex: 1; height: 56px; border: 2px solid var(--red); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; }
+  .otp span.e { border-color: var(--error); color: var(--error); }
+</style>
+</head>
+<body class="auth-page">
+<div data-header="guest"></div>
+<div class="container">
+  <div style="padding-top:36px">
+    <div class="crumb"><span>Đăng nhập</span><i data-i="chevron-right" class="sm"></i><b>Quên mật khẩu</b></div>
+    <h1 style="font-size:30px;font-weight:800;margin-top:8px">Đặt lại mật khẩu</h1>
+    <p class="muted" style="margin-top:4px">Ba bước của cùng một luồng (FR-AUTH-07), hiển thị cạnh nhau để tiện xem thiết kế.</p>
+  </div>
+  <div class="flow">
+    <div class="form-card">
+      <span class="lbl">Bước 1 / 3</span>
+      <span class="ic-c"><i data-i="mail" class="lg"></i></span>
+      <div><h2 style="font-size:22px;font-weight:800">Quên mật khẩu?</h2><p class="muted small" style="margin-top:6px">Nhập email đã đăng ký, chúng tôi sẽ gửi mã xác thực để bạn đặt mật khẩu mới.</p></div>
+      <div class="field"><label>Email <span class="req">*</span></label><input class="input focus" value="an.nguyen@example.com"></div>
+      <a class="btn btn-primary btn-lg btn-block">Gửi mã xác thực</a>
+      <div class="alert info" style="font-size:14px"><i data-i="info" class="sm"></i><span>Nếu email tồn tại trong hệ thống, mã xác thực đã được gửi. Hãy kiểm tra cả thư mục Spam.</span></div>
+      <a class="small bold" href="04-dang-nhap.html"><i data-i="chevron-left" class="sm"></i> Quay lại đăng nhập</a>
+    </div>
+
+    <div class="form-card">
+      <span class="lbl">Bước 2 / 3</span>
+      <span class="ic-c"><i data-i="shield" class="lg"></i></span>
+      <div><h2 style="font-size:22px;font-weight:800">Nhập mã xác thực</h2><p class="muted small" style="margin-top:6px">Mã 6 chữ số đã gửi tới <b style="color:var(--ink)">an.nguyen@example.com</b></p></div>
+      <div class="otp"><span class="e">5</span><span class="e">1</span><span class="e">9</span><span class="e">0</span><span class="e">2</span><span class="e">7</span></div>
+      <span class="err"><i data-i="alert" class="sm"></i>Mã OTP không đúng, bạn còn 3 lần thử.</span>
+      <div class="deadline"><i data-i="clock" class="sm"></i>Mã còn hiệu lực <b style="color:var(--red)">03:28</b></div>
+      <a class="btn btn-primary btn-lg btn-block">Xác nhận</a>
+      <p class="small muted" style="text-align:center">Chưa nhận được mã? <a class="bold">Gửi lại mã</a></p>
+    </div>
+
+    <div class="form-card">
+      <span class="lbl">Bước 3 / 3</span>
+      <span class="ic-c"><i data-i="lock" class="lg"></i></span>
+      <div><h2 style="font-size:22px;font-weight:800">Tạo mật khẩu mới</h2><p class="muted small" style="margin-top:6px">Phiên đặt lại mật khẩu có hiệu lực trong 10 phút.</p></div>
+      <div class="field"><label>Mật khẩu mới <span class="req">*</span></label><div class="pw"><input class="input" type="password" value="matkhaumoi26"><i data-i="eye"></i></div>
+        <div class="strength"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+        <div class="rules"><span class="ok"><i data-i="check" class="sm"></i>8–64 ký tự</span><span class="ok"><i data-i="check" class="sm"></i>Có chữ cái và chữ số</span></div></div>
+      <div class="field"><label>Nhập lại mật khẩu mới <span class="req">*</span></label><div class="pw"><input class="input" type="password" value="matkhaumoi26"><i data-i="eye"></i></div></div>
+      <a class="btn btn-primary btn-lg btn-block">Đặt lại mật khẩu</a>
+      <div class="alert success" style="font-size:14px"><i data-i="check-circle" class="sm"></i><span>Sau khi đổi, bạn sẽ được đăng xuất khỏi mọi thiết bị và nhận email thông báo.</span></div>
+    </div>
+  </div>
+</div>
+<div data-footer></div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

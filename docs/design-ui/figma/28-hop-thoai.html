@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hộp thoại xác nhận &amp; thông báo — NFR-UX-05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  body { background: #4a3f3e; }
+  .board { padding: 48px 0 64px; }
+  .board h1 { color: #fff; font-size: 30px; font-weight: 800; }
+  .board .lead { color: #e9d6d3; margin-top: 6px; }
+  .grp { color: #f3c9c4; font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; margin: 36px 0 14px; }
+  .dlgs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; }
+  .dlg { background: #fff; border-radius: var(--r-xl); box-shadow: 0 30px 60px rgba(0, 0, 0, .3); overflow: hidden; }
+  .dlg .b { padding: 24px 24px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .dlg .hd { display: flex; gap: 14px; align-items: flex-start; }
+  .dlg .ic { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: none; }
+  .dlg .ic.red { background: #fff1f0; color: var(--error); }
+  .dlg .ic.warn { background: var(--warn-tint); color: var(--warn); }
+  .dlg .ic.brand { background: var(--red-tint); color: var(--red); }
+  .dlg .ic.ok { background: var(--success-tint); color: var(--success); }
+  .dlg h3 { font-size: 19px; font-weight: 800; margin-top: 2px; }
+  .dlg p { color: var(--ink-2); font-size: 15px; }
+  .dlg .x { margin-left: auto; color: var(--ink-3); }
+  .dlg .f { padding: 14px 24px; background: var(--canvas); border-top: 1px solid var(--line); display: flex; justify-content: flex-end; gap: 10px; }
+  .dlg .ref { font-size: 12px; color: var(--ink-3); font-weight: 600; }
+  .dlg ul { margin: 0; padding-left: 20px; color: var(--ink-2); font-size: 14px; display: flex; flex-direction: column; gap: 4px; }
+</style>
+</head>
+<body>
+<div class="container board">
+  <h1>Hộp thoại xác nhận &amp; thông báo</h1>
+  <p class="lead">Mọi thao tác không hoàn tác được đều có hộp thoại xác nhận (NFR-UX-05). Nút nguy hiểm dùng màu lỗi kèm biểu tượng, nút an toàn luôn ở bên trái.</p>
+
+  <div class="grp">Người học</div>
+  <div class="dlgs">
+    <div class="dlg"><div class="b">
+      <div class="hd"><span class="ic ok"><i data-i="check-circle"></i></span><div><h3>Đăng ký học thành công</h3><span class="ref">FR-CRS-09</span></div><i data-i="x" class="x"></i></div>
+      <p>Bạn cần hoàn thành khóa học trước <b style="color:var(--ink)">09:15 ngày 16/11/2026</b> (21 ngày). Bài 1 đã được mở khóa.</p>
+      <div class="dl-box"><span class="deadline" style="white-space:normal;align-items:flex-start"><i data-i="hourglass" class="sm"></i>Hết hạn mà chưa xong: dữ liệu học tập bị xóa, phải học lại từ đầu.</span></div>
+    </div><div class="f"><a class="btn btn-light">Để sau</a><a class="btn btn-primary">Vào học ngay</a></div></div>
+
+    <div class="dlg"><div class="b">
+      <div class="hd"><span class="ic red"><i data-i="hourglass"></i></span><div><h3>Thời hạn học đã kết thúc</h3><span class="ref">BR-LRN-10 · 403 ENROLLMENT_EXPIRED</span></div></div>
+      <p>Thời hạn học khóa <b style="color:var(--ink)">"Soạn thảo văn bản và bảng tính văn phòng"</b> đã kết thúc lúc 09:15 ngày 20/10/2026.</p>
+      <p>Tiến độ, điểm quiz và thứ hạng đã bị xóa. Bạn có thể đăng ký học lại từ bài 1 với thời hạn mới 21 ngày.</p>
+    </div><div class="f"><a class="btn btn-light">Đóng</a><a class="btn btn-primary"><i data-i="refresh" class="sm"></i>Đăng ký học lại</a></div></div>
+
+    <div class="dlg"><div class="b">
+      <div class="hd"><span class="ic warn"><i data-i="alert"></i></span><div><h3>Hủy ghi danh khóa học?</h3><span class="ref">FR-CRS-11</span></div><i data-i="x" class="x"></i></div>
+      <p>Bạn sẽ bị ẩn khỏi bảng xếp hạng của khóa học.</p>
+      <ul><li>Đăng ký lại trước <b>16/11/2026</b>: tiến độ được khôi phục.</li><li>Hủy ghi danh <b>không dừng</b> thời hạn học. Sau ngày này, dữ liệu sẽ bị xóa.</li></ul>
+    </div><div class="f"><a class="btn btn-light">Tiếp tục học</a><a class="btn btn-danger"><i data-i="x" class="sm"></i>Hủy ghi danh</a></div></div>
+
+    <div class="dlg"><div class="b">
+      <div class="hd"><span class="ic warn"><i data-i="list"></i></span><div><h3>Còn 3 câu chưa trả lời</h3><span class="ref">FR-LRN-04</span></div><i data-i="x" class="x"></i></div>
+      <p>Câu 7, 9 và 10 chưa có đáp án. Câu bỏ trống được tính 0 điểm. Bạn vẫn muốn nộp bài?</p>
+      <div class="deadline"><i data-i="clock" class="sm"></i>Thời gian còn lại: 08:47</div>
+    </div><div class="f"><a class="btn btn-light">Quay lại làm tiếp</a><a class="btn btn-primary">Nộp bài</a></div></div>
+
+    <div class="dlg"><div class="b">
+      <div class="hd"><span class="ic warn"><i data-i="hourglass"></i></span><div><h3>Sắp hết thời hạn học</h3><span class="ref">FR-LRN-12</span></div><i data-i="x" class="x"></i></div>
+      <p>Quiz có thời gian làm <b style="color:var(--ink)">15 phút</b>, nhưng thời hạn học của bạn chỉ còn <b style="color:var(--warn)">9 phút</b>.</p>
+      <p>Nếu chưa nộp trước 15:15, lượt làm sẽ bị hủy và không được chấm.</p>
+    </div><div class="f"><a class="btn btn-light">Để sau</a><a class="btn btn-primary">Vẫn bắt đầu</a></div></div>
+
+    <div class="dlg"><div class="b">
+      <div class="hd"><span class="ic brand"><i data-i="logout"></i></span><div><h3>Đăng xuất khỏi tất cả thiết bị?</h3><span class="ref">FR-AUTH-06</span></div><i data-i="x" class="x"></i></div>
+      <p>Mọi phiên đăng nhập, kể cả thiết bị này, sẽ kết thúc. Bạn cần đăng nhập lại để tiếp tục học.</p>
+    </div><div class="f"><a class="btn btn-light">Hủy</a><a class="btn btn-primary">Đăng xuất tất cả</a></div></div>
+  </div>
+
+  <div class="grp">Quản trị</div>
+  <div class="dlgs">
+    <div class="dlg"><div class="b">
+      <div class="hd"><span class="ic red"><i data-i="lock"></i></span><div><h3>Khóa tài khoản Phạm Văn T.?</h3><span class="ref">FR-ADM-05</span></div><i data-i="x" class="x"></i></div>
+      <p>Người dùng bị đăng xuất ngay trên mọi thiết bị và không đăng nhập được cho tới khi mở khóa. Dữ liệu học tập được giữ nguyên.</p>
+      <div class="field"><label>Lý do khóa <span class="req">*</span></label><textarea class="textarea" style="height:80px">Đăng đánh giá chứa đường link quảng cáo nhiều lần.</textarea><span class="hint">Lý do được lưu vào nhật ký thao tác.</span></div>
+    </div><div class="f"><a class="btn btn-light">Hủy</a><a class="btn btn-danger"><i data-i="lock" class="sm"></i>Khóa tài khoản</a></div></div>
+
+    <div class="dlg"><div class="b">
+      <div class="hd"><span class="ic red"><i data-i="trash"></i></span><div><h3>Xóa người dùng Lê Thị Hoa?</h3><span class="ref">FR-ADM-06</span></div><i data-i="x" class="x"></i></div>
+      <ul><li>Tài khoản bị vô hiệu, email được ẩn danh để có thể đăng ký lại.</li><li>Dữ liệu học tập giữ lại cho thống kê, loại khỏi bảng xếp hạng.</li></ul>
+      <div class="field"><label>Nhập <b>XOA</b> để xác nhận</label><input class="input" value="XOA"></div>
+    </div><div class="f"><a class="btn btn-light">Hủy</a><a class="btn btn-danger"><i data-i="trash" class="sm"></i>Xóa người dùng</a></div></div>
+
+    <div class="dlg"><div class="b">
+      <div class="hd"><span class="ic brand"><i data-i="eye"></i></span><div><h3>Ẩn đánh giá này?</h3><span class="ref">FR-ADM-20</span></div><i data-i="x" class="x"></i></div>
+      <p>Đánh giá 1 sao của Bùi Quang M. sẽ không hiển thị và không được tính vào điểm trung bình của khóa học.</p>
+      <div class="field"><label>Lý do <span class="req">*</span></label><div class="input" style="display:flex;align-items:center;justify-content:space-between">Spam / quảng cáo<i data-i="chevron-down" class="sm"></i></div></div>
+    </div><div class="f"><a class="btn btn-light">Hủy</a><a class="btn btn-primary">Ẩn đánh giá</a></div></div>
+
+    <div class="dlg"><div class="b">
+      <div class="hd"><span class="ic warn"><i data-i="hourglass"></i></span><div><h3>Đổi thời hạn học 21 → 28 ngày?</h3><span class="ref">FR-ADM-13 · BR-LRN-09</span></div><i data-i="x" class="x"></i></div>
+      <p>Thời hạn mới chỉ áp dụng cho <b style="color:var(--ink)">lượt ghi danh mới và lượt học lại</b>.</p>
+      <p><b style="color:var(--ink)">742 học viên đang học</b> giữ nguyên hạn cũ (21 ngày).</p>
+    </div><div class="f"><a class="btn btn-light">Hủy</a><a class="btn btn-primary">Lưu thay đổi</a></div></div>
+
+    <div class="dlg"><div class="b">
+      <div class="hd"><span class="ic warn"><i data-i="folder"></i></span><div><h3>Lưu trữ khóa học?</h3><span class="ref">FR-ADM-14 · BR-ADM-07</span></div><i data-i="x" class="x"></i></div>
+      <p>Khóa học đã có 986 học viên nên không thể xóa hay gỡ về bản nháp. Khi lưu trữ:</p>
+      <ul><li>Khóa học bị ẩn khỏi tìm kiếm và không nhận ghi danh mới.</li><li>Học viên đã ghi danh vẫn xem lại được nội dung.</li></ul>
+    </div><div class="f"><a class="btn btn-light">Hủy</a><a class="btn btn-primary">Lưu trữ</a></div></div>
+
+    <div class="dlg"><div class="b">
+      <div class="hd"><span class="ic brand"><i data-i="refresh"></i></span><div><h3>Tính lại xếp hạng?</h3><span class="ref">FR-RNK-04</span></div><i data-i="x" class="x"></i></div>
+      <p>Hệ thống chấm lại toàn bộ lượt làm quiz của khóa học theo đáp án hiện tại và dựng lại bảng xếp hạng. Việc này chạy nền khoảng vài phút.</p>
+      <div class="alert info" style="font-size:14px"><i data-i="bell" class="sm"></i><span>Bạn sẽ nhận thông báo khi hoàn tất.</span></div>
+    </div><div class="f"><a class="btn btn-light">Hủy</a><a class="btn btn-primary">Tính lại</a></div></div>
+  </div>
+</div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

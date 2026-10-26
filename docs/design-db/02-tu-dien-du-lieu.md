@@ -182,6 +182,7 @@ Truy vết: FR-ADM-12..15, FR-CRS-01..08, BR-CRS-01..05, BR-ADM-03, 06..08.
 | publish_status | NVARCHAR(20) | | | `DRAFT` | `DRAFT` · `PUBLISHED` · `ARCHIVED` |
 | start_date | DATETIME2(3) | ✔ | | | NULL = mở ngay |
 | end_date | DATETIME2(3) | ✔ | | | NULL = không kết thúc. `end_date > start_date` |
+| learning_duration_days | INT | | | 21 | **Thời hạn học** (ngày) của mỗi lượt ghi danh, 1–365. Admin cấu hình (FR-ADM-13, BR-LRN-09) |
 | estimated_minutes | INT | ✔ | | | Thời lượng ước tính |
 | is_featured | BIT | | | 0 | Khóa học nổi bật trên trang chủ |
 | certificate_criteria | NVARCHAR(MAX) | ✔ | | | JSON, ví dụ `{"minProgress":100,"minAvgScorePercent":70}` (Giai đoạn 2) |
@@ -283,20 +284,25 @@ Ràng buộc liên dòng (kiểm tra ở tầng service khi lưu câu hỏi): m�
 
 ### 3.1 `enrollments` — Ghi danh
 
-Truy vết: FR-CRS-09, 11; FR-LRN-08, 09, 11; knowledge base "đăng ký học: thanh check tiến độ".
+Truy vết: FR-CRS-09, 11; FR-LRN-08, 09, 11, 12, 13; BR-LRN-09..12; knowledge base "đăng ký học: thanh check tiến độ".
 
 | Cột | Kiểu | Null | Khóa | Mặc định | Mô tả |
 |-----|------|:----:|:----:|----------|-------|
 | id | BIGINT IDENTITY | | PK | | |
 | user_id | BIGINT | | FK → users, UK(user_id, course_id) | | |
 | course_id | BIGINT | | FK → courses | | |
-| status | NVARCHAR(20) | | | `IN_PROGRESS` | `IN_PROGRESS` · `COMPLETED` · `CANCELLED` |
+| status | NVARCHAR(20) | | | `IN_PROGRESS` | `IN_PROGRESS` · `COMPLETED` · `CANCELLED` · `EXPIRED` |
 | progress_percent | TINYINT | | | 0 | Thanh tiến độ = `completed_lesson_count * 100 / published_lesson_count` (làm tròn xuống) |
 | completed_lesson_count | INT | | | 0 | |
 | last_lesson_id | BIGINT | ✔ | FK → lessons | | Phục vụ "Tiếp tục học" |
 | enrolled_at | DATETIME2(3) | | | now | |
 | completed_at | DATETIME2(3) | ✔ | | | Bắt buộc khi `COMPLETED` |
-| cancelled_at | DATETIME2(3) | ✔ | | | Bắt buộc khi `CANCELLED`. Đăng ký lại thì cập nhật bản ghi cũ về `IN_PROGRESS` (giữ tiến độ) |
+| cancelled_at | DATETIME2(3) | ✔ | | | Bắt buộc khi `CANCELLED`. Đăng ký lại trước `expires_at` thì cập nhật bản ghi cũ về `IN_PROGRESS` (giữ tiến độ) |
+| round_no | INT | | | 1 | Lần học thứ mấy. Tăng 1 mỗi lần đăng ký học lại sau khi `EXPIRED` |
+| learning_started_at | DATETIME2(3) | | | now | Mốc bắt đầu tính hạn: lúc ghi danh, hoặc `courses.start_date` nếu khóa "Sắp mở" |
+| expires_at | DATETIME2(3) | | | | `learning_started_at + courses.learning_duration_days`, chốt khi ghi danh/học lại. `> learning_started_at` |
+| expired_at | DATETIME2(3) | ✔ | | | Thời điểm job xử lý hết hạn. Bắt buộc khi `EXPIRED` |
+| expiry_reminder_stage | TINYINT | | | 0 | Email nhắc hạn đã gửi: 0 = chưa, 1 = mốc 3 ngày, 2 = mốc 24 giờ (FR-LRN-13). Về 0 khi học lại |
 | version, updated_at | | | | | Cột chuẩn |
 
 ### 3.2 `lesson_progress` — Tiến độ từng bài

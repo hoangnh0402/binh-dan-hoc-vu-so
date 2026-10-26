@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chi tiết khóa học — Đánh giá — FR-CRS-07</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .sum-r { display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: center; padding: 24px; margin-top: 24px; }
+  .big { font-size: 56px; font-weight: 800; line-height: 1; }
+  .stars { display: flex; gap: 2px; color: var(--gold); }
+  .stars .off { color: var(--line); }
+  .dist { display: flex; flex-direction: column; gap: 8px; }
+  .dist .r { display: grid; grid-template-columns: 52px 1fr 60px; gap: 12px; align-items: center; font-size: 14px; }
+  .dist .bar { height: 10px; background: var(--line); border-radius: 9px; overflow: hidden; }
+  .dist .bar i { display: block; height: 100%; background: var(--gold); }
+  .write { padding: 20px; margin-top: 20px; display: flex; flex-direction: column; gap: 14px; border: 2px solid var(--red); }
+  .write .pick { display: flex; gap: 6px; color: var(--gold); }
+  .write .pick .icon { width: 32px; height: 32px; }
+  .write .pick .off { color: var(--line-2); }
+  .rv { padding: 20px 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+  .rv .hd { display: flex; align-items: center; gap: 12px; }
+  .pager { display: flex; gap: 8px; justify-content: center; margin-top: 24px; }
+  .pager a { width: 40px; height: 40px; border-radius: var(--r); border: 1px solid var(--line-2); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; color: var(--ink); }
+  .pager a.on { background: var(--red); border-color: var(--red); color: #fff; }
+</style>
+</head>
+<body data-tab="danh-gia" data-state="enrolled">
+<div data-header="user" data-active="khoa-hoc"></div>
+<div id="tab-content">
+  <div class="card sum-r">
+    <div style="text-align:center"><div class="big">4,9</div><div class="stars" style="justify-content:center;margin:8px 0 4px"><i data-i="star"></i><i data-i="star"></i><i data-i="star"></i><i data-i="star"></i><i data-i="star"></i></div><div class="small muted">318 đánh giá</div></div>
+    <div class="dist">
+      <div class="r"><span class="row" style="gap:4px">5 <i data-i="star" class="sm" style="color:var(--gold)"></i></span><div class="bar"><i style="width:89%"></i></div><span class="muted">283</span></div>
+      <div class="r"><span class="row" style="gap:4px">4 <i data-i="star" class="sm" style="color:var(--gold)"></i></span><div class="bar"><i style="width:8%"></i></div><span class="muted">25</span></div>
+      <div class="r"><span class="row" style="gap:4px">3 <i data-i="star" class="sm" style="color:var(--gold)"></i></span><div class="bar"><i style="width:2%"></i></div><span class="muted">6</span></div>
+      <div class="r"><span class="row" style="gap:4px">2 <i data-i="star" class="sm" style="color:var(--gold)"></i></span><div class="bar"><i style="width:1%"></i></div><span class="muted">3</span></div>
+      <div class="r"><span class="row" style="gap:4px">1 <i data-i="star" class="sm" style="color:var(--gold)"></i></span><div class="bar"><i style="width:.5%"></i></div><span class="muted">1</span></div>
+    </div>
+  </div>
+
+  <div class="card write">
+    <div class="row-between"><b style="font-size:17px">Viết đánh giá của bạn</b><span class="xs muted">Bạn đã hoàn thành 2 bài nên có thể đánh giá</span></div>
+    <div class="row" style="gap:14px"><div class="pick"><i data-i="star"></i><i data-i="star"></i><i data-i="star"></i><i data-i="star"></i><i data-i="star" class="off"></i></div><span class="bold">4 sao — Rất tốt</span></div>
+    <textarea class="textarea" style="height:100px">Bài giảng dễ hiểu, ví dụ sát thực tế. Mong có thêm video về lừa đảo qua Zalo.</textarea>
+    <div class="row-between"><span class="xs muted">78 / 1000 ký tự</span><a class="btn btn-primary">Gửi đánh giá</a></div>
+  </div>
+
+  <div class="row-between" style="margin-top:28px"><h2 style="font-size:22px">Nhận xét của người học</h2><span class="small muted">Mới nhất trước</span></div>
+  <div class="rv"><div class="hd"><span class="avatar sm">TB</span><div><b>Trần Thị B.</b><div class="stars"><i data-i="star" class="sm"></i><i data-i="star" class="sm"></i><i data-i="star" class="sm"></i><i data-i="star" class="sm"></i><i data-i="star" class="sm"></i></div></div><span class="xs muted" style="margin-left:auto">24/10/2026</span></div><p>Nhờ khóa học mà mẹ tôi đã nhận ra cuộc gọi giả danh công an và không chuyển tiền. Rất thiết thực!</p></div>
+  <div class="rv"><div class="hd"><span class="avatar sm">ĐM</span><div><b>Đỗ Minh K.</b><div class="stars"><i data-i="star" class="sm"></i><i data-i="star" class="sm"></i><i data-i="star" class="sm"></i><i data-i="star" class="sm"></i><i data-i="star" class="sm"></i></div></div><span class="xs muted" style="margin-left:auto">22/10/2026</span></div><p>Quiz có giải thích từng câu nên học rất nhớ. Thời hạn 3 tuần là vừa đủ.</p></div>
+  <div class="rv"><div class="hd"><span class="avatar sm">LH</span><div><b>Lê Thị Hoa</b><div class="stars"><i data-i="star" class="sm"></i><i data-i="star" class="sm"></i><i data-i="star" class="sm"></i><i data-i="star" class="sm"></i><i data-i="star" class="sm off"></i></div></div><span class="xs muted" style="margin-left:auto">19/10/2026</span></div><p>Nội dung tốt, nhưng chữ trong video hơi nhỏ khi xem trên điện thoại.</p></div>
+  <div class="pager"><a><i data-i="chevron-left" class="sm"></i></a><a class="on">1</a><a>2</a><a>3</a><a>…</a><a>32</a><a><i data-i="chevron-right" class="sm"></i></a></div>
+</div>
+<div data-footer></div>
+<script src="assets/layout.js"></script>
+<script src="assets/course-detail.js"></script>
+</body>
+</html>

@@ -160,6 +160,7 @@ Ràng buộc 2 cấp (BR-ADM-02) kiểm tra ở tầng service + trigger: nếu 
 | level | VARCHAR(20) | CHECK IN (`BASIC`,`INTERMEDIATE`,`ADVANCED`) |
 | publish_status | VARCHAR(20) | CHECK IN (`DRAFT`,`PUBLISHED`,`ARCHIVED`) |
 | start_date, end_date | TIMESTAMPTZ | NULL; CHECK `end_date > start_date` |
+| learning_duration_days | INT | NOT NULL DEFAULT 21, CHECK 1..365 — thời hạn học của mỗi lượt ghi danh (BR-LRN-09) |
 | estimated_minutes | INT | |
 | is_featured | BOOLEAN | DEFAULT FALSE |
 | certificate_criteria | JSONB | Giai đoạn 2 |
@@ -220,15 +221,19 @@ Chỉ mục:
 | id | BIGINT | PK |
 | user_id | BIGINT | FK → users |
 | course_id | BIGINT | FK → courses |
-| status | VARCHAR(20) | `IN_PROGRESS`, `COMPLETED`, `CANCELLED` |
+| status | VARCHAR(20) | `IN_PROGRESS`, `COMPLETED`, `CANCELLED`, `EXPIRED` |
+| round_no | INT | DEFAULT 1 — lần học thứ mấy, tăng khi học lại sau khi hết hạn |
 | progress_percent | SMALLINT | 0..100 |
 | completed_lesson_count | INT | DEFAULT 0 |
 | last_lesson_id | BIGINT | FK → lessons, NULL |
 | enrolled_at | TIMESTAMPTZ | |
 | completed_at | TIMESTAMPTZ | |
 | cancelled_at | TIMESTAMPTZ | |
+| learning_started_at | TIMESTAMPTZ | NOT NULL — mốc bắt đầu tính hạn: lúc ghi danh, hoặc `start_date` nếu khóa "Sắp mở" |
+| expires_at | TIMESTAMPTZ | NOT NULL — `learning_started_at + learning_duration_days`, chốt khi ghi danh |
+| expired_at | TIMESTAMPTZ | Thời điểm job xử lý hết hạn; bắt buộc khi `EXPIRED` |
 
-UNIQUE (`user_id`, `course_id`). Chỉ mục (`user_id`, `status`).
+UNIQUE (`user_id`, `course_id`). Chỉ mục (`user_id`, `status`); (`expires_at`) `WHERE status IN ('IN_PROGRESS','CANCELLED')` cho job hết hạn.
 
 **`lesson_progress`**
 
@@ -341,3 +346,4 @@ LIMIT :size OFFSET :offset;
 - Sao lưu toàn bộ CSDL production hằng ngày (giữ 30 ngày) + WAL archiving để khôi phục theo thời điểm (RPO ≤ 15 phút).
 - `otp_codes`, `password_reset_tokens`, `refresh_tokens` hết hạn được dọn dẹp bởi job hằng ngày.
 - `audit_logs` giữ tối thiểu 1 năm.
+- Lượt ghi danh hết thời hạn học (BR-LRN-10): job 5 phút/lần xóa `lesson_progress`, `quiz_attempts` (kèm câu trả lời), `quiz_best_attempts`, `rankings` của lượt đó, rồi chuyển enrollment sang `EXPIRED`.

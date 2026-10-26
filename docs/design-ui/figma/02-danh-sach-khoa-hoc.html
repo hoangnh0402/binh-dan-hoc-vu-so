@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Danh sách khóa học — SCR-CRS-02</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .page-head { background: var(--canvas); border-bottom: 1px solid var(--line); }
+  .page-head .container { padding-top: 28px; padding-bottom: 28px; }
+  .page-head h1 { font-size: 32px; font-weight: 800; }
+  .layout { display: grid; grid-template-columns: 290px 1fr; gap: 32px; margin-top: 32px; }
+  .filters { border: 1px solid var(--line); border-radius: var(--r-lg); background: #fff; align-self: start; }
+  .filters .fh { padding: 16px 20px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
+  .fg { padding: 16px 20px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; }
+  .fg:last-child { border-bottom: 0; }
+  .fg h4 { font-size: 15px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+  .opt { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+  .opt .n { margin-left: auto; font-size: 13px; color: var(--ink-3); }
+  .opt.sub { padding-left: 30px; }
+  .toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .active-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
+  .sort { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+  .sort .select { width: 210px; height: 44px; display: flex; align-items: center; justify-content: space-between; }
+  .pager { display: flex; gap: 8px; justify-content: center; margin-top: 36px; }
+  .pager a { width: 44px; height: 44px; border-radius: var(--r); border: 1px solid var(--line-2); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; color: var(--ink); }
+  .pager a.on { background: var(--red); border-color: var(--red); color: #fff; }
+  .url { font-family: ui-monospace, Consolas, monospace; font-size: 13px; color: var(--ink-2); background: #f5eeed; padding: 6px 10px; border-radius: 6px; display: inline-block; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div data-header="user" data-active="khoa-hoc"></div>
+
+<div class="page-head">
+  <div class="container">
+    <div class="crumb"><span>Trang chủ</span><i data-i="chevron-right" class="sm"></i><b>Khóa học</b></div>
+    <h1 style="margin-top:8px">Khóa học</h1>
+    <div class="url">/khoa-hoc?category=ky-nang-so&amp;level=BASIC,INTERMEDIATE&amp;status=OPEN&amp;sort=newest</div>
+  </div>
+</div>
+
+<div class="container layout">
+  <aside class="filters">
+    <div class="fh"><span class="row" style="gap:8px"><i data-i="filter"></i>Bộ lọc</span><a class="small">Xóa bộ lọc</a></div>
+    <div class="fg">
+      <h4>Trạng thái khóa học</h4>
+      <div class="opt"><span class="box"></span>Sắp mở<span class="n">6</span></div>
+      <div class="opt"><span class="box on"><i data-i="check" class="sm"></i></span>Đang mở<span class="n">36</span></div>
+      <div class="opt"><span class="box"></span>Đã kết thúc<span class="n">6</span></div>
+    </div>
+    <div class="fg">
+      <h4>Trạng thái học của tôi</h4>
+      <div class="opt"><span class="box"></span>Chưa đăng ký<span class="n">40</span></div>
+      <div class="opt"><span class="box"></span>Đang học<span class="n">3</span></div>
+      <div class="opt"><span class="box"></span>Đã hoàn thành<span class="n">4</span></div>
+      <div class="opt"><span class="box"></span>Hết hạn<span class="n">1</span></div>
+    </div>
+    <div class="fg">
+      <h4>Lĩnh vực <i data-i="chevron-down" class="sm"></i></h4>
+      <div class="opt"><span class="box on"><i data-i="check" class="sm"></i></span><b>Kỹ năng số</b><span class="n">24</span></div>
+      <div class="opt sub"><span class="box on"><i data-i="check" class="sm"></i></span>Sử dụng máy tính cơ bản<span class="n">8</span></div>
+      <div class="opt sub"><span class="box on"><i data-i="check" class="sm"></i></span>An toàn thông tin<span class="n">7</span></div>
+      <div class="opt sub"><span class="box on"><i data-i="check" class="sm"></i></span>Dịch vụ công trực tuyến<span class="n">9</span></div>
+      <div class="opt"><span class="box"></span>Ngoại ngữ<span class="n">8</span></div>
+      <div class="opt"><span class="box"></span>Sư phạm &amp; giáo dục<span class="n">10</span></div>
+      <div class="opt"><span class="box"></span>Kỹ năng mềm<span class="n">6</span></div>
+    </div>
+    <div class="fg">
+      <h4>Trình độ</h4>
+      <div class="opt"><span class="box on"><i data-i="check" class="sm"></i></span>Cơ bản<span class="n">21</span></div>
+      <div class="opt"><span class="box on"><i data-i="check" class="sm"></i></span>Trung cấp<span class="n">17</span></div>
+      <div class="opt"><span class="box"></span>Nâng cao<span class="n">10</span></div>
+    </div>
+    <div class="fg">
+      <h4>Tổ chức đào tạo</h4>
+      <div class="input" style="height:40px;display:flex;align-items:center;gap:8px;color:var(--ink-3);font-size:14px"><i data-i="search" class="sm"></i>Tìm tổ chức...</div>
+      <div class="opt"><span class="box"></span>Trung tâm Tin học HPU2<span class="n">14</span></div>
+      <div class="opt"><span class="box"></span>Khoa Công nghệ thông tin<span class="n">9</span></div>
+      <div class="opt"><span class="box"></span>Khoa Ngoại ngữ<span class="n">8</span></div>
+      <a class="small bold">Xem thêm 6 tổ chức</a>
+    </div>
+  </aside>
+
+  <main>
+    <div class="toolbar">
+      <div class="small muted"><b style="color:var(--ink);font-size:18px">18</b> khóa học phù hợp</div>
+      <div class="sort">Sắp xếp:<div class="select">Mới nhất<i data-i="chevron-down" class="sm"></i></div></div>
+    </div>
+    <div class="active-filters">
+      <span class="chip outline on">Kỹ năng số<i data-i="x" class="sm"></i></span>
+      <span class="chip outline on">Cơ bản<i data-i="x" class="sm"></i></span>
+      <span class="chip outline on">Trung cấp<i data-i="x" class="sm"></i></span>
+      <span class="chip outline on">Đang mở<i data-i="x" class="sm"></i></span>
+    </div>
+    <div class="grid-3" id="list"></div>
+    <div class="pager">
+      <a><i data-i="chevron-left"></i></a><a class="on">1</a><a>2</a><a><i data-i="chevron-right"></i></a>
+    </div>
+  </main>
+</div>
+
+<div data-footer></div>
+<script src="assets/layout.js"></script>
+<script src="assets/components.js"></script>
+<script>
+  var cs = [COURSES[0], COURSES[1], COURSES[2], COURSES[5], COURSES[8], COURSES[9]];
+  var opts = [{ progress: 40, left: '12 ngày' }, {}, { done: true }, {}, {}, {}];
+  document.getElementById('list').innerHTML = cs.map(function (c, i) { return courseCard(c, opts[i]); }).join('');
+</script>
+</body>
+</html>

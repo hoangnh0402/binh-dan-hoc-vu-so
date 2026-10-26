@@ -123,11 +123,16 @@ Ngoại ngữ
 | Mục tiêu đầu ra, đối tượng, yêu cầu đầu vào | Không | Rich text / danh sách |
 | Ảnh bìa | Có (để xuất bản) | JPG/PNG/WebP ≤ 2MB, tỉ lệ 16:9 |
 | Ngày bắt đầu, ngày kết thúc | Không | `end_date` > `start_date` |
+| Thời hạn học (ngày) | Có | Mặc định **21** (3 tuần), 1–365. Số ngày người học được học kể từ khi ghi danh; hết hạn mà chưa hoàn thành thì đóng khóa và xóa dữ liệu học tập (BR-LRN-09, 10) |
 | Thời lượng ước tính (phút) | Không | Mặc định = tổng thời lượng các bài |
 | Điều kiện chứng nhận | Không | Giai đoạn 2 |
 | Khóa học nổi bật | Không | Hiển thị trên trang chủ |
 
 Có nút **"Xem trước"** hiển thị trang chi tiết khóa học như người học sẽ thấy.
+
+**Thay đổi thời hạn học** khi khóa đã có học viên: hệ thống hiển thị thông báo *"Thời hạn mới chỉ áp dụng cho lượt ghi danh mới và lượt học lại. N học viên đang học giữ nguyên hạn cũ."* và ghi audit log.
+
+**Thay đổi ngày bắt đầu** của khóa "Sắp mở": tính lại `learning_started_at`, `expires_at` cho các lượt ghi danh chưa đến ngày bắt đầu học (BR-LRN-09).
 
 ### FR-ADM-14 — Vòng đời xuất bản
 
@@ -165,7 +170,8 @@ stateDiagram-v2
 
 ### FR-ADM-18 — Học viên của khóa học
 
-- Danh sách: họ tên, email, ngày ghi danh, tiến độ %, trạng thái, tổng điểm, hạng; lọc theo trạng thái; xuất CSV.
+- Danh sách: họ tên, email, ngày ghi danh, lần học thứ (`round_no`), hạn học (`expires_at`), tiến độ %, trạng thái (Đang học / Đã hoàn thành / Đã hủy / Hết hạn), tổng điểm, hạng; lọc theo trạng thái; xuất CSV.
+- Lượt `EXPIRED` chỉ còn thông tin ghi danh; tiến độ và điểm đã bị xóa (BR-LRN-10).
 
 ### FR-ADM-20 — Kiểm duyệt đánh giá
 
@@ -175,7 +181,7 @@ stateDiagram-v2
 
 ### FR-ADM-21 — Dashboard cơ bản
 
-- Thẻ số liệu: tổng người dùng, người dùng mới 7 ngày, tổng khóa học đã xuất bản, tổng lượt ghi danh, lượt hoàn thành khóa học.
+- Thẻ số liệu: tổng người dùng, người dùng mới 7 ngày, tổng khóa học đã xuất bản, tổng lượt ghi danh, lượt hoàn thành khóa học, lượt hết hạn học 30 ngày gần nhất.
 - Biểu đồ: người dùng mới / lượt ghi danh theo ngày (30 ngày gần nhất); Top 5 khóa học nhiều học viên.
 
 ### FR-ADM-22 — Audit log

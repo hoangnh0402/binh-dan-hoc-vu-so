@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kết quả quiz — SCR-LRN-04</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  body { background: var(--canvas); }
+  .res { max-width: 960px; margin: 40px auto; padding: 0 32px; display: flex; flex-direction: column; gap: 24px; }
+  .score { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 40px; display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: center; }
+  .ring { width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(var(--success) 0 80%, var(--line) 80% 100%); display: flex; align-items: center; justify-content: center; }
+  .ring .inn { width: 160px; height: 160px; border-radius: 50%; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .ring .v { font-size: 44px; font-weight: 800; }
+  .kv { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 20px; }
+  .kv div { background: var(--canvas); border-radius: 10px; padding: 12px 14px; }
+  .kv b { display: block; font-size: 20px; }
+  .kv span { font-size: 13px; color: var(--ink-2); }
+  .unlock { background: linear-gradient(120deg, #5e1210, #962521); color: #fff; border-radius: var(--r-xl); padding: 24px 28px; display: flex; align-items: center; gap: 20px; }
+  .unlock .ic { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; }
+  .qa { background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); padding: 20px 24px; display: flex; flex-direction: column; gap: 10px; }
+  .qa .h { display: flex; gap: 12px; align-items: flex-start; font-weight: 700; }
+  .qa .a { font-size: 15px; padding: 10px 14px; border-radius: 8px; display: flex; gap: 10px; align-items: center; }
+  .qa .a.ok { background: var(--success-tint); color: #14592a; }
+  .qa .a.bad { background: #fff1f0; color: #7a0d0d; }
+  .qa .ex { font-size: 14px; color: var(--ink-2); border-left: 3px solid var(--line-2); padding-left: 12px; }
+</style>
+</head>
+<body>
+<div data-header="user" data-active="cua-toi"></div>
+<div class="res">
+  <div class="crumb"><span>An toàn thông tin</span><i data-i="chevron-right" class="sm"></i><span>Bài 3</span><i data-i="chevron-right" class="sm"></i><b>Kết quả quiz</b></div>
+
+  <div class="score">
+    <div class="ring"><div class="inn"><div class="v">80%</div><div class="small muted">8 / 10 điểm</div></div></div>
+    <div>
+      <span class="chip success" style="height:34px;font-size:15px"><i data-i="check-circle" class="sm"></i>Đạt — yêu cầu 70%</span>
+      <h1 style="font-size:30px;font-weight:800;margin-top:14px">Chúc mừng, bạn đã qua bài 3!</h1>
+      <div class="kv">
+        <div><b>8/10</b><span>Câu đúng</span></div>
+        <div><b>04:05</b><span>Thời gian làm</span></div>
+        <div><b>Lượt 2</b><span>Lượt tốt nhất</span></div>
+        <div><b>#12</b><span>Hạng hiện tại</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="unlock">
+    <span class="ic"><i data-i="lock" class="lg"></i></span>
+    <div style="flex:1"><div class="small" style="opacity:.85">Đã mở khóa bài tiếp theo</div><div style="font-size:20px;font-weight:800">Bài 4. Bảo vệ tài khoản mạng xã hội</div><div class="small" style="opacity:.85;margin-top:2px">Tiến độ khóa học: 50% · Hạn học còn 2 ngày 6 giờ</div></div>
+    <a class="btn btn-white btn-lg">Học bài tiếp theo<i data-i="chevron-right"></i></a>
+  </div>
+
+  <div class="row-between"><h2 style="font-size:22px">Xem lại đáp án</h2><a class="btn btn-light btn-sm"><i data-i="refresh" class="sm"></i>Làm lại để cải thiện điểm</a></div>
+
+  <div class="qa">
+    <div class="h"><i data-i="check-circle" style="color:var(--success)"></i>Câu 5. Ngân hàng có bao giờ yêu cầu bạn đọc mã OTP qua điện thoại không?</div>
+    <div class="a ok"><i data-i="check" class="sm"></i>Bạn chọn: Không bao giờ — Đúng</div>
+  </div>
+  <div class="qa">
+    <div class="h"><i data-i="x" style="color:var(--error)"></i>Câu 6. Những dấu hiệu nào cho thấy một tin nhắn có thể là lừa đảo?</div>
+    <div class="a bad"><i data-i="x" class="sm"></i>Bạn chọn: A, C — Chưa đủ</div>
+    <div class="a ok"><i data-i="check" class="sm"></i>Đáp án đúng: A, C, D</div>
+    <div class="ex"><b>Giải thích:</b> Việc thúc giục "phải làm ngay nếu không sẽ bị khóa" là thủ đoạn tâm lý phổ biến để bạn không kịp suy nghĩ.</div>
+  </div>
+</div>
+<div data-footer></div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

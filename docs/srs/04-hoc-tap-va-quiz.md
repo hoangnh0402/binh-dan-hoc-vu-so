@@ -17,8 +17,10 @@ Nguồn: `knowledge_base/- Trang người dung.txt` — *"Vào học: bài học
 | FR-LRN-09 | Tiếp tục học từ vị trí dừng gần nhất | S |
 | FR-LRN-10 | Lịch sử các lần làm quiz | S |
 | FR-LRN-11 | Hoàn thành khóa học | M |
+| FR-LRN-12 | Thời hạn học: đóng khóa học & xóa dữ liệu khi hết hạn, học lại từ đầu | M |
+| FR-LRN-13 | Email nhắc sắp hết thời hạn học | S |
 
-Tất cả chức năng trong tài liệu này yêu cầu: người dùng đã đăng nhập **và** đã ghi danh khóa học (enrollment `IN_PROGRESS` hoặc `COMPLETED`).
+Tất cả chức năng trong tài liệu này yêu cầu: người dùng đã đăng nhập **và** đã ghi danh khóa học (enrollment `IN_PROGRESS` hoặc `COMPLETED`) **và** lượt ghi danh chưa hết thời hạn học (FR-LRN-12).
 
 ## 2. Cấu trúc một bài học
 
@@ -44,7 +46,7 @@ Bố cục 2 cột (trên di động: danh sách bài thu gọn thành menu):
 ┌──────────────────────┬────────────────────────────────────────┐
 │ Tên khóa học         │  Bài 3: Tạo mật khẩu an toàn           │
 │ ███████░░░░ 40%      │  [Nội dung] [Đề bài] [Quiz]            │
-│                      │                                        │
+│ Hạn học: còn 12 ngày │                                        │
 │ ✅ 1. Giới thiệu     │  (nội dung bài học / video)            │
 │ ✅ 2. Tài khoản số   │                                        │
 │ ▶️ 3. Mật khẩu       │                                        │
@@ -56,6 +58,7 @@ Bố cục 2 cột (trên di động: danh sách bài thu gọn thành menu):
 - Đường dẫn: `/hoc/:courseSlug/bai/:lessonId`.
 - Nhấn vào bài bị khóa → thông báo "Hoàn thành bài N để mở khóa bài này".
 - Truy cập trực tiếp URL bài bị khóa → backend trả `403 LESSON_LOCKED`, frontend chuyển về bài đang học.
+- Lượt ghi danh đã hết thời hạn học → backend trả `403 ENROLLMENT_EXPIRED`, frontend chuyển về trang chi tiết khóa học (FR-LRN-12).
 
 ### FR-LRN-02 & FR-LRN-03 — Nội dung & đề bài
 
@@ -144,6 +147,52 @@ stateDiagram-v2
 - Nếu sau đó Admin thêm bài mới: enrollment vẫn giữ `COMPLETED`, tiến độ hiển thị theo công thức mới, bài mới được mở để học thêm (không bắt buộc).
 - Giai đoạn 2: kiểm tra điều kiện và cấp chứng nhận.
 
+### FR-LRN-12 — Thời hạn học
+
+Mỗi lượt ghi danh chỉ được học trong một khoảng thời gian giới hạn. Hết thời hạn mà chưa hoàn thành thì khóa học bị đóng, dữ liệu học tập bị xóa và người học phải đăng ký học lại từ đầu.
+
+**Thời hạn học của khóa** — cột `courses.learning_duration_days`:
+
+- Giá trị **mặc định: 21 ngày (3 tuần)**.
+- Admin đặt riêng cho từng khóa học trong form khóa học (FR-ADM-13), từ 1 đến 365 ngày.
+
+**Mốc thời gian của một lượt ghi danh (BR-LRN-09):**
+
+| Mốc | Cách tính |
+|-----|-----------|
+| `learning_started_at` — bắt đầu tính hạn | Thời điểm ghi danh. Nếu khóa "Sắp mở" thì lấy `start_date` của khóa, vì trước đó người học chưa vào học được (BR-LRN-06) |
+| `expires_at` — hết hạn | `learning_started_at + learning_duration_days` (giờ máy chủ, chính xác tới giây) |
+
+- Hai mốc được **chốt khi ghi danh**. Admin đổi thời hạn của khóa thì chỉ áp dụng cho các lượt ghi danh mới và các lượt học lại về sau. Lượt đang học giữ nguyên hạn cũ.
+- Hủy ghi danh (FR-CRS-11) **không dừng** đồng hồ.
+
+**Hiển thị hạn học:**
+
+- Trang học, trang chi tiết khóa học và thẻ ở trang "Khóa học của tôi" hiển thị "Hạn học: dd/mm/yyyy hh:mm — còn X ngày Y giờ".
+- Còn ≤ 3 ngày: thanh cảnh báo màu vàng ở đầu trang học.
+- Còn ≤ 24 giờ: cảnh báo đỏ, đếm ngược giờ:phút.
+- Khi bắt đầu quiz có giới hạn thời gian mà thời gian làm bài vượt quá hạn học còn lại → hỏi xác nhận "Thời hạn học sẽ kết thúc trước khi hết giờ làm bài".
+
+**Khi hết hạn (BR-LRN-10)** — áp dụng cho lượt ghi danh `IN_PROGRESS` hoặc `CANCELLED` có `expires_at` < hiện tại:
+
+1. **Đóng khóa học** với người học: mọi API học tập trả `403 ENROLLMENT_EXPIRED`. Frontend đưa người học về trang chi tiết khóa học với thông báo: *"Thời hạn học của bạn đã kết thúc lúc hh:mm ngày dd/mm/yyyy. Bạn cần đăng ký học lại từ đầu."* Việc kiểm tra dựa trên `expires_at` ngay khi gọi API, không phải chờ job.
+2. **Xóa dữ liệu học tập** của lượt đó: tiến độ từng bài (`lesson_progress`), mọi lượt làm quiz kèm câu trả lời, lượt tốt nhất (`quiz_best_attempts`) và bản ghi xếp hạng (`rankings`) của người học trong khóa. Người học biến mất khỏi bảng xếp hạng. Lượt quiz đang làm dở bị hủy, không chấm.
+3. Enrollment chuyển `EXPIRED`, tiến độ về 0%, ghi `expired_at`. Bản ghi enrollment được **giữ lại** (ngày ghi danh, số lần học `round_no`) để thống kê.
+4. Bước 2–3 do job nền chạy 5 phút/lần, trong một transaction cho mỗi enrollment (design-db [05 §8](../design-db/05-truy-van-nghiep-vu.md#8-job-định-kỳ)).
+
+**Học lại (BR-LRN-11):**
+
+- Trang chi tiết khóa học hiển thị nút **"Đăng ký học lại"** cho lượt `EXPIRED`.
+- Điều kiện như ghi danh lần đầu (BR-CRS-02): khóa còn `PUBLISHED` và chưa kết thúc.
+- Khi học lại: chính bản ghi enrollment cũ chuyển về `IN_PROGRESS`, `round_no` tăng 1, tính mốc thời gian mới theo thời hạn học **hiện tại** của khóa. Người học bắt đầu lại từ bài 1 như người mới, số lượt làm quiz (`max_attempts`) cũng tính lại từ 0.
+
+**Phạm vi (BR-LRN-12):** thời hạn chỉ áp dụng cho lượt **chưa hoàn thành**. Người học hoàn thành khóa (FR-LRN-11) trước `expires_at` thì giữ trạng thái `COMPLETED` vĩnh viễn: giữ kết quả, xếp hạng, quyền xem lại nội dung và (Giai đoạn 2) chứng nhận. Xem Q-12.
+
+### FR-LRN-13 — Email nhắc hạn học
+
+- Gửi 1 email khi lượt `IN_PROGRESS` còn 3 ngày, 1 email khi còn 24 giờ: tên khóa, tiến độ hiện tại, thời điểm hết hạn, nút "Tiếp tục học".
+- Mỗi mốc gửi tối đa 1 lần cho mỗi lượt học (`round_no`). Không gửi nếu người học đã hoàn thành hoặc hủy ghi danh.
+
 ## 4. Quy tắc nghiệp vụ tổng hợp
 
 | Mã | Quy tắc |
@@ -155,7 +204,11 @@ stateDiagram-v2
 | BR-LRN-05 | Thời gian làm bài tính theo đồng hồ máy chủ. |
 | BR-LRN-06 | Khóa học "Sắp mở": đã ghi danh nhưng chưa vào học được cho tới `start_date`. |
 | BR-LRN-07 | Khóa học "Đã kết thúc": người đã ghi danh vẫn xem nội dung và làm quiz, nhưng điểm **không còn cập nhật** vào bảng xếp hạng. |
-| BR-LRN-08 | Người dùng bị khóa (`LOCKED`) không truy cập được trang học; dữ liệu học tập được giữ nguyên. |
+| BR-LRN-08 | Người dùng bị khóa (`LOCKED`) không truy cập được trang học; dữ liệu học tập được giữ nguyên. Thời hạn học vẫn tiếp tục chạy. |
+| BR-LRN-09 | Mỗi lượt ghi danh có thời hạn học = `learning_duration_days` của khóa (mặc định 21 ngày), tính từ lúc ghi danh hoặc từ `start_date` nếu khóa "Sắp mở" (mục FR-LRN-12). |
+| BR-LRN-10 | Hết thời hạn mà chưa hoàn thành: đóng khóa học với người học, xóa toàn bộ dữ liệu học tập và xếp hạng của lượt đó, enrollment chuyển `EXPIRED` (mục FR-LRN-12). |
+| BR-LRN-11 | Lượt `EXPIRED` phải đăng ký học lại và học lại từ đầu; thời hạn mới tính theo cấu hình hiện tại của khóa. |
+| BR-LRN-12 | Lượt đã `COMPLETED` không bị ảnh hưởng bởi thời hạn học. |
 
 ## 5. Màn hình
 

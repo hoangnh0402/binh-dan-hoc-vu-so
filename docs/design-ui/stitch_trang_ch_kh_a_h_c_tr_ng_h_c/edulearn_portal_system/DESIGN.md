@@ -1,53 +1,53 @@
 ---
-name: EduLearn Portal System
+name: Bình Dân Học Vụ Số — HPU2
 colors:
-  surface: '#faf8ff'
-  surface-dim: '#d2d9f4'
-  surface-bright: '#faf8ff'
+  surface: '#ffffff'
+  surface-dim: '#eadcdb'
+  surface-bright: '#ffffff'
   surface-container-lowest: '#ffffff'
-  surface-container-low: '#f2f3ff'
-  surface-container: '#eaedff'
-  surface-container-high: '#e2e7ff'
-  surface-container-highest: '#dae2fd'
-  on-surface: '#131b2e'
-  on-surface-variant: '#444653'
-  inverse-surface: '#283044'
-  inverse-on-surface: '#eef0ff'
-  outline: '#757684'
-  outline-variant: '#c4c5d5'
-  surface-tint: '#3755c3'
-  primary: '#00288e'
+  surface-container-low: '#fff8f7'
+  surface-container: '#fcefee'
+  surface-container-high: '#f7e4e2'
+  surface-container-highest: '#f1dad8'
+  on-surface: '#1f1a1a'
+  on-surface-variant: '#574342'
+  inverse-surface: '#362f2e'
+  inverse-on-surface: '#fbeeec'
+  outline: '#8a7270'
+  outline-variant: '#ddc0bd'
+  surface-tint: '#962521'
+  primary: '#962521'
   on-primary: '#ffffff'
-  primary-container: '#1e40af'
-  on-primary-container: '#a8b8ff'
-  inverse-primary: '#b8c4ff'
-  secondary: '#b71423'
+  primary-container: '#7a1c19'
+  on-primary-container: '#ffdad6'
+  inverse-primary: '#ffb3ac'
+  secondary: '#b3261e'
   on-secondary: '#ffffff'
-  secondary-container: '#db3239'
-  on-secondary-container: '#fffbff'
-  tertiary: '#4c2e00'
+  secondary-container: '#962521'
+  on-secondary-container: '#ffffff'
+  tertiary: '#7a5900'
   on-tertiary: '#ffffff'
-  tertiary-container: '#6b4200'
-  on-tertiary-container: '#ffa929'
+  tertiary-container: '#a77a00'
+  on-tertiary-container: '#ffe08a'
   error: '#ba1a1a'
   on-error: '#ffffff'
   error-container: '#ffdad6'
   on-error-container: '#93000a'
-  primary-fixed: '#dde1ff'
-  primary-fixed-dim: '#b8c4ff'
-  on-primary-fixed: '#001453'
-  on-primary-fixed-variant: '#173bab'
-  secondary-fixed: '#ffdad7'
-  secondary-fixed-dim: '#ffb3ae'
-  on-secondary-fixed: '#410005'
-  on-secondary-fixed-variant: '#930016'
-  tertiary-fixed: '#ffddb8'
-  tertiary-fixed-dim: '#ffb95f'
-  on-tertiary-fixed: '#2a1700'
-  on-tertiary-fixed-variant: '#653e00'
-  background: '#faf8ff'
-  on-background: '#131b2e'
-  surface-variant: '#dae2fd'
+  primary-fixed: '#ffdad6'
+  primary-fixed-dim: '#ffb3ac'
+  on-primary-fixed: '#410003'
+  on-primary-fixed-variant: '#7a1c19'
+  secondary-fixed: '#ffdad6'
+  secondary-fixed-dim: '#ffb4ab'
+  on-secondary-fixed: '#410002'
+  on-secondary-fixed-variant: '#93000a'
+  tertiary-fixed: '#ffdf9e'
+  tertiary-fixed-dim: '#f5bf3c'
+  on-tertiary-fixed: '#261a00'
+  on-tertiary-fixed-variant: '#5c4300'
+  background: '#ffffff'
+  on-background: '#1f1a1a'
+  surface-variant: '#f5dddb'
 typography:
   display-hero:
     fontFamily: Be Vietnam Pro
@@ -137,30 +137,39 @@ spacing:
 
 ## Brand & Style
 
-This design system delivers an energetic, structured, and modern digital campus experience tailored for contemporary e-learning platforms and school academies. Rooted in the clarity and practicality seen in leading technical learning portals, it establishes an environment that is inspiring, academically rigorous, yet warm and approachable.
+This design system delivers an energetic, structured, and modern digital campus experience for **Bình Dân Học Vụ Số**, the online learning platform of **Trường Đại học Sư phạm Hà Nội 2 (HPU2)**. Its identity follows the university's red-and-white brand, taken directly from the official HPU2 logo, so the website reads as part of the school.
 
 ### Emotional Target & Visual Personality
-- **Intellectual & Trustworthy:** Guided by deep cobalt blue and clean white layouts that convey institution-level authority and security.
-- **Energetic & Motivating:** Powered by vibrant coral-red accents, radiant amber stars, and active badges that celebrate gamification, discounts, and milestone completion.
+- **Institutional & Trustworthy:** Guided by HPU2 red (`#962521`) on clean white layouts, matching the university's seal and printed materials.
+- **Energetic & Motivating:** Amber-gold stars and badges celebrate gamification, rankings, and milestone completion without competing with the brand red.
 - **Focused & Accessible:** High-contrast typography paired with airy, structured card layouts that facilitate effortless browsing through multi-tiered curricula.
 
 ### Design Style: Modern Educational SaaS
 Combining lightweight card architectures, crisp segmented filters, and high-legibility typographic scales. The UI relies on gentle elevation layers, structured outlines, and clear visual tags rather than ornate skeuomorphism, prioritizing catalog scanning speed and student engagement.
 
+## Logo
+
+- **Source file:** [`docs/design-ui/brand/logo-hpu2.png`](../../brand/logo-hpu2.png) — official HPU2 seal, PNG 1200×1200, red `#962521` on white.
+- **Usage:** header (40px tall on desktop, 32px on mobile) next to the wordmark "Bình Dân Học Vụ Số" with the caption "Trường ĐHSP Hà Nội 2"; footer; favicon (32×32, 180×180 apple-touch-icon); Open Graph image; email header.
+- **Rules:** keep the seal circular and unmodified, never recolor it, keep clear space of at least 1/4 of the logo width, and place it on white or very light surfaces only. On the red hero banner, place the logo inside a white circle.
+
 ## Colors
 
-The palette balances analytical clarity with motivating rewards. The default mode is light, optimizing legibility for prolonged reading, code browsing, and course reviews.
+The palette is **red and white**, matching Trường ĐHSP Hà Nội 2. The default mode is light, optimizing legibility for prolonged reading and course reviews.
 
 ### Palette Architecture
-- **Primary (`#1E40AF` - Academic Royal Blue):** Anchors top navigation, primary focus states, brand logos, active category tabs, and informative tags.
-- **Secondary (`#FF4D4F` - Crimson Accent):** Drives urgency and discovery—applied to discount badges (`-31%`, `-49%`), primary call-to-action buttons (e.g., "Chọn nội dung quan tâm", "Mua ngay"), and notification pings.
-- **Tertiary (`#F59E0B` - Amber Gold):** Dedicated to student achievement, star rating vectors (4.8 - 5.0), certificate emblems, and hot course flame badges.
-- **Neutral (`#0F172A` - Midnight Slate):** Governs primary headings and course titles. Accompanied by `#64748B` for secondary meta text (instructor names, strike-through original prices) and `#F8FAFC` for high-comfort canvas backdrops.
+- **Primary (`#962521` - HPU2 Red):** Sampled from the official logo. Anchors the header accents, primary call-to-action buttons ("Đăng ký học", "Tiếp tục học"), links, focus rings, active category tabs, and progress bars. White text on this red reaches a 8.1:1 contrast ratio (WCAG AAA).
+- **Primary Dark (`#7A1C19`):** Hover/pressed state of primary buttons, active navigation pill, footer band.
+- **Primary Tint (`#FCEFEE` / `#FFDAD6`):** Subtle red backgrounds for course tags, selected filters, and the "learning deadline" banner.
+- **White (`#FFFFFF`):** Page canvas and card surfaces — the dominant color of every page.
+- **Tertiary (`#F5BF3C` / `#7A5900` - Amber Gold):** Reserved for achievement: star ratings, top-3 ranking medals, certificate emblems.
+- **Neutral (`#1F1A1A` - Warm Ink):** Headings and course titles. `#574342` for secondary meta text, `#DDC0BD` for borders and dividers.
 
 ### Functional Roles
-- **Surface Canvas:** `#F8FAFC`
-- **Card Containers:** `#FFFFFF` with borders `#E2E8F0`
-- **Subtle Badges:** Light blue tint `#EFF6FF` for course tags (`Khóa học`), light amber `#FEF3C7` for combo markers (`Combo`).
+- **Surface Canvas:** `#FFFFFF`, with `#FFF8F7` for alternating sections.
+- **Card Containers:** `#FFFFFF` with borders `#F1DAD8`.
+- **Subtle Badges:** Red tint `#FCEFEE` with text `#7A1C19` for course tags (`Khóa học`), amber `#FFDF9E` with text `#5C4300` for highlights.
+- **Status colors:** Success `#1B7F3B` (completed lessons), Warning `#A15C00` on `#FFF4E0` (learning deadline ≤ 3 days), Error `#BA1A1A`. Because error and brand are both red, every error message must also carry an icon and explanatory text — never rely on color alone.
 
 ## Typography
 
@@ -188,8 +197,8 @@ The portal layout adheres to a 12-column responsive grid system with centered co
 Visual hierarchy is maintained through flat, subtle containment with low-contrast borders and purposeful lift on interactive cards.
 
 ### Depth Levels
-- **Level 0 (Flat Canvas):** `#F8FAFC` base surface for content distinction against pure white modules.
-- **Level 1 (Card Rest State):** Pure white container (`#FFFFFF`) with a 1px solid stroke in `#E2E8F0`. Shadows are suppressed in rest state to keep dense course lists clean and distraction-free.
+- **Level 0 (Flat Canvas):** `#FFF8F7` base surface for content distinction against pure white modules.
+- **Level 1 (Card Rest State):** Pure white container (`#FFFFFF`) with a 1px solid stroke in `#F1DAD8`. Shadows are suppressed in rest state to keep dense course lists clean and distraction-free.
 - **Level 2 (Card Hover State):** Smooth transition (200ms ease) adding an ambient drop shadow: `0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04)` and a -2px vertical translation.
 - **Level 3 (Sticky Nav & Modals):** Crisp white surface backed by subtle blurred transparency (`backdrop-filter: blur(12px)`) with border bottom `1px solid #E2E8F0` and shadow `0 4px 12px rgba(15, 23, 42, 0.05)`.
 
@@ -207,23 +216,20 @@ The interface embraces a friendly yet modern curvature level (`roundedness: 2`).
 ### 1. Course Cards (Thẻ Khóa Học)
 - **Visual Container:** White background, 1px `#E2E8F0` border, `rounded-lg` (12px), vertical flex layout.
 - **Thumbnail Area:** 16:9 ratio image with an absolute top-right overlay pill badge containing a burning flame icon (`#F59E0B`) or status marker.
-- **Category Pill:** Placed right below the image. Uses `#EFF6FF` background with `#1E40AF` text for "Khóa học", or `#FEF3C7` with `#D97706` text for "Combo". Text size `label-badge`.
-- **Title:** 2 lines clamp, `title-card` token, `#0F172A`.
-- **Instructor / Subtitle:** `body-sm`, `#64748B`.
+- **Category Pill:** Placed right below the image. Uses `#FCEFEE` background with `#7A1C19` text for "Khóa học", or `#FFDF9E` with `#5C4300` text for highlights. Text size `label-badge`.
+- **Title:** 2 lines clamp, `title-card` token, `#1F1A1A`.
+- **Instructor / Subtitle:** `body-sm`, `#574342`.
 - **Rating Bar:** 5-star row in `#F59E0B` alongside numeric rating (e.g. `4.9`) in `label-md` weight.
-- **Pricing Strip:** Bottom aligned flex row:
-  - Promotional price: Secondary color `#FF4D4F`, bold `label-price`.
-  - Base price: `#94A3B8`, `label-strikethrough`.
-  - Discount badge: Red-tinted chip (`#FEF2F2`), text `#EF4444`, `label-badge` (e.g., `-31%`).
+- **Progress Strip** (replaces the pricing strip — all courses are free, A-01): progress bar in `#962521` on `#F1DAD8` track, percentage in `label-md`, and the remaining learning time ("Còn 12 ngày") in `body-sm`; turns warning amber when ≤ 3 days remain.
 
 ### 2. Category Tabs & Segmented Filters
-- **Primary Category Strip:** Horizontal segmented control. Active tab features bold primary text (`#1E40AF`) with a distinct bottom indicator line (2px `#1E40AF`). Inactive tabs remain `#64748B` on `#FFFFFF`.
-- **Search & Dropdown Filter Bar:** Form control row with a full-width search input housing an embedded search icon (`#64748B`), paired with select menus ("Tất cả", "Cấp độ") and the primary accent action button ("Chọn nội dung quan tâm") in bold coral red (`#FF4D4F`).
+- **Primary Category Strip:** Horizontal segmented control. Active tab features bold primary text (`#962521`) with a distinct bottom indicator line (2px `#962521`). Inactive tabs remain `#574342` on `#FFFFFF`.
+- **Search & Dropdown Filter Bar:** Form control row with a full-width search input housing an embedded search icon (`#574342`), paired with select menus ("Tất cả", "Cấp độ") and the primary action button in HPU2 red (`#962521`).
 
 ### 3. Buttons
-- **Primary Action (Call-to-Action):** Coral Red (`#FF4D4F`), text white, `rounded-base`, font `label-lg`, hover color `#E03E40`.
-- **Secondary Action:** White background with 1px border `#CBD5E1`, text `#1E40AF`, hover background `#F1F5F9`.
+- **Primary Action (Call-to-Action):** HPU2 Red (`#962521`), text white, `rounded-base`, font `label-lg`, hover color `#7A1C19`.
+- **Secondary Action:** White background with 1px border `#962521`, text `#962521`, hover background `#FCEFEE`.
 - **Icon Buttons:** Circular 36x36px containers for cart, notification bell with red indicator badge, and user profile avatar.
 
 ### 4. Hero Banner
-- Banner wrapper with rounded corners (`rounded-xl`), rich visual gradient, gold typography, and an anchored CTA button ("MUA NGAY") driving campaign engagement.
+- Banner wrapper with rounded corners (`rounded-xl`), red gradient (`#5E1210` → `#962521` → `#6E1A17`), white headline with gold highlights, the HPU2 logo inside a white circle, and a white CTA button with red text ("Khám phá khóa học").

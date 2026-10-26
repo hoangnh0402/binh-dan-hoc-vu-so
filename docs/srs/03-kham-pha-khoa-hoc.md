@@ -35,7 +35,7 @@ Các điều kiện có thể dùng **đồng thời**; giữa các nhóm là ph
 | Bộ lọc | Giá trị | Kiểu chọn |
 |--------|---------|-----------|
 | Trạng thái khóa học | Sắp mở · Đang mở · Đã kết thúc | Nhiều |
-| Trạng thái học của tôi *(chỉ khi đăng nhập)* | Chưa đăng ký · Đang học · Đã hoàn thành | Nhiều |
+| Trạng thái học của tôi *(chỉ khi đăng nhập)* | Chưa đăng ký · Đang học · Đã hoàn thành · Hết hạn | Nhiều |
 | Lĩnh vực | Cây loại khóa học 2 cấp; chọn cấp 1 ⇒ bao gồm mọi cấp 2 con | Nhiều |
 | Trình độ | Cơ bản · Trung cấp · Nâng cao | Nhiều |
 | Tổ chức đào tạo | Danh sách tổ chức (có ô tìm nhanh) | Nhiều |
@@ -67,15 +67,16 @@ Phù hợp nhất (mặc định khi có từ khóa) · Mới nhất (mặc đ�
   `/khoa-hoc?q=excel&category=ky-nang-so&level=BASIC,INTERMEDIATE&status=OPEN&org=12&sort=newest&page=2`
   → người dùng có thể chia sẻ link và giữ được kết quả khi tải lại trang / nhấn Back.
 
-**Thẻ khóa học (course card)** hiển thị: ảnh bìa, tên, tổ chức đào tạo, lĩnh vực, trình độ, số bài học, thời lượng ước tính, số người học, điểm đánh giá trung bình, nhãn trạng thái; nếu đã đăng nhập và đã ghi danh → thanh tiến độ nhỏ.
+**Thẻ khóa học (course card)** hiển thị: ảnh bìa, tên, tổ chức đào tạo, lĩnh vực, trình độ, số bài học, thời lượng ước tính, số người học, điểm đánh giá trung bình, nhãn trạng thái; nếu đã đăng nhập và đã ghi danh → thanh tiến độ nhỏ kèm hạn học ("Còn X ngày"); lượt đã hết hạn → nhãn "Hết hạn".
 
 ### FR-CRS-05 — Tab Giới thiệu
 
-- Phần đầu trang (luôn hiển thị): ảnh bìa, tên khóa học, tổ chức đào tạo (logo + tên), lĩnh vực (cấp 1 › cấp 2), trình độ, trạng thái, thời gian mở/kết thúc, số bài học, thời lượng ước tính, số người học, đánh giá trung bình.
+- Phần đầu trang (luôn hiển thị): ảnh bìa, tên khóa học, tổ chức đào tạo (logo + tên), lĩnh vực (cấp 1 › cấp 2), trình độ, trạng thái, thời gian mở/kết thúc, **thời hạn học** (ví dụ "Hoàn thành trong 3 tuần kể từ khi đăng ký"), số bài học, thời lượng ước tính, số người học, đánh giá trung bình.
 - Nút hành động (xem BR-CRS-02):
   - Khách → "Đăng ký học" (chuyển đến đăng nhập, sau đó quay lại).
   - USER chưa ghi danh → "Đăng ký học".
-  - USER đã ghi danh → thanh tiến độ + "Tiếp tục học" (đến bài đang học dở).
+  - USER đã ghi danh → thanh tiến độ + hạn học còn lại + "Tiếp tục học" (đến bài đang học dở).
+  - USER có lượt ghi danh đã hết hạn → thông báo hết hạn + "Đăng ký học lại" (học lại từ đầu — FR-LRN-12).
   - USER đã hoàn thành → "Xem lại khóa học".
 - Nội dung tab: mô tả chi tiết (rich text), mục tiêu đầu ra, đối tượng phù hợp, yêu cầu đầu vào.
 
@@ -101,14 +102,16 @@ Phù hợp nhất (mặc định khi có từ khóa) · Mới nhất (mặc đ�
 
 1. USER nhấn "Đăng ký học".
 2. Hệ thống kiểm tra BR-CRS-02.
-3. Tạo bản ghi `enrollment` trạng thái `IN_PROGRESS`, tiến độ 0%, bài học thứ nhất được mở khóa.
-4. Hiển thị thông báo thành công, nút đổi thành "Vào học" và **thanh tiến độ học** xuất hiện (cũng hiển thị ở trang "Khóa học của tôi").
+3. Tạo bản ghi `enrollment` trạng thái `IN_PROGRESS`, tiến độ 0%, bài học thứ nhất được mở khóa; tính và lưu `learning_started_at`, `expires_at` theo thời hạn học của khóa (BR-LRN-09).
+4. Hiển thị thông báo thành công kèm hạn học ("Bạn cần hoàn thành khóa học trước hh:mm ngày dd/mm/yyyy"), nút đổi thành "Vào học" và **thanh tiến độ học** xuất hiện (cũng hiển thị ở trang "Khóa học của tôi").
 5. Ghi danh lặp lại (bấm 2 lần) không tạo bản ghi trùng (ràng buộc duy nhất `user_id + course_id`).
+6. Đăng ký học lại sau khi hết hạn dùng lại bản ghi cũ, bắt đầu lượt học mới từ đầu (BR-LRN-11).
 
 ### FR-CRS-11 — Hủy ghi danh
 
 - USER có thể hủy ghi danh khóa đang học; hệ thống hỏi xác nhận.
-- Khi hủy: enrollment chuyển `CANCELLED`, ẩn khỏi bảng xếp hạng; nếu đăng ký lại sẽ **khôi phục** tiến độ cũ.
+- Khi hủy: enrollment chuyển `CANCELLED`, ẩn khỏi bảng xếp hạng. Hủy ghi danh không dừng thời hạn học.
+- Đăng ký lại **trước** `expires_at` → **khôi phục** tiến độ cũ, giữ nguyên hạn học cũ. Đăng ký lại **sau** `expires_at` → dữ liệu cũ đã bị xóa (BR-LRN-10), học lại từ đầu với hạn mới.
 
 ## 3. Quy tắc nghiệp vụ
 
@@ -119,6 +122,7 @@ Phù hợp nhất (mặc định khi có từ khóa) · Mới nhất (mặc đ�
 | BR-CRS-03 | Chỉ người đã ghi danh và hoàn thành ≥ 1 bài học được viết đánh giá; mỗi người tối đa 1 đánh giá cho mỗi khóa. |
 | BR-CRS-04 | Khóa học `DRAFT` / `ARCHIVED` không xuất hiện trong tìm kiếm và trả `404` khi truy cập trực tiếp (trừ Admin). |
 | BR-CRS-05 | Điểm đánh giá trung bình và số người học được tính lại khi có thay đổi (lưu cột tổng hợp trên bảng `courses` để truy vấn nhanh). |
+| BR-CRS-06 | Mỗi lượt ghi danh có thời hạn học (mặc định 21 ngày, Admin cấu hình theo khóa). Hết hạn mà chưa hoàn thành thì đóng khóa học, xóa dữ liệu, người học phải đăng ký học lại — chi tiết tại [04 FR-LRN-12](04-hoc-tap-va-quiz.md#fr-lrn-12--thời-hạn-học). |
 
 ## 4. Màn hình
 
@@ -127,7 +131,7 @@ Phù hợp nhất (mặc định khi có từ khóa) · Mới nhất (mặc đ�
 | SCR-CRS-01 | Trang chủ | `/` |
 | SCR-CRS-02 | Danh sách & tìm kiếm khóa học | `/khoa-hoc` |
 | SCR-CRS-03 | Chi tiết khóa học (4 tab) | `/khoa-hoc/:slug` |
-| SCR-CRS-04 | Khóa học của tôi (lọc: đang học / đã hoàn thành) | `/toi/khoa-hoc` |
+| SCR-CRS-04 | Khóa học của tôi (lọc: đang học / đã hoàn thành / hết hạn; hiển thị hạn học còn lại) | `/toi/khoa-hoc` |
 
 ### Phác thảo trang danh sách
 

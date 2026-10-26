@@ -1,6 +1,6 @@
 # Bộ tài liệu SRS — Website "Bình Dân Học Vụ Số"
 
-> Phiên bản: 0.1 (bản nháp) · Ngày lập: 2026-10-21 · Nguồn đầu vào: thư mục `knowledge_base/`
+> Phiên bản: 0.2 (bản nháp) · Ngày lập: 2026-10-21 · Cập nhật: 2026-10-26 · Nguồn đầu vào: thư mục `knowledge_base/`
 
 Bộ tài liệu đặc tả yêu cầu phần mềm (Software Requirements Specification) cho nền tảng học trực tuyến "Bình Dân Học Vụ Số". Tài liệu được chuẩn hóa từ các ghi chú ý tưởng ban đầu, bổ sung quy tắc nghiệp vụ, thiết kế dữ liệu, API, quy trình phát triển và kế hoạch triển khai.
 
@@ -47,6 +47,8 @@ Mức ưu tiên (theo MoSCoW): **M** = Must (bắt buộc cho MVP), **S** = Shou
 | Tìm kiếm khóa học theo trạng thái, lĩnh vực, trình độ, tổ chức đào tạo (kết hợp) | FR-CRS-01 → FR-CRS-04 |
 | Chi tiết khóa học: giới thiệu, giáo trình, đánh giá, (chứng nhận) | FR-CRS-05 → FR-CRS-08 |
 | Đăng ký học + thanh tiến độ học | FR-CRS-09, FR-LRN-08 |
+| Khóa học chỉ được học 3 tuần kể từ khi bắt đầu; hết hạn thì xóa dữ liệu, đóng khóa, phải học lại; Admin cấu hình thời hạn từng khóa | FR-LRN-12, 13, BR-LRN-09 → 12, BR-CRS-06, FR-ADM-13 |
+| Logo trường ĐHSP Hà Nội 2, tông màu đỏ – trắng | 00 §2.1, A-08, NFR-UX-08, `docs/design-ui` |
 | Vào học: bài học, đề bài, quiz, mở khóa tuần tự | FR-LRN-01 → FR-LRN-07 |
 | Xếp hạng theo điểm, bằng điểm so thời gian làm bài | FR-RNK-01 → FR-RNK-05 |
 | Blog (mở rộng) | Giai đoạn 3 — tài liệu 11 |
@@ -61,3 +63,4 @@ Mức ưu tiên (theo MoSCoW): **M** = Must (bắt buộc cho MVP), **S** = Shou
 | Phiên bản | Ngày | Nội dung |
 |-----------|------|----------|
 | 0.1 | 2026-10-21 | Bản nháp đầu tiên, chuẩn hóa từ knowledge base |
+| 0.2 | 2026-10-26 | Thêm **thời hạn học** cho mỗi lượt ghi danh (mặc định 21 ngày, Admin cấu hình theo khóa; hết hạn thì đóng khóa, xóa dữ liệu học tập, học lại từ đầu) — cập nhật 00, 03–09, 11 và `docs/design-db`. Thêm nhận diện Trường ĐHSP Hà Nội 2: logo, tông đỏ – trắng `#962521` (00, 09, `docs/design-ui`). Thêm Q-12, Q-13 |

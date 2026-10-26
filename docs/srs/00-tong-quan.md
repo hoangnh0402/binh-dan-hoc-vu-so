@@ -8,6 +8,8 @@ Tài liệu mô tả bức tranh tổng thể của website "Bình Dân Học V�
 
 "Bình Dân Học Vụ Số" là nền tảng học trực tuyến giúp người dân tiếp cận các khóa học (đặc biệt là kỹ năng số) một cách đơn giản, miễn phí và có lộ trình rõ ràng.
 
+Đơn vị chủ quản: **Trường Đại học Sư phạm Hà Nội 2** (HPU2). Website dùng logo và màu nhận diện của nhà trường (mục 2.1).
+
 **Mục tiêu:**
 
 1. Người học dễ dàng **tìm** được khóa học phù hợp theo lĩnh vực, trình độ, tổ chức đào tạo và trạng thái.
@@ -15,6 +17,14 @@ Tài liệu mô tả bức tranh tổng thể của website "Bình Dân Học V�
 3. Người học **theo dõi được tiến độ** của mình và có động lực nhờ **bảng xếp hạng**.
 4. Quản trị viên **quản lý tập trung** người dùng, danh mục, khóa học, bài học, câu hỏi quiz.
 5. Quy trình phát triển chuẩn hóa trên GitHub với CI/CD tự động.
+
+### 2.1 Nhận diện thương hiệu
+
+| Hạng mục | Quy định |
+|----------|----------|
+| Logo | Logo Trường ĐHSP Hà Nội 2 — tệp gốc [`docs/design-ui/brand/logo-hpu2.png`](../design-ui/brand/logo-hpu2.png) (PNG 1200×1200, nền trắng). Dùng làm logo header, footer, favicon, ảnh Open Graph, logo trong email |
+| Tông màu | **Đỏ – trắng** đồng bộ với nhà trường. Màu chủ đạo `#962521` (đỏ HPU2, lấy từ logo), nền trắng `#FFFFFF` |
+| Chi tiết | Bảng màu đầy đủ và quy tắc dùng tại [`DESIGN.md`](../design-ui/stitch_trang_ch_kh_a_h_c_tr_ng_h_c/edulearn_portal_system/DESIGN.md); yêu cầu kiểm chứng tại NFR-UX-08 |
 
 **Chỉ số thành công đề xuất (KPI) sau 3 tháng vận hành:**
 
@@ -32,7 +42,7 @@ Tài liệu mô tả bức tranh tổng thể của website "Bình Dân Học V�
 - Xác thực: đăng ký (xác thực email bằng OTP), đăng nhập, đăng xuất, quên mật khẩu bằng OTP, đổi mật khẩu, cập nhật hồ sơ.
 - Phân quyền 2 vai trò: `ADMIN`, `USER`.
 - Trang người dùng: tìm kiếm & lọc khóa học kết hợp nhiều điều kiện, xem chi tiết khóa học (Giới thiệu, Giáo trình, Đánh giá), đăng ký học, thanh tiến độ.
-- Học tập: nội dung bài học, đề bài, quiz trắc nghiệm, mở khóa bài tuần tự, lưu tiến độ.
+- Học tập: nội dung bài học, đề bài, quiz trắc nghiệm, mở khóa bài tuần tự, lưu tiến độ, **thời hạn học** cho mỗi lượt ghi danh (mặc định 3 tuần; hết hạn thì đóng khóa, xóa dữ liệu, phải học lại).
 - Xếp hạng theo từng khóa học (điểm giảm dần, bằng điểm thì thời gian làm bài tăng dần).
 - Trang quản trị: CRUD người dùng, loại khóa học 2 cấp, tổ chức đào tạo, khóa học, bài học, quiz.
 - Quy trình Git (main / develop / feat / fix) và CI/CD.
@@ -89,6 +99,8 @@ flowchart LR
 | Đề bài | Phần bài tập/yêu cầu thực hành gắn với bài học |
 | Quiz | Bộ câu hỏi trắc nghiệm chấm tự động ở cuối bài học |
 | Ghi danh (Enrollment) | Việc người học đăng ký tham gia một khóa học |
+| Thời hạn học | Số ngày người học được học kể từ khi ghi danh (mặc định 21 ngày). Hết hạn mà chưa hoàn thành thì phải học lại từ đầu |
+| Lượt học (`round_no`) | Lần học thứ mấy của người học trong một khóa; tăng 1 mỗi lần đăng ký học lại sau khi hết hạn |
 | OTP | Mã dùng một lần gửi qua email, dùng để xác thực |
 | MVP | Phiên bản tối thiểu đưa vào sử dụng |
 
@@ -103,6 +115,7 @@ flowchart LR
 | A-05 | Công nghệ: Java Spring Boot + ReactJS + **Microsoft SQL Server** (đã chốt CSDL). Xem tài liệu 01 và thiết kế CSDL tại [`docs/design-db`](../design-db/README.md). |
 | A-06 | Video bài học được nhúng từ nền tảng ngoài (YouTube/Vimeo) hoặc lưu ở object storage; hệ thống không tự transcode video. |
 | A-07 | Người dùng mục tiêu bao gồm người lớn tuổi, ít kinh nghiệm công nghệ → giao diện phải đơn giản, chữ lớn, tương phản tốt (xem NFR khả năng truy cập). |
+| A-08 | Website mang nhận diện của Trường ĐHSP Hà Nội 2: logo trường, tông màu đỏ – trắng (mục 2.1). |
 | C-01 | Mã nguồn lưu trữ trên GitHub, tuân thủ quy trình nhánh tại tài liệu 10. |
 | C-02 | Tuân thủ Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân. |
 
@@ -121,3 +134,5 @@ flowchart LR
 | Q-09 | Những trường thông tin người dùng nào là bắt buộc? (knowledge base ghi "tên, năm sinh, quê, nơi công tác, ...") | Bắt buộc: họ tên, email, mật khẩu. Tùy chọn: năm sinh, quê quán, nơi công tác, số điện thoại |
 | Q-10 | Môi trường hosting/deploy (VPS, cloud nào)? | Docker trên VPS/Cloud VM; có môi trường staging và production |
 | Q-11 | Quy mô người dùng dự kiến? | 10.000 người dùng đăng ký, 500 người dùng đồng thời trong năm đầu |
+| Q-12 | Thời hạn học 3 tuần: (a) tính từ lúc **từng người ghi danh** hay từ ngày khóa học mở? (b) người đã **hoàn thành** trong 3 tuần có bị xóa dữ liệu không? (c) có giữ lại bản ghi ghi danh đã hết hạn để thống kê không? | (a) Từ lúc từng người ghi danh (khóa "Sắp mở" thì từ `start_date`). (b) Không — lượt `COMPLETED` giữ kết quả vĩnh viễn. (c) Có — chỉ xóa tiến độ, lượt làm quiz, xếp hạng; giữ bản ghi enrollment `EXPIRED` |
+| Q-13 | Admin có cần **gia hạn** thủ công cho từng học viên không? | Không trong MVP; có thể bổ sung ở Giai đoạn 2 (cập nhật `expires_at` + audit log) |

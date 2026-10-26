@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Loại khóa học — SCR-ADM-03</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .split { display: grid; grid-template-columns: 1fr 380px; gap: 20px; align-items: start; }
+  .node { display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .node .drag { color: var(--ink-3); }
+  .node .ic { width: 36px; height: 36px; border-radius: 10px; background: var(--red-tint); color: var(--red); display: flex; align-items: center; justify-content: center; flex: none; }
+  .node.l1 { background: #fff; font-weight: 700; }
+  .node.l2 { padding-left: 76px; background: var(--canvas); }
+  .node.l2 .ic { width: 28px; height: 28px; border-radius: 8px; }
+  .node.sel { background: var(--red-tint); box-shadow: inset 4px 0 0 var(--red); }
+  .node.off { color: var(--ink-3); }
+  .node .cnt { margin-left: auto; display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--ink-2); font-weight: 600; white-space: nowrap; }
+  .node.dragging { box-shadow: 0 10px 24px rgba(94,18,16,.18); background: #fff; position: relative; z-index: 1; border: 1px dashed var(--red); }
+</style>
+</head>
+<body>
+<div class="admin">
+  <aside class="sidebar" data-sidebar data-active="loai"></aside>
+  <div class="admin-main">
+    <div class="admin-top">
+      <div class="crumb"><span>Quản trị</span><i data-i="chevron-right" class="sm"></i><b>Loại khóa học</b></div>
+      <div class="row"><button class="icon-btn"><i data-i="bell"></i></button><div class="user-chip"><span class="avatar">QT</span><div><div class="n">Quản trị viên</div><div class="r">ADMIN</div></div></div></div>
+    </div>
+    <div class="admin-body">
+      <div class="page-h"><h1>Loại khóa học</h1><div class="row"><a class="btn btn-light"><i data-i="plus"></i>Thêm loại cấp 2</a><a class="btn btn-primary"><i data-i="plus"></i>Thêm lĩnh vực cấp 1</a></div></div>
+      <div class="alert info"><i data-i="info"></i><span>Tối đa <b>2 cấp</b>. Khóa học chỉ gắn vào loại cấp 2. Kéo thả <i data-i="menu" class="sm"></i> để sắp xếp thứ tự trong cùng cấp.</span></div>
+      <div class="split">
+        <div class="panel">
+          <div class="toolbar-a"><div class="search-a"><i data-i="search"></i>Tìm loại khóa học</div><span class="dd">Mở rộng tất cả</span></div>
+          <div class="node l1"><i data-i="menu" class="sm drag"></i><i data-i="chevron-down" class="sm"></i><span class="ic"><i data-i="monitor"></i></span>Kỹ năng số<span class="cnt"><span>3 loại con · 24 khóa</span><span class="toggle"></span></span></div>
+          <div class="node l2 sel"><i data-i="menu" class="sm drag"></i><span class="ic"><i data-i="monitor" class="sm"></i></span>Sử dụng máy tính cơ bản<span class="cnt"><span>8 khóa</span><span class="toggle"></span></span></div>
+          <div class="node l2 dragging"><i data-i="menu" class="sm drag"></i><span class="ic"><i data-i="shield" class="sm"></i></span>An toàn thông tin<span class="cnt"><span>7 khóa</span><span class="toggle"></span></span></div>
+          <div class="node l2"><i data-i="menu" class="sm drag"></i><span class="ic"><i data-i="globe" class="sm"></i></span>Dịch vụ công trực tuyến<span class="cnt"><span>9 khóa</span><span class="toggle"></span></span></div>
+          <div class="node l1"><i data-i="menu" class="sm drag"></i><i data-i="chevron-down" class="sm"></i><span class="ic"><i data-i="message"></i></span>Ngoại ngữ<span class="cnt"><span>2 loại con · 8 khóa</span><span class="toggle"></span></span></div>
+          <div class="node l2"><i data-i="menu" class="sm drag"></i><span class="ic"><i data-i="message" class="sm"></i></span>Tiếng Anh giao tiếp<span class="cnt"><span>6 khóa</span><span class="toggle"></span></span></div>
+          <div class="node l2 off"><i data-i="menu" class="sm drag"></i><span class="ic"><i data-i="message" class="sm"></i></span>Tiếng Anh cho công việc<span class="cnt"><span class="chip neutral">Đã tắt</span><span>2 khóa</span><span class="toggle off"></span></span></div>
+          <div class="node l1"><i data-i="menu" class="sm drag"></i><i data-i="chevron-right" class="sm"></i><span class="ic"><i data-i="book"></i></span>Sư phạm &amp; giáo dục<span class="cnt"><span>2 loại con · 10 khóa</span><span class="toggle"></span></span></div>
+          <div class="node l1"><i data-i="menu" class="sm drag"></i><i data-i="chevron-right" class="sm"></i><span class="ic"><i data-i="users"></i></span>Kỹ năng mềm<span class="cnt"><span>1 loại con · 6 khóa</span><span class="toggle"></span></span></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-h"><h3>Sửa loại khóa học</h3><span class="chip neutral">Cấp 2</span></div>
+          <div class="panel-b stack" style="gap:16px">
+            <div class="field"><label>Loại cha (cấp 1)</label><div class="input" style="display:flex;align-items:center;justify-content:space-between">Kỹ năng số<i data-i="chevron-down" class="sm"></i></div><span class="hint">Để trống nếu là lĩnh vực cấp 1.</span></div>
+            <div class="field"><label>Tên <span class="req">*</span></label><input class="input" value="Sử dụng máy tính cơ bản"></div>
+            <div class="field"><label>Slug <span class="req">*</span></label><input class="input" value="su-dung-may-tinh-co-ban"><span class="hint">Tự sinh từ tên không dấu, có thể sửa.</span></div>
+            <div class="field"><label>Mô tả</label><textarea class="textarea" style="height:90px">Làm quen máy tính, chuột, bàn phím, thư mục và Internet.</textarea></div>
+            <div class="row-between"><span class="bold small">Đang hoạt động</span><span class="toggle"></span></div>
+            <div class="row" style="gap:10px"><a class="btn btn-primary" style="flex:1">Lưu</a><a class="btn btn-light" style="color:var(--error)"><i data-i="trash" class="sm"></i>Xóa</a></div>
+            <div class="alert error" style="font-size:14px"><i data-i="alert" class="sm"></i><span>Không thể xóa: loại này đang có <b>8 khóa học</b>. Hãy chuyển các khóa học sang loại khác trước.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

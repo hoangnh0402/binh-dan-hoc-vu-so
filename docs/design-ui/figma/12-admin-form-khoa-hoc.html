@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Form khóa học — SCR-ADM-06</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .form-grid { display: grid; grid-template-columns: 1fr 360px; gap: 24px; align-items: start; }
+  .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px; }
+  .fgrid .full { grid-column: 1 / -1; }
+  .select { display: flex; align-items: center; justify-content: space-between; }
+  .rte { border: 1px solid var(--line-2); border-radius: var(--r); overflow: hidden; }
+  .rte .tb { display: flex; gap: 4px; padding: 8px; border-bottom: 1px solid var(--line); background: var(--canvas); font-weight: 700; font-size: 14px; }
+  .rte .tb span { padding: 4px 10px; border-radius: 6px; }
+  .rte .ar { padding: 14px; min-height: 110px; font-size: 15px; color: var(--ink-2); }
+  .dur { border: 2px solid var(--red); border-radius: var(--r-lg); padding: 20px; background: var(--red-tint); display: flex; flex-direction: column; gap: 12px; }
+  .dur .inrow { display: flex; align-items: center; gap: 12px; }
+  .dur .num { width: 120px; height: 52px; border: 1px solid var(--line-2); background: #fff; border-radius: var(--r); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; }
+  .presets { display: flex; gap: 8px; }
+  .upload { border: 2px dashed var(--line-2); border-radius: var(--r-lg); aspect-ratio: 16/9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--ink-2); background: var(--canvas); text-align: center; }
+  .toggle { width: 44px; height: 26px; border-radius: 99px; background: var(--red); position: relative; flex: none; }
+  .toggle::after { content: ""; position: absolute; right: 3px; top: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; }
+  .toggle.off { background: var(--line-2); }
+  .toggle.off::after { right: auto; left: 3px; }
+</style>
+</head>
+<body>
+<div class="admin">
+  <aside class="sidebar" data-sidebar data-active="khoa-hoc"></aside>
+  <div class="admin-main">
+    <div class="admin-top">
+      <div class="crumb"><span>Quản trị</span><i data-i="chevron-right" class="sm"></i><span>Khóa học</span><i data-i="chevron-right" class="sm"></i><b>Tiếng Anh giao tiếp hằng ngày</b></div>
+      <div class="row"><button class="icon-btn"><i data-i="bell"></i></button><div class="user-chip"><span class="avatar">QT</span><div><div class="n">Quản trị viên</div><div class="r">ADMIN</div></div></div></div>
+    </div>
+    <div class="admin-body">
+      <div class="page-h">
+        <div><h1>Tiếng Anh giao tiếp hằng ngày</h1><div class="row" style="margin-top:8px;gap:8px"><span class="chip solid">Đã xuất bản</span><span class="chip">Đang mở</span><span class="small muted">986 học viên · cập nhật 26/10/2026</span></div></div>
+        <div class="row"><a class="btn btn-light"><i data-i="eye"></i>Xem trước</a><a class="btn btn-outline">Lưu trữ</a><a class="btn btn-primary"><i data-i="check"></i>Lưu thay đổi</a></div>
+      </div>
+      <nav class="tabs"><a class="active">Thông tin</a><a>Bài học (12)</a><a>Học viên (986)</a><a>Xếp hạng</a></nav>
+
+      <div class="form-grid">
+        <div class="stack" style="gap:24px">
+          <div class="panel">
+            <div class="panel-h"><h3>Thông tin chung</h3></div>
+            <div class="panel-b fgrid">
+              <div class="field full"><label>Tên khóa học <span class="req">*</span></label><input class="input" value="Tiếng Anh giao tiếp hằng ngày"><span class="hint">5–200 ký tự</span></div>
+              <div class="field"><label>Slug <span class="req">*</span></label><input class="input" value="tieng-anh-giao-tiep-hang-ngay"></div>
+              <div class="field"><label>Trình độ <span class="req">*</span></label><div class="input select">Trung cấp<i data-i="chevron-down" class="sm"></i></div></div>
+              <div class="field"><label>Loại khóa học (cấp 2) <span class="req">*</span></label><div class="input select">Ngoại ngữ › Tiếng Anh giao tiếp<i data-i="chevron-down" class="sm"></i></div></div>
+              <div class="field"><label>Tổ chức đào tạo <span class="req">*</span></label><div class="input select">Khoa Ngoại ngữ<i data-i="chevron-down" class="sm"></i></div></div>
+              <div class="field full"><label>Mô tả ngắn <span class="req">*</span></label><input class="input" value="Tự tin chào hỏi, hỏi đường, mua sắm và trò chuyện bằng tiếng Anh trong đời sống."><span class="hint">84 / 300 ký tự — hiển thị trên thẻ khóa học</span></div>
+              <div class="field full"><label>Mô tả chi tiết <span class="req">*</span></label>
+                <div class="rte"><div class="tb"><span>B</span><span><i>I</i></span><span>U</span><span>H2</span><span>• Danh sách</span><span>Ảnh</span><span>Video</span></div>
+                <div class="ar">Khóa học gồm 12 bài, mỗi bài là một tình huống giao tiếp thường gặp. Sau mỗi bài có quiz 10 câu để kiểm tra...</div></div></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-h"><h3>Thời gian &amp; thời hạn học</h3></div>
+            <div class="panel-b stack" style="gap:20px">
+              <div class="fgrid">
+                <div class="field"><label>Ngày bắt đầu</label><div class="input select">01/09/2026 00:00<i data-i="calendar" class="sm"></i></div></div>
+                <div class="field"><label>Ngày kết thúc</label><div class="input select">31/12/2026 23:59<i data-i="calendar" class="sm"></i></div></div>
+              </div>
+              <div class="dur">
+                <div class="row-between"><label class="bold" style="font-size:16px">Thời hạn học (ngày) <span style="color:var(--error)">*</span></label><span class="chip neutral">Mặc định: 21 ngày</span></div>
+                <div class="inrow"><div class="num">28</div><span class="bold">ngày</span><span class="muted">= 4 tuần</span><div class="presets" style="margin-left:auto"><span class="chip outline">2 tuần</span><span class="chip outline">3 tuần</span><span class="chip outline on">4 tuần</span><span class="chip outline">6 tuần</span></div></div>
+                <span class="hint">Số ngày mỗi người học được học kể từ khi đăng ký (1–365). Hết hạn mà chưa hoàn thành: khóa học đóng lại, dữ liệu học tập bị xóa và người học phải đăng ký học lại từ đầu.</span>
+                <div class="alert warn" style="font-size:14px"><i data-i="alert" class="sm"></i><span>Thời hạn mới chỉ áp dụng cho lượt ghi danh mới và lượt học lại. <b>742 học viên đang học</b> giữ nguyên hạn cũ (21 ngày).</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack" style="gap:24px">
+          <div class="panel">
+            <div class="panel-h"><h3>Ảnh bìa <span style="color:var(--error)">*</span></h3></div>
+            <div class="panel-b stack">
+              <div class="thumb t4" style="border-radius:var(--r-lg)"><i data-i="message" class="big"></i><div class="t-label">Ngoại ngữ</div></div>
+              <a class="btn btn-light btn-sm btn-block"><i data-i="upload" class="sm"></i>Đổi ảnh bìa</a>
+              <span class="xs muted">JPG, PNG, WebP ≤ 2MB · tỉ lệ 16:9</span>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-h"><h3>Hiển thị</h3></div>
+            <div class="panel-b stack" style="gap:16px">
+              <div class="row-between"><div><div class="bold small">Khóa học nổi bật</div><div class="xs muted">Hiển thị trên trang chủ</div></div><span class="toggle"></span></div>
+              <div class="row-between"><div><div class="bold small">Thời lượng ước tính</div><div class="xs muted">Tự tính từ các bài học</div></div><b>10 giờ</b></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-h"><h3>Điều kiện xuất bản</h3></div>
+            <div class="panel-b stack" style="gap:10px">
+              <div class="row small"><i data-i="check-circle" style="color:var(--success)"></i>Có ảnh bìa</div>
+              <div class="row small"><i data-i="check-circle" style="color:var(--success)"></i>Có ít nhất 1 bài học đã xuất bản (12)</div>
+              <div class="row small"><i data-i="check-circle" style="color:var(--success)"></i>Mọi quiz đều có câu hỏi hợp lệ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

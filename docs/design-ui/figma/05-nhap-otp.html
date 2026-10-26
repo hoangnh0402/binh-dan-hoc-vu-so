@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nhập OTP — SCR-AUTH-03</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  body { background: var(--canvas); }
+  .center { min-height: 760px; display: flex; align-items: center; justify-content: center; padding: 48px; }
+  .form-card { width: 520px; background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 44px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 22px; text-align: center; align-items: center; }
+  .mail-ic { width: 72px; height: 72px; border-radius: 50%; background: var(--red-tint); color: var(--red); display: flex; align-items: center; justify-content: center; }
+  .otp { display: flex; gap: 12px; }
+  .otp span { width: 60px; height: 68px; border: 2px solid var(--line-2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; }
+  .otp span.f { border-color: var(--red); }
+  .otp span.c { border-color: var(--red); box-shadow: 0 0 0 4px rgba(150,37,33,.15); }
+  .steps { display: flex; gap: 8px; align-items: center; font-size: 14px; color: var(--ink-3); }
+  .steps b { color: var(--red); }
+  .steps .ln { width: 28px; height: 2px; background: var(--line-2); }
+</style>
+</head>
+<body>
+<div data-header="guest"></div>
+<div class="center">
+  <div class="form-card">
+    <div class="steps"><span>1. Thông tin</span><span class="ln"></span><b>2. Xác thực email</b><span class="ln"></span><span>3. Hoàn tất</span></div>
+    <span class="mail-ic"><i data-i="mail" class="lg"></i></span>
+    <div>
+      <h2 style="font-size:26px;font-weight:800">Nhập mã xác thực</h2>
+      <p class="muted" style="margin-top:8px">Chúng tôi đã gửi mã gồm 6 chữ số tới<br><b style="color:var(--ink)">an.nguyen@example.com</b></p>
+    </div>
+    <div class="otp"><span class="f">4</span><span class="f">8</span><span class="f">2</span><span class="c">|</span><span></span><span></span></div>
+    <div class="deadline"><i data-i="clock" class="sm"></i>Mã còn hiệu lực trong <b style="color:var(--red)">04:12</b></div>
+    <a class="btn btn-primary btn-lg btn-block" disabled>Xác nhận</a>
+    <p class="small muted">Không nhận được mã? Kiểm tra thư mục Spam hoặc <span class="bold" style="color:var(--ink-3)">gửi lại mã sau 00:42</span></p>
+    <a class="small bold"><i data-i="chevron-left" class="sm"></i> Đổi email đăng ký</a>
+  </div>
+</div>
+<div data-footer></div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

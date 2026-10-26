@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Làm quiz — SCR-LRN-03</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  body { background: var(--canvas); }
+  .qbar { height: 72px; background: #fff; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 16px; padding: 0 32px; }
+  .qbar img { width: 40px; height: 40px; }
+  .qbar .sp { flex: 1; }
+  .timer { display: flex; align-items: center; gap: 10px; background: var(--red-tint); color: var(--red-dark); padding: 8px 16px; border-radius: 999px; font-weight: 800; font-size: 20px; }
+  .qgrid { display: grid; grid-template-columns: 1fr 320px; gap: 32px; max-width: 1240px; margin: 32px auto; padding: 0 32px; }
+  .qcard { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 36px; display: flex; flex-direction: column; gap: 22px; }
+  .qcard .q { font-size: 22px; font-weight: 700; line-height: 1.45; }
+  .opt { display: flex; align-items: center; gap: 16px; padding: 18px 20px; border: 2px solid var(--line); border-radius: 12px; font-size: 18px; }
+  .opt .key { width: 36px; height: 36px; border-radius: 50%; background: #f5eeed; display: flex; align-items: center; justify-content: center; font-weight: 800; flex: none; }
+  .opt.on { border-color: var(--red); background: var(--red-tint); }
+  .opt.on .key { background: var(--red); color: #fff; }
+  .navq { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 24px; display: flex; flex-direction: column; gap: 18px; align-self: start; }
+  .qn { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .qn span { height: 46px; border-radius: 10px; border: 2px solid var(--line-2); display: flex; align-items: center; justify-content: center; font-weight: 700; }
+  .qn span.a { background: var(--red); border-color: var(--red); color: #fff; }
+  .qn span.c { border-color: var(--red); color: var(--red); box-shadow: 0 0 0 3px rgba(150,37,33,.15); }
+  .legend { display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--ink-2); }
+  .legend span { display: flex; gap: 10px; align-items: center; }
+  .legend i.sw { width: 18px; height: 18px; border-radius: 5px; display: inline-block; }
+</style>
+</head>
+<body>
+<div class="qbar">
+  <img src="../brand/logo-hpu2.png" alt="Logo HPU2">
+  <div><div class="bold">Quiz bài 3: Nhận diện tin nhắn, cuộc gọi lừa đảo</div><div class="xs muted">Lượt làm thứ 2 · Điểm đạt 70% · Không giới hạn số lần làm</div></div>
+  <span class="sp"></span>
+  <div class="timer"><i data-i="clock"></i>08:47</div>
+  <a class="btn btn-primary">Nộp bài</a>
+</div>
+
+<div class="qgrid">
+  <div class="stack" style="gap:20px">
+    <div class="qcard">
+      <div class="row-between"><span class="chip">Câu 6 / 10</span><span class="chip neutral">Chọn nhiều đáp án · 1 điểm</span></div>
+      <div class="q">Những dấu hiệu nào dưới đây cho thấy một tin nhắn có thể là lừa đảo? <span class="muted" style="font-weight:500">(Chọn tất cả đáp án đúng)</span></div>
+      <div class="opt on"><span class="key">A</span>Yêu cầu bạn cung cấp mã OTP để "xác minh tài khoản"</div>
+      <div class="opt"><span class="key">B</span>Gửi từ tổng đài chính thức, không kèm đường link</div>
+      <div class="opt on"><span class="key">C</span>Đường link có tên miền lạ, ví dụ nganhang-xacminh.top</div>
+      <div class="opt"><span class="key">D</span>Thúc giục phải làm ngay nếu không tài khoản sẽ bị khóa</div>
+      <div class="row-between" style="margin-top:8px">
+        <a class="btn btn-light btn-lg"><i data-i="chevron-left"></i>Câu trước</a>
+        <a class="btn btn-outline btn-lg">Câu tiếp theo<i data-i="chevron-right"></i></a>
+      </div>
+    </div>
+    <div class="alert info"><i data-i="info"></i><span>Đáp án được tự động lưu. Nếu lỡ tải lại trang, bạn vẫn tiếp tục được lượt làm này khi chưa hết giờ.</span></div>
+  </div>
+
+  <aside class="navq">
+    <div class="row-between"><b>Danh sách câu hỏi</b><span class="small muted">5/10 đã trả lời</span></div>
+    <div class="qn"><span class="a">1</span><span class="a">2</span><span class="a">3</span><span class="a">4</span><span class="a">5</span><span class="c">6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--red)"></i>Đã trả lời</span>
+      <span><i class="sw" style="border:2px solid var(--red)"></i>Câu đang xem</span>
+      <span><i class="sw" style="border:2px solid var(--line-2)"></i>Chưa trả lời</span>
+    </div>
+    <div class="alert warn" style="font-size:14px"><i data-i="hourglass" class="sm"></i><span>Hạn học của bạn còn 2 ngày 6 giờ.</span></div>
+    <a class="btn btn-primary btn-block">Nộp bài</a>
+  </aside>
+</div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

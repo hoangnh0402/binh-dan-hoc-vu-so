@@ -44,7 +44,7 @@ Response danh sách:
 |------|------------------|---------|
 | 400 | `VALIDATION_ERROR` | Dữ liệu vào sai |
 | 401 | `UNAUTHORIZED`, `TOKEN_EXPIRED`, `INVALID_CREDENTIALS` | Chưa đăng nhập / token hết hạn / sai thông tin |
-| 403 | `FORBIDDEN`, `ACCOUNT_LOCKED`, `ACCOUNT_NOT_VERIFIED`, `NOT_ENROLLED`, `LESSON_LOCKED`, `COURSE_NOT_STARTED` | Không đủ quyền / vi phạm quy tắc |
+| 403 | `FORBIDDEN`, `ACCOUNT_LOCKED`, `ACCOUNT_NOT_VERIFIED`, `NOT_ENROLLED`, `LESSON_LOCKED`, `COURSE_NOT_STARTED`, `ENROLLMENT_EXPIRED` | Không đủ quyền / vi phạm quy tắc |
 | 404 | `NOT_FOUND` | Không tồn tại |
 | 409 | `EMAIL_EXISTS`, `ALREADY_ENROLLED`, `CATEGORY_HAS_CHILDREN`, `CATEGORY_HAS_COURSES`, `COURSE_HAS_ENROLLMENTS` | Xung đột dữ liệu |
 | 422 | `OTP_INVALID`, `OTP_EXPIRED`, `MAX_ATTEMPTS_REACHED`, `COURSE_NOT_PUBLISHABLE` | Vi phạm nghiệp vụ |
@@ -92,7 +92,7 @@ Set-Cookie: refresh_token=...; HttpOnly; Secure; SameSite=Strict; Path=/api/v1/a
 | PUT | `/me` | Cập nhật hồ sơ | FR-AUTH-09 |
 | PUT | `/me/password` | Đổi mật khẩu | FR-AUTH-08 |
 | POST | `/me/avatar` | Tải ảnh đại diện (multipart) | FR-AUTH-09 |
-| GET | `/me/enrollments` | Khóa học của tôi (`?status=IN_PROGRESS,COMPLETED`) | SCR-CRS-04 |
+| GET | `/me/enrollments` | Khóa học của tôi (`?status=IN_PROGRESS,COMPLETED,EXPIRED`), mỗi mục có `expiresAt`, `remainingSeconds`, `roundNo` | SCR-CRS-04, FR-LRN-12 |
 
 ## 4. Khám phá khóa học (công khai)
 
@@ -107,7 +107,7 @@ Set-Cookie: refresh_token=...; HttpOnly; Secure; SameSite=Strict; Path=/api/v1/a
 | GET | `/courses/{slug}/reviews` | Danh sách đánh giá + thống kê sao | FR-CRS-07 |
 | POST | `/courses/{slug}/reviews` | Viết đánh giá (USER) | FR-CRS-07 |
 | PUT / DELETE | `/courses/{slug}/reviews/me` | Sửa / xóa đánh giá của tôi | FR-CRS-07 |
-| POST | `/courses/{slug}/enroll` | Ghi danh (USER) | FR-CRS-09 |
+| POST | `/courses/{slug}/enroll` | Ghi danh, hoặc đăng ký học lại khi lượt cũ `EXPIRED` (USER) | FR-CRS-09, BR-LRN-11 |
 | DELETE | `/courses/{slug}/enroll` | Hủy ghi danh (USER) | FR-CRS-11 |
 | GET | `/courses/{slug}/ranking` | Bảng xếp hạng (`page`, `size`) | FR-RNK-01 |
 | GET | `/courses/{slug}/ranking/me` | Thứ hạng của tôi | FR-RNK-02 |
@@ -118,7 +118,7 @@ Tham số `GET /courses`:
 |---------|-------|---------|
 | `q` | `an toan thong tin` | Không phân biệt dấu |
 | `status` | `UPCOMING,OPEN,ENDED` | Trạng thái khóa học (BR-CRS-01) |
-| `myStatus` | `NOT_ENROLLED,IN_PROGRESS,COMPLETED` | Chỉ khi đăng nhập |
+| `myStatus` | `NOT_ENROLLED,IN_PROGRESS,COMPLETED,EXPIRED` | Chỉ khi đăng nhập |
 | `category` | `ky-nang-so,an-toan-thong-tin` | Slug cấp 1 hoặc cấp 2 |
 | `level` | `BASIC,INTERMEDIATE` | |
 | `organization` | `12,15` | ID tổ chức |
@@ -129,7 +129,7 @@ Tham số `GET /courses`:
 
 | Method | Endpoint | Mô tả | Yêu cầu |
 |--------|----------|-------|---------|
-| GET | `/learning/courses/{courseId}` | Tổng quan: tiến độ, danh sách bài kèm trạng thái, `lastLessonId` | FR-LRN-01, 08, 09 |
+| GET | `/learning/courses/{courseId}` | Tổng quan: tiến độ, danh sách bài kèm trạng thái, `lastLessonId`, `learningStartedAt`, `expiresAt`, `remainingSeconds` | FR-LRN-01, 08, 09, 12 |
 | GET | `/learning/lessons/{lessonId}` | Nội dung + đề bài + thông tin quiz (403 nếu bị khóa) | FR-LRN-02, 03, 07 |
 | POST | `/learning/lessons/{lessonId}/complete` | Đánh dấu học xong (bài không có quiz) | FR-LRN-07 |
 | POST | `/learning/quizzes/{quizId}/attempts` | Bắt đầu lượt làm (hoặc trả lượt đang làm dở) | FR-LRN-04 |
@@ -138,6 +138,23 @@ Tham số `GET /courses`:
 | POST | `/learning/attempts/{attemptId}/submit` | Nộp bài → chấm điểm, cập nhật tiến độ & xếp hạng | FR-LRN-05, FR-RNK-03 |
 | GET | `/learning/attempts/{attemptId}/result` | Kết quả chi tiết | FR-LRN-05 |
 | GET | `/learning/quizzes/{quizId}/attempts` | Lịch sử các lượt của tôi | FR-LRN-10 |
+
+Mọi API trong nhóm `/learning/**` kiểm tra hạn học trước tiên: lượt ghi danh `IN_PROGRESS` có `expires_at` < giờ máy chủ, hoặc đã `EXPIRED`, thì trả `403 ENROLLMENT_EXPIRED` (BR-LRN-10). Bài nộp quiz đến sau `expires_at` bị từ chối và không được chấm.
+
+Ví dụ ghi danh:
+
+```json
+201 Created
+{
+  "enrollmentId": 412,
+  "status": "IN_PROGRESS",
+  "roundNo": 1,
+  "progressPercent": 0,
+  "learningStartedAt": "2026-10-26T02:15:00Z",
+  "expiresAt": "2026-11-16T02:15:00Z",
+  "learningDurationDays": 21
+}
+```
 
 Ví dụ nộp bài:
 

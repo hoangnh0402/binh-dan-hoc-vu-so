@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đăng ký — SCR-AUTH-02</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .auth { grid-template-columns: 1fr 1.25fr; min-height: 1180px; }
+  .fg2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .opt-h { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; color: var(--ink-2); }
+  .opt-h::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+</style>
+</head>
+<body class="auth-page">
+<div class="auth">
+  <section class="art">
+    <div class="brand"><span class="logo-bg"><img src="../brand/logo-hpu2.png" alt="Logo Trường Đại học Sư phạm Hà Nội 2"></span><div><div class="name">Bình Dân Học Vụ Số</div><div class="sub">Trường Đại học Sư phạm Hà Nội 2</div></div></div>
+    <div style="position:relative">
+      <h1>Tạo tài khoản<br>học miễn phí</h1>
+      <div class="pts">
+        <span><span class="ic"><i data-i="mail"></i></span>Xác thực email bằng mã OTP 6 chữ số</span>
+        <span><span class="ic"><i data-i="book"></i></span>Đăng ký học ngay các khóa kỹ năng số, ngoại ngữ</span>
+        <span><span class="ic"><i data-i="shield"></i></span>Thông tin cá nhân được bảo vệ theo Nghị định 13/2023/NĐ-CP</span>
+      </div>
+    </div>
+    <div class="small" style="opacity:.8;position:relative">© 2026 Trường Đại học Sư phạm Hà Nội 2</div>
+  </section>
+
+  <section class="form-side">
+    <div class="form-card wide">
+      <div class="seg"><a href="04-dang-nhap.html">Đăng nhập</a><a class="on">Đăng ký</a></div>
+      <div class="stepper"><span class="s on"><i>1</i>Thông tin</span><span class="ln"></span><span class="s"><i>2</i>Xác thực email</span><span class="ln"></span><span class="s"><i>3</i>Hoàn tất</span></div>
+
+      <div class="field"><label>Họ và tên <span class="req">*</span></label><input class="input" value="Nguyễn Văn An"></div>
+      <div class="field"><label>Email <span class="req">*</span></label><input class="input" value="an.nguyen@example.com"><span class="hint">Mã xác thực sẽ được gửi tới email này.</span></div>
+      <div class="fg2">
+        <div class="field"><label>Mật khẩu <span class="req">*</span></label><div class="pw"><input class="input focus" type="password" value="hocvien2026"><i data-i="eye"></i></div>
+          <div class="strength"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+          <div class="rules"><span class="ok"><i data-i="check" class="sm"></i>8–64 ký tự</span><span class="ok"><i data-i="check" class="sm"></i>Có chữ cái và chữ số</span><span class="ok"><i data-i="check" class="sm"></i>Không trùng email</span></div>
+        </div>
+        <div class="field"><label>Xác nhận mật khẩu <span class="req">*</span></label><div class="pw"><input class="input invalid" type="password" value="hocvien20"><i data-i="eye"></i></div>
+          <span class="err"><i data-i="alert" class="sm"></i>Mật khẩu xác nhận không khớp</span></div>
+      </div>
+
+      <div class="opt-h">Thông tin thêm (không bắt buộc)</div>
+      <div class="fg2">
+        <div class="field"><label>Năm sinh</label><div class="input select" style="display:flex;align-items:center;justify-content:space-between">1968<i data-i="chevron-down" class="sm"></i></div></div>
+        <div class="field"><label>Số điện thoại</label><input class="input" placeholder="0912 345 678"></div>
+        <div class="field"><label>Quê quán</label><div class="input select" style="display:flex;align-items:center;justify-content:space-between">Phú Thọ<i data-i="chevron-down" class="sm"></i></div></div>
+        <div class="field"><label>Nơi công tác</label><input class="input" placeholder="Ví dụ: UBND phường Xuân Hòa"></div>
+      </div>
+
+      <div class="check" style="align-items:flex-start"><span class="box on" style="margin-top:2px"><i data-i="check" class="sm"></i></span><span>Tôi đồng ý với <a class="bold">Điều khoản sử dụng</a> và <a class="bold">Chính sách bảo vệ dữ liệu cá nhân</a> <span class="req" style="color:var(--error)">*</span></span></div>
+      <a class="btn btn-primary btn-lg btn-block">Đăng ký và nhận mã xác thực</a>
+      <p class="small" style="text-align:center">Đã có tài khoản? <a class="bold" href="04-dang-nhap.html">Đăng nhập</a></p>
+    </div>
+  </section>
+</div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

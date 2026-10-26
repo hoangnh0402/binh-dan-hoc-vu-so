@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Bài học &amp; quiz builder — SCR-ADM-07</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .split { display: grid; grid-template-columns: 290px 1fr; gap: 20px; align-items: start; }
+  .les { display: flex; gap: 10px; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .les .n { width: 26px; height: 26px; border-radius: 7px; background: #f5eeed; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; flex: none; }
+  .les.sel { background: var(--red-tint); box-shadow: inset 4px 0 0 var(--red); }
+  .les.sel .n { background: var(--red); color: #fff; }
+  .les .st { margin-left: auto; }
+  .cfg { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .cfg .input { height: 44px; display: flex; align-items: center; justify-content: space-between; }
+  .flags { display: flex; gap: 28px; flex-wrap: wrap; }
+  .q { border: 1px solid var(--line); border-radius: var(--r-lg); background: #fff; }
+  .q .qh { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
+  .q .qh .n { font-weight: 800; color: var(--red); }
+  .q.open { border-color: var(--red); box-shadow: 0 0 0 3px rgba(150,37,33,.08); }
+  .q .qb { border-top: 1px solid var(--line); padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+  .optrow { display: flex; align-items: center; gap: 12px; }
+  .optrow .input { height: 44px; flex: 1; }
+  .optrow.ok .input { border-color: var(--success); background: var(--success-tint); }
+  .optrow .lbl { font-size: 12px; font-weight: 700; color: var(--success); width: 92px; }
+  .seg3 { display: inline-flex; background: #f5eeed; border-radius: 8px; padding: 3px; }
+  .seg3 span { padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 700; color: var(--ink-2); }
+  .seg3 span.on { background: #fff; color: var(--red); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+</style>
+</head>
+<body>
+<div class="admin">
+  <aside class="sidebar" data-sidebar data-active="khoa-hoc"></aside>
+  <div class="admin-main">
+    <div class="admin-top">
+      <div class="crumb"><span>Khóa học</span><i data-i="chevron-right" class="sm"></i><span>An toàn thông tin...</span><i data-i="chevron-right" class="sm"></i><b>Bài 3</b></div>
+      <div class="row"><button class="icon-btn"><i data-i="bell"></i></button><div class="user-chip"><span class="avatar">QT</span><div><div class="n">Quản trị viên</div><div class="r">ADMIN</div></div></div></div>
+    </div>
+    <div class="admin-body">
+      <div class="page-h">
+        <div><h1>Bài 3. Nhận diện tin nhắn, cuộc gọi lừa đảo</h1><div class="row" style="margin-top:8px;gap:8px"><span class="chip success">Đã xuất bản</span><span class="small muted">1.204 người đã mở bài · 980 người đã hoàn thành</span></div></div>
+        <div class="row"><a class="btn btn-light"><i data-i="eye"></i>Xem trước</a><a class="btn btn-primary"><i data-i="check"></i>Lưu</a></div>
+      </div>
+      <div class="split">
+        <div class="panel">
+          <div class="panel-h"><h3>Bài học (6)</h3><a class="btn btn-ghost btn-sm"><i data-i="plus" class="sm"></i>Thêm</a></div>
+          <div class="les"><i data-i="menu" class="sm" style="color:var(--ink-3)"></i><span class="n">1</span>Vì sao cần an toàn thông tin?<i data-i="check-circle" class="sm st" style="color:var(--success)"></i></div>
+          <div class="les"><i data-i="menu" class="sm" style="color:var(--ink-3)"></i><span class="n">2</span>Tạo và quản lý mật khẩu<i data-i="check-circle" class="sm st" style="color:var(--success)"></i></div>
+          <div class="les sel"><i data-i="menu" class="sm" style="color:var(--ink-3)"></i><span class="n">3</span><b>Nhận diện tin nhắn lừa đảo</b><i data-i="check-circle" class="sm st" style="color:var(--success)"></i></div>
+          <div class="les"><i data-i="menu" class="sm" style="color:var(--ink-3)"></i><span class="n">4</span>Bảo vệ tài khoản mạng xã hội<i data-i="check-circle" class="sm st" style="color:var(--success)"></i></div>
+          <div class="les"><i data-i="menu" class="sm" style="color:var(--ink-3)"></i><span class="n">5</span>Giao dịch ngân hàng số<i data-i="check-circle" class="sm st" style="color:var(--success)"></i></div>
+          <div class="les"><i data-i="menu" class="sm" style="color:var(--ink-3)"></i><span class="n">6</span>Tổng kết khóa học<i data-i="check-circle" class="sm st" style="color:var(--success)"></i></div>
+          <div class="panel-b"><div class="alert warn" style="font-size:13px"><i data-i="alert" class="sm"></i><span>Khóa học đã có học viên. Sắp xếp lại hoặc chèn bài mới sẽ ảnh hưởng thứ tự mở khóa.</span></div></div>
+        </div>
+
+        <div class="stack" style="gap:20px">
+          <nav class="tabs"><a>Nội dung bài học</a><a>Đề bài</a><a>Tệp đính kèm (2)</a><a class="active">Quiz (10 câu)</a></nav>
+
+          <div class="panel">
+            <div class="panel-h"><h3>Cấu hình quiz</h3><span class="row" style="gap:10px"><span class="small bold">Bật quiz</span><span class="toggle"></span></span></div>
+            <div class="panel-b stack" style="gap:18px">
+              <div class="cfg">
+                <div class="field"><label>Điểm đạt (%)</label><div class="input">70</div></div>
+                <div class="field"><label>Thời gian (phút)</label><div class="input">15</div></div>
+                <div class="field"><label>Số lần làm tối đa</label><div class="input" style="color:var(--ink-3)">Không giới hạn</div></div>
+                <div class="field"><label>Chờ giữa 2 lần (phút)</label><div class="input">0</div></div>
+              </div>
+              <div class="flags">
+                <span class="check"><span class="box on"><i data-i="check" class="sm"></i></span>Xáo trộn câu hỏi</span>
+                <span class="check"><span class="box on"><i data-i="check" class="sm"></i></span>Xáo trộn đáp án</span>
+                <span class="check"><span class="box on"><i data-i="check" class="sm"></i></span>Cho xem đáp án sau khi nộp</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-h"><h3>Câu hỏi · tổng 10 điểm</h3><div class="row"><a class="btn btn-light btn-sm"><i data-i="upload" class="sm"></i>Nhập từ Excel</a><a class="btn btn-primary btn-sm"><i data-i="plus" class="sm"></i>Thêm câu hỏi</a></div></div>
+            <div class="panel-b stack" style="gap:12px">
+              <div class="q"><div class="qh"><i data-i="menu" class="sm" style="color:var(--ink-3)"></i><span class="n">5</span><span style="flex:1">Ngân hàng có bao giờ yêu cầu bạn đọc mã OTP qua điện thoại không?</span><span class="chip neutral">Đúng/Sai</span><span class="small muted">1 điểm</span><i data-i="chevron-down" class="sm"></i></div></div>
+              <div class="q open">
+                <div class="qh"><i data-i="menu" class="sm" style="color:var(--ink-3)"></i><span class="n">6</span><span style="flex:1" class="bold">Những dấu hiệu nào cho thấy một tin nhắn có thể là lừa đảo?</span><div class="acts"><a><i data-i="layers" class="sm"></i></a><a class="danger"><i data-i="trash" class="sm"></i></a></div></div>
+                <div class="qb">
+                  <div class="row-between"><div class="seg3"><span>Một đáp án</span><span class="on">Nhiều đáp án</span><span>Đúng/Sai</span></div><div class="row small"><span class="bold">Điểm</span><div class="input" style="width:72px;height:40px;display:flex;align-items:center">1</div></div></div>
+                  <div class="field"><label>Nội dung câu hỏi</label><input class="input" value="Những dấu hiệu nào dưới đây cho thấy một tin nhắn có thể là lừa đảo?"></div>
+                  <div class="field"><label>Đáp án (2–8) — đánh dấu tất cả đáp án đúng</label>
+                    <div class="stack" style="gap:8px">
+                      <div class="optrow ok"><span class="box on"><i data-i="check" class="sm"></i></span><div class="input" style="display:flex;align-items:center">Yêu cầu bạn cung cấp mã OTP để "xác minh tài khoản"</div><span class="lbl">ĐÁP ÁN ĐÚNG</span></div>
+                      <div class="optrow"><span class="box"></span><div class="input" style="display:flex;align-items:center">Gửi từ tổng đài chính thức, không kèm đường link</div><span class="lbl"></span></div>
+                      <div class="optrow ok"><span class="box on"><i data-i="check" class="sm"></i></span><div class="input" style="display:flex;align-items:center">Đường link có tên miền lạ, ví dụ nganhang-xacminh.top</div><span class="lbl">ĐÁP ÁN ĐÚNG</span></div>
+                      <div class="optrow ok"><span class="box on"><i data-i="check" class="sm"></i></span><div class="input" style="display:flex;align-items:center">Thúc giục phải làm ngay nếu không tài khoản sẽ bị khóa</div><span class="lbl">ĐÁP ÁN ĐÚNG</span></div>
+                      <a class="small bold"><i data-i="plus" class="sm"></i> Thêm đáp án</a>
+                    </div>
+                  </div>
+                  <div class="field"><label>Giải thích (hiện sau khi nộp)</label><input class="input" value="Việc thúc giục &quot;phải làm ngay&quot; là thủ đoạn tâm lý phổ biến để bạn không kịp suy nghĩ."></div>
+                  <div class="alert warn" style="font-size:14px"><i data-i="alert" class="sm"></i><span>Câu hỏi này đã có <b>1.130 lượt trả lời</b>. Đổi đáp án đúng sẽ làm sai lệch điểm cũ — hãy chạy <b>"Tính lại xếp hạng"</b> sau khi lưu.</span></div>
+                </div>
+              </div>
+              <div class="q"><div class="qh"><i data-i="menu" class="sm" style="color:var(--ink-3)"></i><span class="n">7</span><span style="flex:1">Khi nhận cuộc gọi tự xưng là công an yêu cầu chuyển tiền, bạn nên làm gì?</span><span class="chip neutral">Một đáp án</span><span class="small muted">1 điểm</span><i data-i="chevron-down" class="sm"></i></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

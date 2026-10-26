@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design system — Bình Dân Học Vụ Số</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  body { background: #fff; }
+  .ds { padding: 48px 0 64px; display: flex; flex-direction: column; gap: 48px; }
+  .ds h1 { font-size: 40px; font-weight: 800; }
+  .ds h2.h { font-size: 22px; font-weight: 800; color: var(--red); text-transform: uppercase; letter-spacing: .02em; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--line); }
+  .sw { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+  .sw .c { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .sw .c .p { height: 84px; }
+  .sw .c .t { padding: 10px 12px; font-size: 13px; }
+  .sw .c .t b { display: block; font-size: 14px; }
+  .sw .c .t code { font-family: ui-monospace, Consolas, monospace; color: var(--ink-2); }
+  .type .r { display: grid; grid-template-columns: 200px 1fr; align-items: baseline; padding: 12px 0; border-bottom: 1px dashed var(--line); }
+  .type .r span { font-size: 13px; color: var(--ink-2); }
+  .demo { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .logo-row { display: flex; gap: 32px; align-items: center; }
+  .logo-row .bx { border: 1px solid var(--line); border-radius: 16px; padding: 24px; display: flex; align-items: center; justify-content: center; }
+</style>
+</head>
+<body>
+<div class="container ds">
+  <div>
+    <div class="row" style="gap:16px"><img src="../brand/logo-hpu2.png" alt="Logo HPU2" style="width:72px;height:72px"><div><h1>Design system</h1><p class="muted">Bình Dân Học Vụ Số — Trường Đại học Sư phạm Hà Nội 2 · Tông đỏ – trắng · Font Be Vietnam Pro</p></div></div>
+  </div>
+
+  <section>
+    <h2 class="h">Logo</h2>
+    <div class="logo-row">
+      <div class="bx"><img src="../brand/logo-hpu2.png" alt="" style="width:120px;height:120px"></div>
+      <div class="bx"><div class="brand"><img src="../brand/logo-hpu2.png" alt=""><div><div class="name">Bình Dân Học Vụ Số</div><div class="sub">Trường ĐHSP Hà Nội 2</div></div></div></div>
+      <div class="bx" style="background:var(--red)"><div style="width:72px;height:72px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center"><img src="../brand/logo-hpu2.png" alt="" style="width:64px;height:64px"></div></div>
+      <div class="small muted" style="max-width:300px">Giữ nguyên hình tròn và màu gốc. Trên nền đỏ, đặt logo trong vòng tròn trắng. Khoảng trống tối thiểu = 1/4 chiều rộng logo.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="h">Màu sắc</h2>
+    <div class="sw">
+      <div class="c"><div class="p" style="background:#962521"></div><div class="t"><b>Đỏ HPU2</b><code>#962521</code> primary</div></div>
+      <div class="c"><div class="p" style="background:#7a1c19"></div><div class="t"><b>Đỏ đậm</b><code>#7A1C19</code> hover, footer</div></div>
+      <div class="c"><div class="p" style="background:#5e1210"></div><div class="t"><b>Đỏ rất đậm</b><code>#5E1210</code> gradient, sidebar</div></div>
+      <div class="c"><div class="p" style="background:#fcefee"></div><div class="t"><b>Đỏ nhạt</b><code>#FCEFEE</code> nền tag, chọn</div></div>
+      <div class="c"><div class="p" style="background:#ffffff;border-bottom:1px solid var(--line)"></div><div class="t"><b>Trắng</b><code>#FFFFFF</code> nền chính</div></div>
+      <div class="c"><div class="p" style="background:#fff8f7"></div><div class="t"><b>Nền phụ</b><code>#FFF8F7</code> canvas</div></div>
+      <div class="c"><div class="p" style="background:#1f1a1a"></div><div class="t"><b>Chữ chính</b><code>#1F1A1A</code></div></div>
+      <div class="c"><div class="p" style="background:#574342"></div><div class="t"><b>Chữ phụ</b><code>#574342</code></div></div>
+      <div class="c"><div class="p" style="background:#f1dad8"></div><div class="t"><b>Viền</b><code>#F1DAD8</code></div></div>
+      <div class="c"><div class="p" style="background:#f5bf3c"></div><div class="t"><b>Vàng thành tích</b><code>#F5BF3C</code> sao, huy chương</div></div>
+      <div class="c"><div class="p" style="background:#1b7f3b"></div><div class="t"><b>Thành công</b><code>#1B7F3B</code> hoàn thành</div></div>
+      <div class="c"><div class="p" style="background:#a15c00"></div><div class="t"><b>Cảnh báo</b><code>#A15C00</code> sắp hết hạn</div></div>
+    </div>
+  </section>
+
+  <section class="type">
+    <h2 class="h">Chữ</h2>
+    <div class="r"><span>Display · 44 / 800</span><div style="font-size:44px;font-weight:800;letter-spacing:-.02em">Học kỹ năng số</div></div>
+    <div class="r"><span>Heading 1 · 32 / 800</span><div style="font-size:32px;font-weight:800">Khóa học của tôi</div></div>
+    <div class="r"><span>Heading 2 · 22 / 700</span><div style="font-size:22px;font-weight:700">Giáo trình · 6 bài</div></div>
+    <div class="r"><span>Tiêu đề khối · 26 / 800</span><div class="sec-title" style="margin:0"><h2>Khóa học nổi bật</h2></div></div>
+    <div class="r"><span>Nội dung bài học · 18 / 400</span><div style="font-size:18px;line-height:1.7">Kẻ gian thường giả danh ngân hàng hoặc người quen để yêu cầu bạn chuyển tiền gấp.</div></div>
+    <div class="r"><span>Body · 16 / 400 (tối thiểu)</span><div>Hoàn thành bài trước để mở khóa bài sau.</div></div>
+    <div class="r"><span>Caption · 13 / 600</span><div class="xs bold muted">Còn 12 ngày · 6 bài học</div></div>
+  </section>
+
+  <section>
+    <h2 class="h">Nút</h2>
+    <div class="demo">
+      <a class="btn btn-primary btn-lg">Đăng ký học</a><a class="btn btn-primary">Tiếp tục học</a><a class="btn btn-outline">Đăng ký học lại</a><a class="btn btn-ghost">Xem chi tiết</a><a class="btn btn-light">Bài trước</a><a class="btn btn-primary btn-sm">Học tiếp</a><a class="btn" disabled>Xác nhận</a>
+      <span style="background:var(--red);padding:12px;border-radius:10px"><a class="btn btn-white">Học bài tiếp theo</a></span>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="h">Nhãn trạng thái</h2>
+    <div class="demo">
+      <span class="chip solid">Đang mở</span><span class="chip gold">Sắp mở</span><span class="chip neutral">Đã kết thúc</span><span class="chip">Kỹ năng số</span><span class="chip success"><i data-i="check-circle" class="sm"></i>Đã hoàn thành</span><span class="chip warn"><i data-i="hourglass" class="sm"></i>Còn 2 ngày</span><span class="chip error"><i data-i="alert" class="sm"></i>Hết hạn</span><span class="chip outline on">Cơ bản<i data-i="x" class="sm"></i></span>
+      <span class="medal m1">1</span><span class="medal m2">2</span><span class="medal m3">3</span><span class="medal mx">27</span>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="h">Ô nhập &amp; thông báo</h2>
+    <div class="grid-3">
+      <div class="field"><label>Email <span class="req">*</span></label><input class="input" placeholder="ban@example.com"></div>
+      <div class="field"><label>Đang nhập</label><input class="input focus" value="an.nguyen@example.com"></div>
+      <div class="field"><label>Lỗi</label><input class="input invalid" value="an.nguyen@"><span class="err"><i data-i="alert" class="sm"></i>Email không đúng định dạng</span></div>
+    </div>
+    <div class="grid-2" style="margin-top:20px;gap:14px">
+      <div class="alert info"><i data-i="info"></i>Thông tin: ngân hàng không bao giờ hỏi mã OTP.</div>
+      <div class="alert success"><i data-i="check-circle"></i>Đăng ký học thành công. Hạn học: 16/11/2026.</div>
+      <div class="alert warn"><i data-i="alert"></i>Thời hạn học còn 2 ngày 6 giờ.</div>
+      <div class="alert error"><i data-i="alert"></i>Thời hạn học đã kết thúc. Bạn cần học lại từ đầu.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="h">Thẻ khóa học</h2>
+    <div class="grid-4" id="cards"></div>
+  </section>
+</div>
+<script src="assets/layout.js"></script>
+<script src="assets/components.js"></script>
+<script>
+  document.getElementById('cards').innerHTML = [
+    courseCard(COURSES[0]), courseCard(COURSES[1], { progress: 40, left: '12 ngày' }),
+    courseCard(COURSES[3], { progress: 33, left: '2 ngày 6 giờ', warn: true }), courseCard(COURSES[5], { expired: '20/10/2026' })
+  ].join('');
+</script>
+</body>
+</html>
