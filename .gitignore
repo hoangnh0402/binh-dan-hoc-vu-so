@@ -22,3 +22,28 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Bí mật & môi trường
+.env
+*.env.local
+
+# Build output
+target/
+node_modules/
+dist/
+coverage/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Tệp tải lên khi chạy local
+backend/uploads/
+
+# Playwright
+test-results/
+playwright-report/
+
+# TypeScript incremental build
+*.tsbuildinfo
