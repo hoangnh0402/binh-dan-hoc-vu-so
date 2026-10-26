@@ -1,0 +1,5 @@
+# Script chạy trong sh/bash (Git Bash, Docker, Linux) phải giữ LF dù clone trên Windows.
+*.sh  text eol=lf
+mvnw  text eol=lf
+# Script Windows giữ CRLF.
+*.cmd text eol=crlf
