@@ -44,13 +44,13 @@ gantt
 
 **Mục tiêu:** sẵn sàng hạ tầng phát triển, chốt các quyết định còn mở.
 
-- [ ] PO chốt các câu hỏi mở Q-01 → Q-11 ([00-tong-quan.md](00-tong-quan.md)) và cập nhật SRS.
+- [ ] PO chốt các câu hỏi mở Q-01 → Q-13 ([00-tong-quan.md](00-tong-quan.md)) và cập nhật SRS.
 - [ ] Tạo nhánh `develop`, cấu hình branch protection, PR template, labels, GitHub Project ([10](10-quy-trinh-git-cicd.md)).
 - [ ] Khởi tạo monorepo `backend/` (Spring Boot), `frontend/` (React + Vite), `deploy/` (Docker Compose: SQL Server, Redis, MinIO, MailHog).
 - [ ] Cập nhật `.gitignore` cho Node/IDE/.env.
 - [ ] Workflow `ci.yml` chạy lint + test + build (khung rỗng).
 - [ ] Flyway `V1__init.sql` với các bảng lõi ([07](07-thiet-ke-csdl.md)).
-- [ ] Wireframe các màn hình chính; design system (màu, chữ, nút, form) đáp ứng NFR-UX-01, 02.
+- [ ] Wireframe các màn hình chính; design system tông đỏ – trắng theo nhận diện Trường ĐHSP Hà Nội 2 (màu, chữ, nút, form, logo, favicon) đáp ứng NFR-UX-01, 02, 08.
 - [ ] Chuẩn bị server staging.
 
 **Đầu ra:** Dev chạy được toàn bộ hệ thống bằng `docker compose up`; CI chạy trên mọi PR.
@@ -62,7 +62,7 @@ gantt
 | BE: đăng ký, OTP, gửi lại OTP, đăng nhập, refresh, đăng xuất, quên/đặt lại mật khẩu, đổi mật khẩu, hồ sơ | FR-AUTH-01 → 09 |
 | BE: Spring Security + JWT + RBAC, rate limit, khóa tạm khi sai mật khẩu | FR-AUTH-10, BR-AUTH-01 → 07 |
 | BE: dịch vụ gửi email bất đồng bộ + mẫu email | NFR-REL-06 |
-| FE: layout chung (header, footer), các màn hình SCR-AUTH-01 → 05, cơ chế tự làm mới token, route guard | |
+| FE: layout chung (header, footer có logo trường), các màn hình SCR-AUTH-01 → 05, cơ chế tự làm mới token, route guard | |
 | FE: layout trang quản trị (sidebar, header) | |
 | CI/CD: `deploy-staging.yml` | |
 
@@ -76,7 +76,7 @@ gantt
 | Quản lý loại khóa học 2 cấp (cây, kéo thả sắp xếp) | FR-ADM-07 → 10 |
 | Quản lý tổ chức đào tạo | FR-ADM-11 |
 | Tải lên tệp (S3/MinIO) | FR-ADM-23 |
-| Tạo/sửa thông tin khóa học (chưa gồm bài học) | FR-ADM-12, 13 |
+| Tạo/sửa thông tin khóa học (chưa gồm bài học), gồm thời hạn học (mặc định 21 ngày) | FR-ADM-12, 13 |
 | Audit log (ghi nhận) | FR-ADM-22 |
 
 **Demo:** Admin tạo cây lĩnh vực, tổ chức, khóa học nháp có ảnh bìa; quản lý người dùng.
@@ -102,8 +102,9 @@ gantt
 | Trang học, nội dung & đề bài, tiếp tục học | FR-LRN-01 → 03, 09 |
 | Làm quiz, chấm điểm, kết quả, làm lại, lịch sử | FR-LRN-04 → 06, 10 |
 | Mở khóa tuần tự, hoàn thành bài/khóa học | FR-LRN-07, 11, BR-LRN-01 → 08 |
+| Thời hạn học: hiển thị hạn, chặn truy cập khi hết hạn, job xóa dữ liệu, đăng ký học lại; email nhắc hạn | FR-LRN-12, 13, BR-LRN-09 → 12 |
 
-**Demo:** người học ghi danh → học bài 1 → làm quiz không đạt → làm lại đạt → bài 2 tự mở khóa → tiến độ cập nhật → hoàn thành khóa.
+**Demo:** người học ghi danh → học bài 1 → làm quiz không đạt → làm lại đạt → bài 2 tự mở khóa → tiến độ cập nhật → hoàn thành khóa. Người học thứ hai để quá hạn (đặt thời hạn học 1 ngày trên staging) → khóa bị đóng, tiến độ và xếp hạng bị xóa → đăng ký học lại từ đầu.
 
 ### Sprint 5 — Xếp hạng, đánh giá, dashboard (2 tuần)
 
@@ -164,6 +165,7 @@ gantt
 | Vượt giới hạn gửi của Gmail miễn phí (~500 email/ngày) khi lượng đăng ký tăng | Trung bình | Theo dõi số email gửi mỗi ngày, cảnh báo khi đạt 80% giới hạn; nếu thường xuyên vượt thì chuyển sang SMTP khác bằng cấu hình `spring.mail.*`, không phải sửa code |
 | Người dùng lớn tuổi khó sử dụng | Trung bình | UAT sớm với người dùng thật từ Sprint 4, tuân thủ NFR-UX |
 | Gian lận quiz (tra đáp án qua API, sửa thời gian) | Trung bình | BR-LRN-04, BR-LRN-05: không gửi đáp án trước khi nộp, tính thời gian ở máy chủ |
+| Người học mất tiến độ do hết thời hạn học, gây phàn nàn | Trung bình | Hiển thị hạn học rõ ràng ngay khi ghi danh, cảnh báo trên trang học khi còn ≤ 3 ngày, email nhắc trước 3 ngày và 24 giờ (FR-LRN-12, 13); Admin chỉnh thời hạn theo độ dài từng khóa |
 | Admin sửa nội dung khi đã có học viên làm sai lệch tiến độ/xếp hạng | Trung bình | Cảnh báo khi sửa, chức năng tính lại xếp hạng (FR-RNK-04) |
 | Cherry-pick sót commit khi phát hành | Trung bình | Ưu tiên merge `develop → main`; cherry-pick chỉ qua nhánh `release/*` có CI đầy đủ (tài liệu 10) |
 | Thiếu nội dung khóa học thật khi ra mắt | Trung bình | Lên kế hoạch nhập liệu song song từ Sprint 4, công cụ nhập câu hỏi từ Excel |
@@ -171,7 +173,7 @@ gantt
 
 ## 7. Bước tiếp theo ngay
 
-1. PO/chủ dự án rà soát bộ SRS và trả lời các câu hỏi Q-01 → Q-11.
+1. PO/chủ dự án rà soát bộ SRS và trả lời các câu hỏi Q-01 → Q-13.
 2. Cập nhật SRS lên phiên bản 1.0 theo các quyết định.
 3. Tạo issue trên GitHub cho từng mã yêu cầu theo kế hoạch sprint ở mục 3.
 4. Bắt đầu Sprint 0.

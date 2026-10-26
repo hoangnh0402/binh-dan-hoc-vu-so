@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chi tiết khóa học — Giới thiệu — FR-CRS-05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .outc { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
+  .outc .row { align-items: flex-start; }
+  .who-for { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .who-for .card { padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+  .who-for .ic { width: 44px; height: 44px; border-radius: 12px; background: var(--red-tint); color: var(--red); display: flex; align-items: center; justify-content: center; }
+  .org-card { display: flex; gap: 16px; align-items: center; padding: 20px; }
+  .org-card .lg { width: 64px; height: 64px; border-radius: 16px; background: var(--red-tint); color: var(--red); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; flex: none; }
+</style>
+</head>
+<body data-tab="gioi-thieu" data-state="guest">
+<div data-header="guest" data-active="khoa-hoc"></div>
+<div id="tab-content">
+  <h2 class="t" style="font-size:22px;margin:28px 0 14px">Giới thiệu khóa học</h2>
+  <div class="prose-c">
+    <p>Lừa đảo qua mạng ngày càng tinh vi: giả danh ngân hàng, công an, người thân, sàn thương mại điện tử... Khóa học giúp bạn nhận ra những dấu hiệu bất thường và biết cách xử lý trước khi mất tiền hoặc lộ thông tin.</p>
+    <p>Mỗi bài gồm video ngắn, phần đọc, một đề bài thực hành trên chính điện thoại hoặc máy tính của bạn, và một bài quiz 10 câu ở cuối.</p>
+  </div>
+
+  <h2 class="t" style="font-size:22px;margin:32px 0 14px">Bạn sẽ học được gì?</h2>
+  <div class="outc">
+    <div class="row"><i data-i="check-circle" style="color:var(--success)"></i>Nhận biết 10 thủ đoạn lừa đảo trực tuyến phổ biến</div>
+    <div class="row"><i data-i="check-circle" style="color:var(--success)"></i>Tạo mật khẩu mạnh và bật xác thực hai lớp</div>
+    <div class="row"><i data-i="check-circle" style="color:var(--success)"></i>Kiểm tra đường link, ứng dụng trước khi cài đặt</div>
+    <div class="row"><i data-i="check-circle" style="color:var(--success)"></i>Xử lý khi bị lộ thông tin hoặc bị lừa đảo</div>
+  </div>
+
+  <h2 class="t" style="font-size:22px;margin:32px 0 14px">Khóa học phù hợp với ai?</h2>
+  <div class="who-for">
+    <div class="card"><span class="ic"><i data-i="users"></i></span><b>Người lớn tuổi</b><span class="small muted">Mới dùng điện thoại thông minh, Zalo, Facebook</span></div>
+    <div class="card"><span class="ic"><i data-i="building"></i></span><b>Cán bộ, công chức</b><span class="small muted">Thường xuyên dùng email, dịch vụ công trực tuyến</span></div>
+    <div class="card"><span class="ic"><i data-i="book"></i></span><b>Học sinh, sinh viên</b><span class="small muted">Dùng mạng xã hội, mua sắm và thanh toán trực tuyến</span></div>
+  </div>
+
+  <h2 class="t" style="font-size:22px;margin:32px 0 14px">Yêu cầu đầu vào</h2>
+  <div class="prose-c"><p>Biết sử dụng điện thoại thông minh hoặc máy tính ở mức cơ bản (mở ứng dụng, đọc tin nhắn, truy cập trang web). Không cần kiến thức công nghệ thông tin.</p></div>
+
+  <div class="alert info" style="margin-top:28px"><i data-i="hourglass"></i><span><b>Thời hạn học 21 ngày.</b> Sau khi đăng ký, bạn cần hoàn thành 6 bài trong 21 ngày. Quá hạn mà chưa xong, tiến độ và điểm sẽ bị xóa và bạn phải học lại từ đầu.</span></div>
+
+  <h2 class="t" style="font-size:22px;margin:32px 0 14px">Tổ chức đào tạo</h2>
+  <div class="card org-card"><span class="lg">CNTT</span><div style="flex:1"><b style="font-size:18px">Khoa Công nghệ thông tin</b><div class="small muted">Trường Đại học Sư phạm Hà Nội 2 · 9 khóa học · 4.212 người học</div></div><a class="btn btn-ghost btn-sm">Xem các khóa học</a></div>
+</div>
+<div data-footer></div>
+<script src="assets/layout.js"></script>
+<script src="assets/course-detail.js"></script>
+</body>
+</html>

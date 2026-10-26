@@ -269,6 +269,7 @@ CREATE TABLE dbo.courses (
     publish_status          NVARCHAR(20)    NOT NULL CONSTRAINT df_courses_publish_status DEFAULT N'DRAFT',
     start_date              DATETIME2(3)    NULL,
     end_date                DATETIME2(3)    NULL,
+    learning_duration_days  INT             NOT NULL CONSTRAINT df_courses_learning_duration_days DEFAULT 21,
     estimated_minutes       INT             NULL,
     is_featured             BIT             NOT NULL CONSTRAINT df_courses_is_featured DEFAULT 0,
     certificate_criteria    NVARCHAR(MAX)   NULL,
@@ -295,6 +296,8 @@ CREATE TABLE dbo.courses (
     CONSTRAINT ck_courses_course_level CHECK (course_level IN (N'BASIC', N'INTERMEDIATE', N'ADVANCED')),
     CONSTRAINT ck_courses_publish_status CHECK (publish_status IN (N'DRAFT', N'PUBLISHED', N'ARCHIVED')),
     CONSTRAINT ck_courses_dates CHECK (start_date IS NULL OR end_date IS NULL OR end_date > start_date),
+    -- BR-LRN-09: thời hạn học của mỗi lượt ghi danh, mặc định 21 ngày (3 tuần)
+    CONSTRAINT ck_courses_learning_duration_days CHECK (learning_duration_days BETWEEN 1 AND 365),
     CONSTRAINT ck_courses_estimated_minutes CHECK (estimated_minutes IS NULL OR estimated_minutes >= 0),
     CONSTRAINT ck_courses_counters CHECK (published_lesson_count >= 0 AND enrollment_count >= 0 AND rating_count >= 0),
     CONSTRAINT ck_courses_rating_avg CHECK (rating_avg BETWEEN 0 AND 5),
@@ -427,6 +430,11 @@ CREATE TABLE dbo.enrollments (
     enrolled_at             DATETIME2(3)   NOT NULL CONSTRAINT df_enrollments_enrolled_at DEFAULT SYSUTCDATETIME(),
     completed_at            DATETIME2(3)   NULL,
     cancelled_at            DATETIME2(3)   NULL,
+    round_no                INT            NOT NULL CONSTRAINT df_enrollments_round_no DEFAULT 1,
+    learning_started_at     DATETIME2(3)   NOT NULL CONSTRAINT df_enrollments_learning_started_at DEFAULT SYSUTCDATETIME(),
+    expires_at              DATETIME2(3)   NOT NULL,
+    expired_at              DATETIME2(3)   NULL,
+    expiry_reminder_stage   TINYINT        NOT NULL CONSTRAINT df_enrollments_expiry_reminder_stage DEFAULT 0,
     version                 INT            NOT NULL CONSTRAINT df_enrollments_version DEFAULT 0,
     updated_at              DATETIME2(3)   NOT NULL CONSTRAINT df_enrollments_updated_at DEFAULT SYSUTCDATETIME(),
     CONSTRAINT pk_enrollments PRIMARY KEY CLUSTERED (id),
@@ -434,16 +442,24 @@ CREATE TABLE dbo.enrollments (
     CONSTRAINT fk_enrollments_course FOREIGN KEY (course_id) REFERENCES dbo.courses (id),
     CONSTRAINT fk_enrollments_last_lesson FOREIGN KEY (last_lesson_id) REFERENCES dbo.lessons (id),
     CONSTRAINT uq_enrollments_user_course UNIQUE (user_id, course_id),
-    CONSTRAINT ck_enrollments_status CHECK (status IN (N'IN_PROGRESS', N'COMPLETED', N'CANCELLED')),
+    CONSTRAINT ck_enrollments_status CHECK (status IN (N'IN_PROGRESS', N'COMPLETED', N'CANCELLED', N'EXPIRED')),
     CONSTRAINT ck_enrollments_progress CHECK (progress_percent BETWEEN 0 AND 100 AND completed_lesson_count >= 0),
     CONSTRAINT ck_enrollments_completed_at CHECK (status <> N'COMPLETED' OR completed_at IS NOT NULL),
-    CONSTRAINT ck_enrollments_cancelled_at CHECK (status <> N'CANCELLED' OR cancelled_at IS NOT NULL)
+    CONSTRAINT ck_enrollments_cancelled_at CHECK (status <> N'CANCELLED' OR cancelled_at IS NOT NULL),
+    -- BR-LRN-09..11: thời hạn học
+    CONSTRAINT ck_enrollments_round_no CHECK (round_no >= 1),
+    CONSTRAINT ck_enrollments_expires_at CHECK (expires_at > learning_started_at),
+    CONSTRAINT ck_enrollments_expired_at CHECK (status <> N'EXPIRED' OR expired_at IS NOT NULL),
+    CONSTRAINT ck_enrollments_expiry_reminder_stage CHECK (expiry_reminder_stage BETWEEN 0 AND 2)
 );
 GO
 CREATE NONCLUSTERED INDEX ix_enrollments_user_status ON dbo.enrollments (user_id, status) INCLUDE (course_id, progress_percent, last_lesson_id);
 CREATE NONCLUSTERED INDEX ix_enrollments_course_status ON dbo.enrollments (course_id, status) INCLUDE (user_id, progress_percent, enrolled_at);
 CREATE NONCLUSTERED INDEX ix_enrollments_last_lesson ON dbo.enrollments (last_lesson_id) WHERE last_lesson_id IS NOT NULL;
 CREATE NONCLUSTERED INDEX ix_enrollments_enrolled_at ON dbo.enrollments (enrolled_at);
+-- Job hết hạn học và job nhắc hạn (BR-LRN-10, FR-LRN-13)
+CREATE NONCLUSTERED INDEX ix_enrollments_expiring ON dbo.enrollments (expires_at) INCLUDE (user_id, course_id, expiry_reminder_stage)
+    WHERE status IN (N'IN_PROGRESS', N'CANCELLED');
 GO
 
 CREATE TABLE dbo.lesson_progress (

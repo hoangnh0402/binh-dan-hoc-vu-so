@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Kiểm duyệt đánh giá — SCR-ADM-08</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .rv { display: grid; grid-template-columns: 1fr 150px; gap: 20px; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+  .rv:last-child { border-bottom: 0; }
+  .rv.hidden-r { background: #fbf6f5; }
+  .rv .who { display: flex; gap: 12px; align-items: center; }
+  .rv .stars { display: flex; gap: 2px; color: var(--gold); margin-top: 4px; }
+  .rv .stars .off { color: var(--line); }
+  .rv .txt { margin-top: 10px; font-size: 15px; }
+  .rv .side { display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
+  .reason { margin-top: 10px; font-size: 13px; color: var(--ink-2); background: #f5eeed; border-radius: 8px; padding: 8px 12px; display: flex; gap: 8px; align-items: center; }
+  .tabs-sm { display: flex; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="admin">
+  <aside class="sidebar" data-sidebar data-active="danh-gia"></aside>
+  <div class="admin-main">
+    <div class="admin-top">
+      <div class="crumb"><span>Quản trị</span><i data-i="chevron-right" class="sm"></i><b>Kiểm duyệt đánh giá</b></div>
+      <div class="row"><button class="icon-btn"><i data-i="bell"></i></button><div class="user-chip"><span class="avatar">QT</span><div><div class="n">Quản trị viên</div><div class="r">ADMIN</div></div></div></div>
+    </div>
+    <div class="admin-body">
+      <div class="page-h"><h1>Kiểm duyệt đánh giá</h1><div class="tabs-sm"><span class="chip outline on">Tất cả (2.914)</span><span class="chip outline">Đang hiển thị (2.901)</span><span class="chip outline">Đã ẩn (13)</span></div></div>
+      <div class="panel">
+        <div class="toolbar-a">
+          <div class="search-a"><i data-i="search"></i>Tìm theo nội dung, người viết</div>
+          <span class="dd">Khóa học: Tất cả<i data-i="chevron-down" class="sm"></i></span>
+          <span class="dd">Số sao: 1–2<i data-i="chevron-down" class="sm"></i></span>
+          <span class="dd">Mới nhất<i data-i="chevron-down" class="sm"></i></span>
+        </div>
+        <div class="rv">
+          <div>
+            <div class="who"><span class="avatar sm">BQ</span><div><b>Bùi Quang M.</b> <span class="small muted">· Tiếng Anh giao tiếp hằng ngày · 25/10/2026</span><div class="stars"><i data-i="star" class="sm"></i><i data-i="star" class="sm off"></i><i data-i="star" class="sm off"></i><i data-i="star" class="sm off"></i><i data-i="star" class="sm off"></i></div></div></div>
+            <p class="txt">Khóa học dở tệ, ai học là ngu. Vào trang abc-kiemtien.xyz để kiếm tiền nhanh hơn!!!</p>
+          </div>
+          <div class="side"><span class="chip success" style="align-self:flex-start">Đang hiển thị</span><a class="btn btn-sm btn-outline" style="color:var(--error);border-color:var(--error)"><i data-i="eye" class="sm"></i>Ẩn đánh giá</a></div>
+        </div>
+        <div class="rv">
+          <div>
+            <div class="who"><span class="avatar sm">LH</span><div><b>Lê Thị Hoa</b> <span class="small muted">· Sử dụng dịch vụ công trực tuyến và VNeID · 24/10/2026</span><div class="stars"><i data-i="star" class="sm"></i><i data-i="star" class="sm"></i><i data-i="star" class="sm off"></i><i data-i="star" class="sm off"></i><i data-i="star" class="sm off"></i></div></div></div>
+            <p class="txt">Video bài 4 bị mờ, tôi không đọc được chữ trên màn hình. Mong nhà trường làm lại video này.</p>
+          </div>
+          <div class="side"><span class="chip success" style="align-self:flex-start">Đang hiển thị</span><a class="btn btn-sm btn-light"><i data-i="eye" class="sm"></i>Ẩn đánh giá</a></div>
+        </div>
+        <div class="rv hidden-r">
+          <div>
+            <div class="who"><span class="avatar sm">PT</span><div><b>Phạm Văn T.</b> <span class="small muted">· An toàn thông tin và phòng tránh lừa đảo · 22/10/2026</span><div class="stars"><i data-i="star" class="sm"></i><i data-i="star" class="sm off"></i><i data-i="star" class="sm off"></i><i data-i="star" class="sm off"></i><i data-i="star" class="sm off"></i></div></div></div>
+            <p class="txt muted">Nội dung có lời lẽ xúc phạm người khác (đã ẩn khỏi trang khóa học).</p>
+            <div class="reason"><i data-i="info" class="sm"></i>Ẩn bởi Quản trị viên lúc 22/10/2026 10:15 — Lý do: Ngôn từ xúc phạm, vi phạm quy định cộng đồng.</div>
+          </div>
+          <div class="side"><span class="chip neutral" style="align-self:flex-start">Đã ẩn</span><a class="btn btn-sm btn-light"><i data-i="refresh" class="sm"></i>Hiện lại</a></div>
+        </div>
+        <div class="rv">
+          <div>
+            <div class="who"><span class="avatar sm">NH</span><div><b>Nguyễn Hữu T.</b> <span class="small muted">· Kỹ năng học tập suốt đời · 20/10/2026</span><div class="stars"><i data-i="star" class="sm"></i><i data-i="star" class="sm"></i><i data-i="star" class="sm off"></i><i data-i="star" class="sm off"></i><i data-i="star" class="sm off"></i></div></div></div>
+            <p class="txt">Thời hạn 3 tuần hơi ngắn với người đi làm như tôi, mong được kéo dài.</p>
+          </div>
+          <div class="side"><span class="chip success" style="align-self:flex-start">Đang hiển thị</span><a class="btn btn-sm btn-light"><i data-i="eye" class="sm"></i>Ẩn đánh giá</a></div>
+        </div>
+        <div class="pager-a" style="border-top:1px solid var(--line)"><span>Hiển thị 1–20 / 214 đánh giá 1–2 sao</span><div class="pg"><a><i data-i="chevron-left" class="sm"></i></a><a class="on">1</a><a>2</a><a>…</a><a>11</a><a><i data-i="chevron-right" class="sm"></i></a></div></div>
+      </div>
+      <div class="alert info"><i data-i="info"></i><span>Đánh giá bị ẩn không hiển thị ở trang khóa học và không tính vào điểm trung bình. Ẩn/hiện bắt buộc nhập lý do và được ghi vào nhật ký thao tác.</span></div>
+    </div>
+  </div>
+</div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

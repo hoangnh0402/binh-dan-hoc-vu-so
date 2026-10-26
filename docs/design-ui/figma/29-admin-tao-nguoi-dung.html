@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Tạo người dùng — FR-ADM-02</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .form-grid { display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+  .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px; }
+  .fgrid .full { grid-column: 1 / -1; }
+  .sel { display: flex; align-items: center; justify-content: space-between; }
+  .choice { border: 2px solid var(--line); border-radius: var(--r-lg); padding: 16px 18px; display: flex; gap: 14px; align-items: flex-start; }
+  .choice.on { border-color: var(--red); background: var(--red-tint); }
+  .choice .stack { gap: 6px; flex: 1; }
+  .role { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .role .choice { gap: 10px; }
+  .role b { white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="admin">
+  <aside class="sidebar" data-sidebar data-active="nguoi-dung"></aside>
+  <div class="admin-main">
+    <div class="admin-top">
+      <div class="crumb"><span>Quản trị</span><i data-i="chevron-right" class="sm"></i><a href="18-admin-nguoi-dung.html" style="color:inherit">Người dùng</a><i data-i="chevron-right" class="sm"></i><b>Tạo người dùng</b></div>
+      <div class="row"><button class="icon-btn"><i data-i="bell"></i></button><div class="user-chip"><span class="avatar">QT</span><div><div class="n">Quản trị viên</div><div class="r">ADMIN</div></div></div></div>
+    </div>
+    <div class="admin-body">
+      <div class="page-h"><h1>Tạo người dùng</h1><div class="row"><a class="btn btn-light" href="18-admin-nguoi-dung.html">Hủy</a><a class="btn btn-primary"><i data-i="check"></i>Tạo tài khoản</a></div></div>
+      <div class="form-grid">
+        <div class="stack" style="gap:24px">
+          <div class="panel">
+            <div class="panel-h"><h3>Thông tin tài khoản</h3></div>
+            <div class="panel-b fgrid">
+              <div class="field"><label>Họ và tên <span class="req">*</span></label><input class="input" value="Hoàng Thị Mai"></div>
+              <div class="field"><label>Email <span class="req">*</span></label><input class="input invalid" value="mai.hoang@example.com"><span class="err"><i data-i="alert" class="sm"></i>Email đã được sử dụng</span></div>
+              <div class="field"><label>Năm sinh</label><div class="input sel">1975<i data-i="chevron-down" class="sm"></i></div></div>
+              <div class="field"><label>Số điện thoại</label><input class="input" value="0987 654 321"></div>
+              <div class="field"><label>Quê quán</label><div class="input sel">Vĩnh Phúc<i data-i="chevron-down" class="sm"></i></div></div>
+              <div class="field"><label>Nơi công tác</label><input class="input" placeholder="Ví dụ: Trường THCS Xuân Hòa"></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-h"><h3>Đặt mật khẩu</h3></div>
+            <div class="panel-b stack" style="gap:12px">
+              <div class="choice on"><span class="radio on"></span><div class="stack"><b>Gửi email để người dùng tự đặt mật khẩu</b><span class="small muted">Liên kết đặt mật khẩu có hiệu lực trong 24 giờ. Khuyến nghị dùng cách này.</span></div><i data-i="mail" style="color:var(--red)"></i></div>
+              <div class="choice"><span class="radio"></span><div class="stack"><b>Nhập mật khẩu tạm</b><span class="small muted">Bạn tự gửi mật khẩu tạm cho người dùng. Mật khẩu theo quy tắc 8–64 ký tự, có chữ cái và chữ số.</span>
+                <div class="pw" style="opacity:.55"><input class="input" type="password" placeholder="Mật khẩu tạm"><i data-i="eye"></i></div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack" style="gap:24px">
+          <div class="panel">
+            <div class="panel-h"><h3>Vai trò &amp; trạng thái</h3></div>
+            <div class="panel-b stack" style="gap:16px">
+              <div class="field"><label>Vai trò <span class="req">*</span></label>
+                <div class="role">
+                  <div class="choice on" style="padding:12px"><span class="radio on"></span><div><b>Người học</b><div class="xs muted">USER</div></div></div>
+                  <div class="choice" style="padding:12px"><span class="radio"></span><div><b>Quản trị</b><div class="xs muted">ADMIN</div></div></div>
+                </div>
+              </div>
+              <div class="field"><label>Trạng thái <span class="req">*</span></label><div class="input sel"><span class="row" style="gap:8px"><span class="chip success">Hoạt động</span></span><i data-i="chevron-down" class="sm"></i></div></div>
+              <div class="alert success" style="font-size:14px"><i data-i="check-circle" class="sm"></i><span>Tài khoản do quản trị viên tạo được coi là <b>đã xác thực email</b>, không cần nhập OTP.</span></div>
+            </div>
+          </div>
+          <div class="alert info" style="font-size:14px"><i data-i="file" class="sm"></i><span>Thao tác tạo người dùng được ghi vào nhật ký thao tác.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

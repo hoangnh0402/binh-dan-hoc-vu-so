@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khóa học của tôi — SCR-CRS-04</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .page-head { background: var(--canvas); border-bottom: 1px solid var(--line); }
+  .page-head .container { padding-top: 28px; padding-bottom: 0; }
+  .page-head h1 { font-size: 32px; font-weight: 800; margin-bottom: 20px; }
+  .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 28px 0; }
+  .summary .stat .v { color: var(--red); }
+</style>
+</head>
+<body>
+<div data-header="user" data-active="cua-toi"></div>
+<div class="page-head">
+  <div class="container">
+    <h1>Khóa học của tôi</h1>
+    <nav class="tabs" style="border-bottom:0"><a class="active">Tất cả (4)</a><a>Đang học (2)</a><a>Đã hoàn thành (1)</a><a>Hết hạn (1)</a></nav>
+  </div>
+</div>
+<div class="container">
+  <div class="summary">
+    <div class="stat"><span class="k">Đang học</span><span class="v">2</span></div>
+    <div class="stat"><span class="k">Đã hoàn thành</span><span class="v">1</span></div>
+    <div class="stat"><span class="k">Bài học đã xong</span><span class="v">14</span></div>
+    <div class="stat"><span class="k">Tổng điểm quiz</span><span class="v">152</span></div>
+  </div>
+  <div class="alert warn" style="margin-bottom:24px"><i data-i="alert"></i><span>Khóa <b>"An toàn thông tin và phòng tránh lừa đảo trực tuyến"</b> sẽ hết hạn học sau <b>2 ngày 6 giờ</b>. Hãy hoàn thành 4 bài còn lại để giữ kết quả.</span><a class="btn btn-sm btn-primary" style="margin-left:auto">Học ngay</a></div>
+  <div class="grid-4" id="list"></div>
+</div>
+<div data-footer></div>
+<script src="assets/layout.js"></script>
+<script src="assets/components.js"></script>
+<script>
+  var items = [
+    [COURSES[1], { progress: 33, left: '2 ngày 6 giờ', warn: true }],
+    [COURSES[3], { progress: 58, left: '15 ngày' }],
+    [COURSES[0], { done: true }],
+    [COURSES[5], { expired: '20/10/2026' }]
+  ];
+  document.getElementById('list').innerHTML = items.map(function (x) { return courseCard(x[0], x[1]); }).join('');
+</script>
+</body>
+</html>

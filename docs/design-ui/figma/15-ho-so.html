@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hồ sơ cá nhân — SCR-AUTH-05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  body { background: var(--canvas); }
+  .pf { display: grid; grid-template-columns: 300px 1fr; gap: 28px; padding-top: 32px; align-items: start; }
+  .me { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); overflow: hidden; }
+  .me .cover { height: 84px; background: linear-gradient(120deg, #5e1210, #962521); }
+  .me .who { padding: 0 20px 20px; margin-top: -44px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+  .me .av { width: 88px; height: 88px; border-radius: 50%; background: var(--red-tint-2); color: var(--red-dark); border: 4px solid #fff; font-size: 30px; font-weight: 800; display: flex; align-items: center; justify-content: center; position: relative; }
+  .me .av .cam { position: absolute; right: -2px; bottom: -2px; width: 30px; height: 30px; border-radius: 50%; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; }
+  .menu { border-top: 1px solid var(--line); padding: 10px; display: flex; flex-direction: column; gap: 2px; }
+  .menu a { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: var(--r); color: var(--ink); font-weight: 600; font-size: 15px; }
+  .menu a.on { background: var(--red-tint); color: var(--red-dark); }
+  .menu a.out { color: var(--error); }
+  .fg2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px; }
+  .ro { background: #f5eeed; color: var(--ink-2); display: flex; align-items: center; justify-content: space-between; }
+  .crow { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .crow:last-child { border-bottom: 0; }
+  .crow .th { width: 88px; height: 50px; border-radius: 8px; flex: none; }
+  .crow .pr { width: 200px; }
+</style>
+</head>
+<body>
+<div data-header="user"></div>
+<div class="container pf">
+  <aside class="me">
+    <div class="cover"></div>
+    <div class="who">
+      <div class="av">NA<span class="cam"><i data-i="upload" class="sm"></i></span></div>
+      <b style="font-size:19px;margin-top:6px">Nguyễn Văn An</b>
+      <span class="small muted">an.nguyen@example.com</span>
+      <span class="chip success"><i data-i="check-circle" class="sm"></i>Email đã xác thực</span>
+      <span class="xs muted">Tham gia từ 12/09/2026</span>
+    </div>
+    <nav class="menu">
+      <a class="on"><i data-i="user"></i>Thông tin cá nhân</a>
+      <a><i data-i="lock"></i>Đổi mật khẩu</a>
+      <a href="09-khoa-hoc-cua-toi.html"><i data-i="book"></i>Khóa học của tôi</a>
+      <a><i data-i="shield"></i>Quyền riêng tư</a>
+      <a class="out"><i data-i="logout"></i>Đăng xuất</a>
+    </nav>
+  </aside>
+
+  <main class="stack" style="gap:24px">
+    <div class="panel">
+      <div class="panel-h"><h3>Thông tin cá nhân</h3><a class="btn btn-primary btn-sm"><i data-i="check" class="sm"></i>Lưu thay đổi</a></div>
+      <div class="panel-b fg2">
+        <div class="field"><label>Họ và tên <span class="req">*</span></label><input class="input" value="Nguyễn Văn An"></div>
+        <div class="field"><label>Email</label><div class="input ro">an.nguyen@example.com<i data-i="lock" class="sm"></i></div><span class="hint">Chưa hỗ trợ đổi email trong phiên bản này.</span></div>
+        <div class="field"><label>Năm sinh</label><div class="input" style="display:flex;align-items:center;justify-content:space-between">1968<i data-i="chevron-down" class="sm"></i></div></div>
+        <div class="field"><label>Số điện thoại</label><input class="input" value="0912 345 678"></div>
+        <div class="field"><label>Quê quán</label><div class="input" style="display:flex;align-items:center;justify-content:space-between">Phú Thọ<i data-i="chevron-down" class="sm"></i></div></div>
+        <div class="field"><label>Nơi công tác</label><input class="input" value="UBND phường Xuân Hòa"></div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-h"><h3>Đổi mật khẩu</h3></div>
+        <div class="panel-b stack" style="gap:16px">
+          <div class="field"><label>Mật khẩu hiện tại</label><div class="pw"><input class="input" type="password" value="matkhau123"><i data-i="eye"></i></div></div>
+          <div class="field"><label>Mật khẩu mới</label><div class="pw"><input class="input" type="password"><i data-i="eye"></i></div><span class="hint">8–64 ký tự, có chữ cái và chữ số, khác mật khẩu hiện tại.</span></div>
+          <div class="field"><label>Nhập lại mật khẩu mới</label><div class="pw"><input class="input" type="password"><i data-i="eye"></i></div></div>
+          <a class="btn btn-outline">Cập nhật mật khẩu</a>
+        </div>
+      </div>
+      <div class="stack" style="gap:24px">
+        <div class="panel">
+          <div class="panel-h"><h3>Quyền riêng tư</h3></div>
+          <div class="panel-b stack" style="gap:16px">
+            <div class="row-between"><div><div class="bold small">Hiện tên trên bảng xếp hạng</div><div class="xs muted">Tắt để hiển thị là "Học viên ẩn danh"</div></div><span class="toggle"></span></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-h"><h3>Phiên đăng nhập</h3></div>
+          <div class="panel-b stack" style="gap:14px">
+            <div class="row"><span class="avatar" style="border-radius:10px"><i data-i="monitor"></i></span><div><div class="bold small">Chrome trên Windows · thiết bị này</div><div class="xs muted">Phú Thọ · đang hoạt động</div></div></div>
+            <a class="btn btn-light"><i data-i="logout" class="sm"></i>Đăng xuất khỏi tất cả thiết bị</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h"><h3>Khóa học đã đăng ký</h3><a class="small bold" href="09-khoa-hoc-cua-toi.html">Xem tất cả</a></div>
+      <div class="panel-b" style="padding-top:6px;padding-bottom:6px">
+        <div class="crow"><span class="thumb t2 th"></span><div style="flex:1"><div class="bold">An toàn thông tin và phòng tránh lừa đảo trực tuyến</div><span class="deadline warn"><i data-i="hourglass" class="sm"></i>Còn 2 ngày 6 giờ</span></div><div class="pr"><div class="row-between xs bold"><span>Tiến độ</span><span>33%</span></div><div class="progress warn" style="margin-top:6px"><i style="width:33%"></i></div></div><a class="btn btn-primary btn-sm">Tiếp tục</a></div>
+        <div class="crow"><span class="thumb t4 th"></span><div style="flex:1"><div class="bold">Tiếng Anh giao tiếp hằng ngày</div><span class="deadline"><i data-i="hourglass" class="sm"></i>Còn 15 ngày</span></div><div class="pr"><div class="row-between xs bold"><span>Tiến độ</span><span>58%</span></div><div class="progress" style="margin-top:6px"><i style="width:58%"></i></div></div><a class="btn btn-primary btn-sm">Tiếp tục</a></div>
+        <div class="crow"><span class="thumb t1 th"></span><div style="flex:1"><div class="bold">Kỹ năng sử dụng máy tính và Internet cơ bản</div><span class="chip success"><i data-i="check-circle" class="sm"></i>Hoàn thành 18/10/2026</span></div><div class="pr"><div class="row-between xs bold"><span>Tiến độ</span><span>100%</span></div><div class="progress" style="margin-top:6px"><i style="width:100%;background:var(--success)"></i></div></div><a class="btn btn-light btn-sm">Xem lại</a></div>
+      </div>
+    </div>
+  </main>
+</div>
+<div data-footer></div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

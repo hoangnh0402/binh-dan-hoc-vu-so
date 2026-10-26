@@ -68,6 +68,7 @@ Mỗi bảng con chỉ nhận cascade từ **đúng một** bảng cha, nên SQL
 | Xóa khóa học đã có ghi danh | ✘ Bị FK `fk_enrollments_course` chặn. Chỉ được `ARCHIVED` |
 | Xóa bài học đã có người mở | ✘ Bị `fk_lesson_progress_lesson` chặn. Chỉ được ẩn |
 | Xóa câu hỏi/đáp án đã có người trả lời | ✘ Bị FK chặn. Đặt `is_active = 0` |
+| Job hết hạn học xóa dữ liệu của một lượt ghi danh (BR-LRN-10) | ✔ Xóa tường minh theo thứ tự `quiz_best_attempts` → `quiz_attempts` (cascade câu trả lời) → `lesson_progress` → `rankings`; giữ lại bản ghi `enrollments` (xem [05](05-truy-van-nghiep-vu.md) §8.1) |
 | Xóa loại khóa học còn con hoặc còn khóa học | ✘ Bị FK chặn (BR-ADM-04). Ứng dụng kiểm tra trước để báo lỗi `409` thân thiện |
 
 > Ứng dụng nên **kiểm tra điều kiện trước** và trả mã lỗi nghiệp vụ (`CATEGORY_HAS_CHILDREN`, `COURSE_HAS_ENROLLMENTS`...). FK chỉ là lớp bảo vệ cuối cùng.
@@ -86,7 +87,9 @@ Mỗi bảng con chỉ nhận cascade từ **đúng một** bảng cha, nên SQL
 | `ck_courses_certificate_criteria` | JSON hợp lệ | FR-CRS-08 |
 | `ck_quizzes_pass_score_percent` | 0..100 | FR-ADM-17 |
 | `ck_questions_type` | 3 loại câu hỏi | A-04 |
-| `ck_enrollments_completed_at` / `_cancelled_at` | Trạng thái đi kèm mốc thời gian | FR-LRN-11, FR-CRS-11 |
+| `ck_enrollments_completed_at` / `_cancelled_at` / `_expired_at` | Trạng thái đi kèm mốc thời gian | FR-LRN-11, FR-CRS-11, BR-LRN-10 |
+| `ck_courses_learning_duration_days` | Thời hạn học 1..365 ngày | BR-LRN-09 |
+| `ck_enrollments_expires_at` | Hạn học sau mốc bắt đầu | BR-LRN-09 |
 | `ck_lesson_progress_completion` | Đã hoàn thành thì phải có thời điểm và cách hoàn thành | BR-LRN-01 |
 | `ck_quiz_attempts_result` | Lượt đã nộp phải có đủ điểm, thời gian, kết quả. `0 ≤ score ≤ max_score` | BR-LRN-03 |
 | `ck_course_reviews_rating` | 1..5 sao | FR-CRS-07 |
@@ -101,6 +104,8 @@ Mỗi bảng con chỉ nhận cascade từ **đúng một** bảng cha, nên SQL
 | Mở khóa bài học tuần tự (BR-LRN-02) | Logic truy vấn ([05](05-truy-van-nghiep-vu.md) §2) |
 | Giới hạn `max_attempts`, `retry_cooldown_seconds` | Kiểm tra khi bắt đầu lượt mới, trong transaction |
 | Luôn còn ít nhất 1 Admin (BR-AUTH-07) | Ràng buộc nhiều dòng |
+| `expires_at = learning_started_at + courses.learning_duration_days` (BR-LRN-09) | Phụ thuộc bảng khác; giá trị được chốt khi ghi danh nên không ràng buộc ngược với `courses` |
+| Chặn học sau `expires_at` (BR-LRN-10) | So với giờ hiện tại, không khai báo được bằng CHECK |
 | Chỉ người đã hoàn thành ≥ 1 bài mới được đánh giá (BR-CRS-03) | Phụ thuộc nhiều bảng |
 
 ## 3. Kỹ thuật ràng buộc 2 cấp cho loại khóa học
@@ -152,6 +157,7 @@ course_categories:  UNIQUE (id, depth)
 | `ix_question_options_question` | question_options | question_id, is_active, order_index (is_correct) | Lấy đáp án, chấm điểm |
 | `ix_enrollments_user_status` | enrollments | user_id, status (course_id, progress_percent, last_lesson_id) | "Khóa học của tôi", bộ lọc "trạng thái học của tôi" |
 | `ix_enrollments_course_status` | enrollments | course_id, status (user_id, progress_percent, enrolled_at) | Admin xem học viên, lọc xếp hạng |
+| `ix_enrollments_expiring` *(filtered `status IN ('IN_PROGRESS','CANCELLED')`)* | enrollments | expires_at (user_id, course_id, expiry_reminder_stage) | Job hết hạn học, job nhắc hạn |
 | `ix_lesson_progress_lesson` | lesson_progress | lesson_id, status | Kiểm tra trước khi xóa bài, thống kê |
 | `ux_quiz_attempts_in_progress` *(unique, filtered `status = 'IN_PROGRESS'`)* | quiz_attempts | user_id, quiz_id | Chỉ 1 lượt đang làm |
 | `ix_quiz_attempts_user_quiz_submitted` | quiz_attempts | user_id, quiz_id, submitted_at DESC (...) | Lịch sử làm bài |

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bình Dân Học Vụ Số — Trường Đại học Sư phạm Hà Nội 2</title>
+    <meta name="description" content="Nền tảng học trực tuyến miễn phí của Trường Đại học Sư phạm Hà Nội 2: kỹ năng số, ngoại ngữ, sư phạm." />
+    <meta name="theme-color" content="#962521" />
+    <meta property="og:title" content="Bình Dân Học Vụ Số" />
+    <meta property="og:description" content="Học kỹ năng số miễn phí cùng Trường Đại học Sư phạm Hà Nội 2" />
+    <meta property="og:image" content="/logo-256.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Tải font không chặn hiển thị: mạng chặn/treo Google Fonts thì vẫn hiện trang bằng font hệ thống. -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  </head>
+  <body>
+    <div id="root">
+      <div id="boot" style="max-width:560px;margin:80px auto;padding:0 16px;text-align:center;font-family:system-ui,sans-serif;color:#555">
+        <img src="/logo-256.png" alt="" width="72" height="72" />
+        <p id="boot-msg">Đang tải Bình Dân Học Vụ Số…</p>
+      </div>
+    </div>
+    <noscript><p style="text-align:center;font-family:system-ui,sans-serif">Vui lòng bật JavaScript để sử dụng trang web.</p></noscript>
+    <script>
+      // React thay nội dung #root khi chạy được; nếu sau 15 giây vẫn còn #boot thì báo cho người dùng thay vì để trắng.
+      setTimeout(function () {
+        var m = document.getElementById('boot-msg');
+        if (m) m.innerHTML = 'Trang tải lâu hơn bình thường. Hãy thử <b>Ctrl + F5</b> để tải lại, dùng Chrome/Edge/Firefox bản mới, hoặc tắt tiện ích chặn quảng cáo cho trang này.';
+      }, 15000);
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

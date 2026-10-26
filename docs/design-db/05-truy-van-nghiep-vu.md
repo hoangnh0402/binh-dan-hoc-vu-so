@@ -53,7 +53,7 @@ OFFSET 12 ROWS FETCH NEXT 12 ROWS ONLY;
 | `status=ENDED` | `c.end_date < @now` |
 | Nhiều trạng thái | Nối các điều kiện trên bằng `OR` trong một cặp ngoặc |
 | `myStatus=NOT_ENROLLED` | `NOT EXISTS (SELECT 1 FROM dbo.enrollments e WHERE e.course_id = c.id AND e.user_id = @userId AND e.status <> N'CANCELLED')` |
-| `myStatus=IN_PROGRESS` / `COMPLETED` | `EXISTS (SELECT 1 FROM dbo.enrollments e WHERE e.course_id = c.id AND e.user_id = @userId AND e.status = N'IN_PROGRESS')` |
+| `myStatus=IN_PROGRESS` / `COMPLETED` / `EXPIRED` | `EXISTS (SELECT 1 FROM dbo.enrollments e WHERE e.course_id = c.id AND e.user_id = @userId AND e.status = N'IN_PROGRESS')` (thay bằng trạng thái tương ứng) |
 
 **Sắp xếp:**
 
@@ -118,7 +118,8 @@ ORDER BY order_index;
 
 **Kiểm tra quyền vào một bài** (`GET /learning/lessons/{id}`, bắt đầu quiz): chạy cùng CTE, lọc theo `id = @lessonId`. Nếu `lesson_state = 'LOCKED'` thì trả `403 LESSON_LOCKED`. Ngoài ra kiểm tra thêm:
 - enrollment thuộc về `@userId` và có `status IN ('IN_PROGRESS','COMPLETED')`, nếu không thì `403 NOT_ENROLLED`;
-- `courses.start_date <= now`, nếu không thì `403 COURSE_NOT_STARTED` (BR-LRN-06).
+- `courses.start_date <= now`, nếu không thì `403 COURSE_NOT_STARTED` (BR-LRN-06);
+- enrollment `IN_PROGRESS` thì `enrollments.expires_at > now`, nếu không thì `403 ENROLLMENT_EXPIRED` (BR-LRN-10). Kiểm tra này áp dụng cho mọi API `/learning/**`, kể cả lưu nháp và nộp quiz, không chờ job §8.1.
 
 **Ghi nhận mở bài lần đầu** (idempotent, an toàn khi gọi đồng thời):
 
@@ -136,19 +137,49 @@ WHERE id = @enrollmentId;
 
 ## 3. Ghi danh (FR-CRS-09, FR-CRS-11)
 
+Mốc thời hạn học (BR-LRN-09): bắt đầu tính từ lúc ghi danh, hoặc từ `start_date` nếu khóa "Sắp mở".
+
 ```sql
+DECLARE @now DATETIME2(3) = SYSUTCDATETIME();
+DECLARE @startAt DATETIME2(3), @durationDays INT, @done INT;
+
+SELECT @startAt      = CASE WHEN start_date > @now THEN start_date ELSE @now END,
+       @durationDays = learning_duration_days
+FROM dbo.courses
+WHERE id = @courseId;
+
 BEGIN TRAN;
 
--- Đã từng ghi danh rồi hủy thì khôi phục (giữ tiến độ cũ)
-UPDATE dbo.enrollments WITH (UPDLOCK, SERIALIZABLE)
-SET status = N'IN_PROGRESS', cancelled_at = NULL, updated_at = SYSUTCDATETIME(), version = version + 1
-WHERE user_id = @userId AND course_id = @courseId AND status = N'CANCELLED';
+-- Lượt IN_PROGRESS/CANCELLED đã quá expires_at mà job chưa xử lý:
+-- ứng dụng chạy §8.1 cho đúng enrollment đó trước, trong cùng transaction.
 
-IF @@ROWCOUNT = 0
+-- 1. Đã hủy và còn hạn: khôi phục, giữ tiến độ và hạn cũ (FR-CRS-11)
+UPDATE dbo.enrollments WITH (UPDLOCK, SERIALIZABLE)
+SET status = N'IN_PROGRESS', cancelled_at = NULL, updated_at = @now, version = version + 1
+WHERE user_id = @userId AND course_id = @courseId AND status = N'CANCELLED' AND expires_at > @now;
+SET @done = @@ROWCOUNT;
+
+-- 2. Đã hết hạn: học lại từ đầu với lượt mới (BR-LRN-11). Dữ liệu cũ đã bị xóa ở §8.1
+IF @done = 0
+BEGIN
+    UPDATE dbo.enrollments WITH (UPDLOCK, SERIALIZABLE)
+    SET status = N'IN_PROGRESS', round_no = round_no + 1,
+        progress_percent = 0, completed_lesson_count = 0, last_lesson_id = NULL,
+        enrolled_at = @now, learning_started_at = @startAt,
+        expires_at = DATEADD(DAY, @durationDays, @startAt),
+        cancelled_at = NULL, expired_at = NULL, expiry_reminder_stage = 0,
+        updated_at = @now, version = version + 1
+    WHERE user_id = @userId AND course_id = @courseId AND status = N'EXPIRED';
+    SET @done = @@ROWCOUNT;
+END;
+
+-- 3. Chưa từng ghi danh
+IF @done = 0
    AND NOT EXISTS (SELECT 1 FROM dbo.enrollments WITH (UPDLOCK, SERIALIZABLE)
                    WHERE user_id = @userId AND course_id = @courseId)
 BEGIN
-    INSERT INTO dbo.enrollments (user_id, course_id) VALUES (@userId, @courseId);
+    INSERT INTO dbo.enrollments (user_id, course_id, enrolled_at, learning_started_at, expires_at)
+    VALUES (@userId, @courseId, @now, @startAt, DATEADD(DAY, @durationDays, @startAt));
 END;
 
 -- Cập nhật cột tổng hợp
@@ -229,6 +260,7 @@ DECLARE @now DATETIME2(3) = SYSUTCDATETIME();
 
 -- (a) Khóa lượt làm, xác nhận còn IN_PROGRESS và chưa quá hạn (+30s đã tính trong expires_at)
 --     Ứng dụng kiểm tra: @now <= expires_at (nếu có), nếu không thì chỉ chấm các câu đã lưu.
+--     Đồng thời kiểm tra hạn học: @now <= enrollments.expires_at, nếu không thì 403 ENROLLMENT_EXPIRED, không chấm.
 
 -- (b) Chấm từng câu: đúng khi tập đáp án chọn == tập đáp án đúng (BR-LRN-03)
 ;WITH correct AS (
@@ -312,7 +344,7 @@ CROSS APPLY (
 WHERE e.id = @enrollmentId;
 ```
 
-Khi Admin thêm, ẩn hoặc xuất bản bài học, chạy lại câu trên cho **mọi** enrollment của khóa (thay `WHERE e.id = @enrollmentId` bằng `WHERE e.course_id = @courseId AND e.status <> N'CANCELLED'`) trong một job nền, đồng thời cập nhật `courses.published_lesson_count`. Enrollment đã `COMPLETED` giữ nguyên trạng thái (FR-LRN-11).
+Khi Admin thêm, ẩn hoặc xuất bản bài học, chạy lại câu trên cho **mọi** enrollment của khóa (thay `WHERE e.id = @enrollmentId` bằng `WHERE e.course_id = @courseId AND e.status IN (N'IN_PROGRESS', N'COMPLETED')`) trong một job nền, đồng thời cập nhật `courses.published_lesson_count`. Enrollment đã `COMPLETED` giữ nguyên trạng thái (FR-LRN-11).
 
 ---
 
@@ -467,6 +499,8 @@ Sắp xếp lại `course_categories.sort_order` thì không vướng vấn đ�
 
 | Job | Tần suất | Câu lệnh |
 |-----|----------|----------|
+| Hết hạn học: đóng khóa, xóa dữ liệu học tập (BR-LRN-10) | 5 phút | Xem §8.1 |
+| Email nhắc hạn học (FR-LRN-13) | 15 phút | Xem §8.2 |
 | Tự nộp lượt quiz quá hạn | 1 phút | Lấy `SELECT id FROM dbo.quiz_attempts WHERE status = N'IN_PROGRESS' AND expires_at < SYSUTCDATETIME()`, chấm như §4.3 nhưng đặt `status = N'EXPIRED'` |
 | Dọn OTP / reset token / refresh token hết hạn | Hằng ngày | Xem bên dưới |
 | Xóa tài khoản chưa xác thực quá 7 ngày (BR-AUTH-06) | Hằng ngày | Xem bên dưới |
@@ -493,6 +527,91 @@ WHERE status = N'PENDING_VERIFICATION'
   AND created_at < DATEADD(DAY, -7, SYSUTCDATETIME());
 ```
 
+### 8.1 Hết hạn học (BR-LRN-10)
+
+Lấy từng lô lượt ghi danh đã quá hạn (điều kiện viết bằng hằng số để dùng được `ix_enrollments_expiring`):
+
+```sql
+SELECT TOP (200) id
+FROM dbo.enrollments
+WHERE status IN (N'IN_PROGRESS', N'CANCELLED') AND expires_at <= SYSUTCDATETIME()
+ORDER BY expires_at;
+```
+
+Xử lý **mỗi enrollment trong một transaction riêng** để lỗi ở một bản ghi không chặn cả lô:
+
+```sql
+SET XACT_ABORT ON;
+BEGIN TRAN;
+
+DECLARE @now DATETIME2(3) = SYSUTCDATETIME();
+DECLARE @userId BIGINT, @courseId BIGINT;
+
+-- Khóa và kiểm tra lại: người học có thể vừa hoàn thành khóa ngay trước hạn (BR-LRN-12)
+SELECT @userId = user_id, @courseId = course_id
+FROM dbo.enrollments WITH (UPDLOCK, HOLDLOCK)
+WHERE id = @enrollmentId
+  AND status IN (N'IN_PROGRESS', N'CANCELLED')
+  AND expires_at <= @now;
+
+IF @userId IS NOT NULL
+BEGIN
+    -- 1. Xếp hạng. quiz_best_attempts phải xóa trước quiz_attempts vì đang tham chiếu attempt_id
+    DELETE FROM dbo.quiz_best_attempts WHERE user_id = @userId AND course_id = @courseId;
+    DELETE FROM dbo.rankings           WHERE user_id = @userId AND course_id = @courseId;
+
+    -- 2. Lượt làm quiz, kể cả lượt đang làm dở (cascade quiz_attempt_answers → quiz_attempt_answer_options)
+    DELETE FROM dbo.quiz_attempts WHERE enrollment_id = @enrollmentId;
+
+    -- 3. Tiến độ từng bài
+    DELETE FROM dbo.lesson_progress WHERE enrollment_id = @enrollmentId;
+
+    -- 4. Đóng lượt ghi danh, giữ lại bản ghi để thống kê
+    UPDATE dbo.enrollments
+    SET status = N'EXPIRED', expired_at = @now,
+        progress_percent = 0, completed_lesson_count = 0, last_lesson_id = NULL,
+        updated_at = @now, version = version + 1
+    WHERE id = @enrollmentId;
+
+    -- 5. Cột tổng hợp
+    UPDATE dbo.courses
+    SET enrollment_count = (SELECT COUNT(*) FROM dbo.enrollments
+                            WHERE course_id = @courseId AND status IN (N'IN_PROGRESS', N'COMPLETED'))
+    WHERE id = @courseId;
+END;
+
+COMMIT;
+```
+
+Sau khi commit: xóa cache bảng xếp hạng của khóa (Redis). Job ghi log số lượt đã xử lý mỗi lần chạy.
+
+### 8.2 Email nhắc hạn học (FR-LRN-13)
+
+Chạy mốc 24 giờ trước, mốc 3 ngày sau, để lượt có thời hạn ngắn không nhận cả 2 email cùng lúc:
+
+```sql
+DECLARE @now DATETIME2(3) = SYSUTCDATETIME();
+
+-- Mốc 24 giờ
+SELECT id, user_id, course_id, expires_at
+FROM dbo.enrollments
+WHERE status IN (N'IN_PROGRESS', N'CANCELLED') AND expiry_reminder_stage < 2
+  AND expires_at > @now AND expires_at <= DATEADD(HOUR, 24, @now);
+
+-- Mốc 3 ngày
+SELECT id, user_id, course_id, expires_at
+FROM dbo.enrollments
+WHERE status IN (N'IN_PROGRESS', N'CANCELLED') AND expiry_reminder_stage = 0
+  AND expires_at > DATEADD(HOUR, 24, @now) AND expires_at <= DATEADD(DAY, 3, @now);
+```
+
+Ứng dụng bỏ qua lượt `CANCELLED` (truy vấn vẫn giữ `CANCELLED` trong điều kiện để khớp filtered index). Sau khi đưa email vào hàng đợi, đánh dấu đã gửi một cách idempotent:
+
+```sql
+UPDATE dbo.enrollments SET expiry_reminder_stage = @stage   -- 1 = mốc 3 ngày, 2 = mốc 24 giờ
+WHERE id = @enrollmentId AND expiry_reminder_stage < @stage;
+```
+
 ---
 
 ## 9. Dashboard quản trị (FR-ADM-21)
@@ -505,7 +624,8 @@ SELECT
     (SELECT COUNT(*) FROM dbo.users WHERE deleted_at IS NULL AND created_at >= DATEADD(DAY, -7, @now))     AS new_users_7d,
     (SELECT COUNT(*) FROM dbo.courses WHERE publish_status = N'PUBLISHED')                                AS published_courses,
     (SELECT COUNT(*) FROM dbo.enrollments WHERE status <> N'CANCELLED')                                   AS total_enrollments,
-    (SELECT COUNT(*) FROM dbo.enrollments WHERE status = N'COMPLETED')                                    AS completed_enrollments;
+    (SELECT COUNT(*) FROM dbo.enrollments WHERE status = N'COMPLETED')                                    AS completed_enrollments,
+    (SELECT COUNT(*) FROM dbo.enrollments WHERE status = N'EXPIRED' AND expired_at >= DATEADD(DAY, -30, @now)) AS expired_enrollments_30d;
 
 -- Lượt ghi danh theo ngày (giờ Việt Nam), 30 ngày gần nhất
 SELECT CAST(DATEADD(HOUR, 7, enrolled_at) AS DATE) AS day_vn, COUNT(*) AS enrollments

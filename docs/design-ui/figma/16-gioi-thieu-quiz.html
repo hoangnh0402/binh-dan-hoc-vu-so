@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Giới thiệu quiz — SCR-LRN-02</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  body { background: var(--canvas); }
+  .lbar { height: 64px; background: #fff; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 16px; padding: 0 24px; }
+  .lbar img { width: 40px; height: 40px; }
+  .wrap { max-width: 920px; margin: 40px auto; padding: 0 32px; display: flex; flex-direction: column; gap: 24px; }
+  .intro { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); overflow: hidden; }
+  .intro .top { background: linear-gradient(120deg, #5e1210, #962521); color: #fff; padding: 32px 36px; display: flex; gap: 20px; align-items: center; }
+  .intro .top .ic { width: 64px; height: 64px; border-radius: 16px; background: rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; flex: none; }
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); }
+  .facts div { padding: 22px 24px; border-right: 1px solid var(--line); }
+  .facts div:last-child { border-right: 0; }
+  .facts b { display: block; font-size: 24px; font-weight: 800; }
+  .facts span { font-size: 14px; color: var(--ink-2); display: flex; gap: 6px; align-items: center; }
+  .rules-q { padding: 24px 36px; display: flex; flex-direction: column; gap: 12px; }
+  .rules-q li { margin-left: 18px; }
+  .start { padding: 0 36px 32px; display: flex; gap: 12px; align-items: center; }
+</style>
+</head>
+<body>
+<div class="lbar">
+  <img src="../brand/logo-hpu2.png" alt="Logo HPU2">
+  <a class="btn btn-light btn-sm"><i data-i="chevron-left" class="sm"></i>Về bài học</a>
+  <span class="bold">An toàn thông tin và phòng tránh lừa đảo trực tuyến</span>
+  <span style="flex:1"></span>
+  <span class="deadline"><i data-i="hourglass" class="sm"></i>Hạn học: còn 12 ngày 5 giờ</span>
+  <span class="avatar sm">NA</span>
+</div>
+<div class="wrap">
+  <div class="intro">
+    <div class="top">
+      <span class="ic"><i data-i="target" class="lg"></i></span>
+      <div><div class="small" style="opacity:.85">Quiz cuối bài 3</div><h1 style="font-size:28px;font-weight:800">Nhận diện tin nhắn, cuộc gọi lừa đảo</h1></div>
+    </div>
+    <div class="facts">
+      <div><b>10</b><span><i data-i="list" class="sm"></i>Câu hỏi</span></div>
+      <div><b>15 phút</b><span><i data-i="clock" class="sm"></i>Thời gian làm bài</span></div>
+      <div><b>70%</b><span><i data-i="target" class="sm"></i>Điểm đạt</span></div>
+      <div><b>Không giới hạn</b><span><i data-i="refresh" class="sm"></i>Số lần làm</span></div>
+    </div>
+    <div class="rules-q">
+      <b>Lưu ý trước khi làm bài</b>
+      <ul style="margin:0;padding:0;display:flex;flex-direction:column;gap:6px;color:var(--ink-2)">
+        <li>Đồng hồ bắt đầu chạy khi bạn bấm "Bắt đầu làm bài" và không dừng khi rời trang.</li>
+        <li>Hết giờ, hệ thống tự nộp các câu bạn đã trả lời.</li>
+        <li>Câu nhiều đáp án chỉ được điểm khi chọn đúng và đủ.</li>
+        <li>Đạt từ 70% trở lên để mở khóa bài 4. Bảng xếp hạng tính lượt có điểm cao nhất.</li>
+      </ul>
+    </div>
+    <div class="start">
+      <a class="btn btn-primary btn-lg"><i data-i="play"></i>Bắt đầu làm bài</a>
+      <span class="small muted">Lượt làm thứ 2</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-h"><h3>Lịch sử làm bài</h3><span class="small muted">Lượt tốt nhất được dùng để xếp hạng</span></div>
+    <table class="table">
+      <thead><tr><th>Lượt</th><th>Thời điểm</th><th>Điểm</th><th>Thời gian làm</th><th>Kết quả</th><th></th></tr></thead>
+      <tbody>
+        <tr><td class="bold">1</td><td>03/11/2026 20:14</td><td class="bold">6 / 10 (60%)</td><td>07:42</td><td><span class="chip error">Chưa đạt</span></td><td><a class="small bold">Xem lại</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

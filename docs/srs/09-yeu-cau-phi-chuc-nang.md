@@ -34,6 +34,7 @@ Các con số dưới đây dựa trên giả định quy mô tại Q-11 ([00-to
 | NFR-PRV-02 | Chỉ thu thập dữ liệu cần thiết; các trường năm sinh, quê quán, nơi công tác, số điện thoại là tùy chọn. |
 | NFR-PRV-03 | Người dùng có thể yêu cầu xóa tài khoản (gửi yêu cầu → Admin xử lý ở MVP; tự xóa ở Giai đoạn 2). |
 | NFR-PRV-04 | Bảng xếp hạng công khai chỉ hiện tên rút gọn và cho phép ẩn danh (FR-RNK-01). |
+| NFR-PRV-05 | Dữ liệu học tập của lượt ghi danh hết thời hạn học bị **xóa cứng** (không xóa mềm) theo BR-LRN-10; Chính sách dữ liệu cá nhân và màn hình ghi danh phải nêu rõ điều này. |
 
 ## 4. Khả năng sử dụng & truy cập
 
@@ -48,6 +49,7 @@ Người dùng mục tiêu gồm nhiều người lớn tuổi, ít kinh nghiệ
 | NFR-UX-05 | Hộp thoại xác nhận cho các thao tác không hoàn tác được. |
 | NFR-UX-06 | Trình duyệt hỗ trợ: 2 phiên bản mới nhất của Chrome, Edge, Firefox, Safari (macOS/iOS), Chrome Android, Cốc Cốc. |
 | NFR-UX-07 | Hỗ trợ SEO cho trang công khai (danh sách & chi tiết khóa học): thẻ meta, Open Graph, sitemap, URL thân thiện có slug tiếng Việt không dấu. Nếu cần SEO mạnh hơn, cân nhắc chuyển trang công khai sang SSR (Next.js) ở Giai đoạn 2. |
+| NFR-UX-08 | Nhận diện Trường ĐHSP Hà Nội 2: logo trường ở header (cao 40px trên desktop, 32px trên di động), footer, favicon (32×32, 180×180 cho iOS), ảnh Open Graph và email. Tông màu **đỏ – trắng**: màu chủ đạo `#962521` cho header, nút chính, liên kết, tab đang chọn; nền trắng. Chữ trắng trên nền `#962521` đạt tương phản 8,1:1. Màu lỗi luôn đi kèm biểu tượng và chữ để không nhầm với màu thương hiệu. Bảng màu tại `docs/design-ui/.../DESIGN.md`. |
 
 ## 5. Độ tin cậy & vận hành
 

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Người dùng — SCR-ADM-02</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .split { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
+  .table tr.sel td { background: var(--red-tint); }
+  .uname { display: flex; gap: 12px; align-items: center; }
+  .detail .hd { padding: 24px 20px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; border-bottom: 1px solid var(--line); }
+  .detail .hd .avatar { width: 64px; height: 64px; font-size: 22px; }
+  .kv2 { display: grid; grid-template-columns: 120px 1fr; gap: 10px 12px; font-size: 14px; }
+  .kv2 dt { color: var(--ink-2); }
+  .kv2 dd { margin: 0; font-weight: 600; }
+  .enr { display: flex; flex-direction: column; gap: 6px; padding: 12px 0; border-bottom: 1px dashed var(--line); font-size: 14px; }
+  .enr:last-child { border-bottom: 0; }
+</style>
+</head>
+<body>
+<div class="admin">
+  <aside class="sidebar" data-sidebar data-active="nguoi-dung"></aside>
+  <div class="admin-main">
+    <div class="admin-top">
+      <div class="crumb"><span>Quản trị</span><i data-i="chevron-right" class="sm"></i><b>Người dùng</b></div>
+      <div class="row"><button class="icon-btn"><i data-i="bell"></i></button><div class="user-chip"><span class="avatar">QT</span><div><div class="n">Quản trị viên</div><div class="r">ADMIN</div></div></div></div>
+    </div>
+    <div class="admin-body">
+      <div class="page-h"><h1>Người dùng <span class="muted" style="font-size:18px;font-weight:600">12.560</span></h1><div class="row"><a class="btn btn-light"><i data-i="download"></i>Xuất CSV</a><a class="btn btn-primary" href="29-admin-tao-nguoi-dung.html"><i data-i="plus"></i>Tạo người dùng</a></div></div>
+      <div class="split">
+        <div class="panel">
+          <div class="toolbar-a">
+            <div class="search-a"><i data-i="search"></i>Tìm họ tên, email, SĐT</div>
+            <span class="dd">Vai trò: Tất cả<i data-i="chevron-down" class="sm"></i></span>
+            <span class="dd">Trạng thái: Tất cả<i data-i="chevron-down" class="sm"></i></span>
+            <span class="dd"><i data-i="calendar" class="sm"></i>Ngày tạo</span>
+          </div>
+          <table class="table compact">
+            <thead><tr><th>Người dùng</th><th>Vai trò</th><th>Trạng thái</th><th>Ngày tạo</th><th>Đăng nhập cuối</th><th></th></tr></thead>
+            <tbody>
+              <tr class="sel"><td><div class="uname"><span class="avatar sm">NA</span><div><div class="bold">Nguyễn Văn An</div><div class="sub">an.nguyen@example.com</div></div></div></td><td><span class="chip neutral">USER</span></td><td><span class="chip success">Hoạt động</span></td><td>12/09/2026</td><td>26/10/2026 08:02</td><td><div class="acts"><a><i data-i="edit" class="sm"></i></a><a><i data-i="lock" class="sm"></i></a></div></td></tr>
+              <tr><td><div class="uname"><span class="avatar sm">QT</span><div><div class="bold">Quản trị viên</div><div class="sub">admin@example.com</div></div></div></td><td><span class="chip solid">ADMIN</span></td><td><span class="chip success">Hoạt động</span></td><td>01/09/2026</td><td>26/10/2026 07:45</td><td><div class="acts"><a><i data-i="edit" class="sm"></i></a></div></td></tr>
+              <tr><td><div class="uname"><span class="avatar sm">PT</span><div><div class="bold">Phạm Văn T.</div><div class="sub">pham.t@example.com</div></div></div></td><td><span class="chip neutral">USER</span></td><td><span class="chip error"><i data-i="lock" class="sm"></i>Bị khóa</span></td><td>20/09/2026</td><td>25/10/2026 15:58</td><td><div class="acts"><a><i data-i="edit" class="sm"></i></a><a><i data-i="refresh" class="sm"></i></a></div></td></tr>
+              <tr><td><div class="uname"><span class="avatar sm">LH</span><div><div class="bold">Lê Thị Hoa</div><div class="sub">hoa.le@example.com</div></div></div></td><td><span class="chip neutral">USER</span></td><td><span class="chip warn">Chờ xác thực</span></td><td>25/10/2026</td><td>—</td><td><div class="acts"><a><i data-i="edit" class="sm"></i></a><a class="danger"><i data-i="trash" class="sm"></i></a></div></td></tr>
+              <tr><td><div class="uname"><span class="avatar sm">TM</span><div><div class="bold">Trần Minh Đức</div><div class="sub">duc.tran@example.com</div></div></div></td><td><span class="chip neutral">USER</span></td><td><span class="chip success">Hoạt động</span></td><td>18/10/2026</td><td>24/10/2026 21:10</td><td><div class="acts"><a><i data-i="edit" class="sm"></i></a><a><i data-i="lock" class="sm"></i></a></div></td></tr>
+              <tr><td><div class="uname"><span class="avatar sm">VL</span><div><div class="bold">Vũ Thị Lan</div><div class="sub">lan.vu@example.com</div></div></div></td><td><span class="chip neutral">USER</span></td><td><span class="chip success">Hoạt động</span></td><td>11/10/2026</td><td>23/10/2026 19:36</td><td><div class="acts"><a><i data-i="edit" class="sm"></i></a><a><i data-i="lock" class="sm"></i></a></div></td></tr>
+            </tbody>
+          </table>
+          <div class="pager-a"><span>Hiển thị 1–20 / 12.560</span><div class="pg"><a><i data-i="chevron-left" class="sm"></i></a><a class="on">1</a><a>2</a><a>3</a><a>…</a><a>628</a><a><i data-i="chevron-right" class="sm"></i></a></div></div>
+        </div>
+
+        <div class="panel detail">
+          <div class="hd">
+            <span class="avatar">NA</span>
+            <b style="font-size:18px">Nguyễn Văn An</b>
+            <span class="small muted">an.nguyen@example.com</span>
+            <div class="row" style="gap:6px"><span class="chip neutral">USER</span><span class="chip success">Hoạt động</span></div>
+          </div>
+          <div class="panel-b stack" style="gap:18px">
+            <dl class="kv2" style="margin:0">
+              <dt>ID</dt><dd>1024</dd>
+              <dt>Năm sinh</dt><dd>1968</dd>
+              <dt>Quê quán</dt><dd>Phú Thọ</dd>
+              <dt>Nơi công tác</dt><dd>UBND phường Xuân Hòa</dd>
+              <dt>Điện thoại</dt><dd>0912 345 678</dd>
+            </dl>
+            <div>
+              <div class="bold small" style="margin-bottom:4px">Khóa học đã ghi danh (4)</div>
+              <div class="enr"><div class="row-between"><b>An toàn thông tin...</b><span class="chip warn">Còn 2 ngày</span></div><div class="progress warn"><i style="width:33%"></i></div><span class="xs muted">Lần học 1 · 33% · 19 điểm · hạng #27</span></div>
+              <div class="enr"><div class="row-between"><b>Kỹ năng sử dụng máy tính...</b><span class="chip success">Hoàn thành</span></div><span class="xs muted">74 điểm · hạng #5</span></div>
+              <div class="enr"><div class="row-between"><b>Soạn thảo văn bản...</b><span class="chip error">Hết hạn</span></div><span class="xs muted">Hết hạn 20/10/2026 · dữ liệu học tập đã xóa</span></div>
+            </div>
+            <a class="btn btn-light btn-block"><i data-i="mail" class="sm"></i>Gửi email đặt lại mật khẩu</a>
+            <a class="btn btn-outline btn-block" style="color:var(--error);border-color:var(--error)"><i data-i="lock" class="sm"></i>Khóa tài khoản</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

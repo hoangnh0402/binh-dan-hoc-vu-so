@@ -1,0 +1,34 @@
+# Môi trường dev: SQL Server + Mailpit (bắt email OTP, xem tại http://localhost:8025)
+# Chạy: docker compose -f deploy/docker-compose.dev.yml --env-file deploy/.env up -d
+name: bdhvs-dev
+
+services:
+  sqlserver:
+    # Trên Docker Desktop/WSL2, sp_getapplock lỗi (xp_userlock, Reason 126) → xem backend FlywayDevConfig.
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: bdhvs-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD}"
+      MSSQL_COLLATION: "Vietnamese_100_CI_AS"
+      TZ: "Etc/UTC"
+    ports:
+      - "127.0.0.1:1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+      - ./sql:/sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -Q \"SELECT 1\" || exit 1"]
+      interval: 10s
+      retries: 12
+
+  mailpit:
+    image: axllent/mailpit:v1.27
+    container_name: bdhvs-mailpit
+    ports:
+      - "127.0.0.1:1025:1025"
+      - "127.0.0.1:8025:8025"
+
+volumes:
+  mssql-data:

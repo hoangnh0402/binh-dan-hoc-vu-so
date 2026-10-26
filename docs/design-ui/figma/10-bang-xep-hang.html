@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bảng xếp hạng — FR-RNK-01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .rk-hero { background: linear-gradient(120deg, #5e1210, #962521 60%, #7a1c19); color: #fff; }
+  .rk-hero .container { padding-top: 36px; padding-bottom: 120px; text-align: center; }
+  .rk-hero h1 { font-size: 36px; font-weight: 800; }
+  .rk-hero .sel { margin: 18px auto 0; display: inline-flex; align-items: center; gap: 12px; background: #fff; color: var(--ink); padding: 10px 18px; border-radius: 12px; font-weight: 600; }
+  .podium { display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 20px; max-width: 860px; margin: -96px auto 0; align-items: end; }
+  .pd { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); box-shadow: var(--shadow); padding: 24px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .pd.first { padding: 32px 24px; border-color: var(--gold); }
+  .pd .avatar { width: 64px; height: 64px; font-size: 22px; }
+  .pd.first .avatar { width: 80px; height: 80px; font-size: 26px; background: var(--gold-tint); color: var(--gold-ink); }
+  .pd .pts { font-size: 26px; font-weight: 800; color: var(--red); }
+  .board { margin-top: 36px; }
+  .note { display: flex; gap: 10px; align-items: center; font-size: 14px; color: var(--ink-2); margin-top: 14px; }
+  .who { display: flex; align-items: center; gap: 12px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div data-header="user" data-active="xep-hang"></div>
+<section class="rk-hero">
+  <div class="container">
+    <i data-i="trophy" class="lg" style="color:var(--gold)"></i>
+    <h1 style="margin-top:8px">Bảng xếp hạng</h1>
+    <p style="opacity:.9;margin-top:6px">Điểm cao hơn xếp trên · Bằng điểm thì ai làm nhanh hơn xếp trên</p>
+    <div class="sel"><i data-i="book" class="sm"></i>An toàn thông tin và phòng tránh lừa đảo trực tuyến<i data-i="chevron-down" class="sm"></i></div>
+  </div>
+</section>
+<div class="container">
+  <div class="podium">
+    <div class="pd"><span class="medal m2">2</span><span class="avatar">LC</span><b>Lê Văn C.</b><span class="pts">60</span><span class="small muted">14:05 · 6 bài</span></div>
+    <div class="pd first"><span class="medal m1">1</span><span class="avatar">TB</span><b style="font-size:18px">Trần Thị B.</b><span class="pts" style="font-size:32px">60</span><span class="small muted">12:40 · 6 bài</span></div>
+    <div class="pd"><span class="medal m3">3</span><span class="avatar">PH</span><b>Phạm Thu H.</b><span class="pts">58</span><span class="small muted">11:20 · 6 bài</span></div>
+  </div>
+
+  <div class="panel board">
+    <div class="panel-h"><h3>Top 50 · 1.240 người học có điểm</h3><span class="small muted">Cập nhật ngay sau mỗi lần nộp quiz</span></div>
+    <table class="table">
+      <thead><tr><th style="width:90px">Hạng</th><th>Người học</th><th>Tổng điểm</th><th>Tổng thời gian</th><th>Bài hoàn thành</th></tr></thead>
+      <tbody>
+        <tr><td><span class="medal mx">4</span></td><td><div class="who"><span class="avatar sm">ĐM</span>Đỗ Minh K.</div></td><td class="bold">57</td><td>13:02</td><td>6 / 6</td></tr>
+        <tr><td><span class="medal mx">5</span></td><td><div class="who"><span class="avatar sm">VL</span>Vũ Thị L.</div></td><td class="bold">56</td><td>10:48</td><td>6 / 6</td></tr>
+        <tr><td><span class="medal mx">6</span></td><td><div class="who"><span class="avatar sm">NH</span>Nguyễn Hữu T.</div></td><td class="bold">56</td><td>12:15</td><td>6 / 6</td></tr>
+        <tr><td><span class="medal mx">7</span></td><td><div class="who"><span class="avatar sm" style="background:#f5eeed;color:var(--ink-3)"><i data-i="user" class="sm"></i></span><span class="muted">Học viên ẩn danh</span></div></td><td class="bold">54</td><td>09:56</td><td>6 / 6</td></tr>
+        <tr><td><span class="medal mx">8</span></td><td><div class="who"><span class="avatar sm">BQ</span>Bùi Quang M.</div></td><td class="bold">51</td><td>15:31</td><td>5 / 6</td></tr>
+        <tr class="me"><td><span class="medal mx" style="background:var(--red);color:#fff">27</span></td><td><div class="who"><span class="avatar sm">NA</span>Bạn — Nguyễn Văn An</div></td><td class="bold">19</td><td>05:48</td><td>2 / 6</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note"><i data-i="info" class="sm"></i>Tên người học được rút gọn để bảo vệ quyền riêng tư. Bạn có thể ẩn tên mình trên bảng xếp hạng trong trang Hồ sơ. Lượt học hết hạn sẽ bị xóa khỏi bảng xếp hạng.</div>
+</div>
+<div data-footer></div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

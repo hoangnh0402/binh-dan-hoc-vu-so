@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin — Tổ chức đào tạo — SCR-ADM-04</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .orgs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .org { background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .org .lg { width: 56px; height: 56px; border-radius: 14px; background: var(--red-tint); color: var(--red); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; flex: none; }
+  .org .lg img { width: 48px; height: 48px; }
+  .org .meta2 { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--ink-2); }
+  .org .meta2 span { display: flex; gap: 8px; align-items: center; }
+  .org .ft { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 14px; }
+  .org.off { opacity: .7; }
+</style>
+</head>
+<body>
+<div class="admin">
+  <aside class="sidebar" data-sidebar data-active="to-chuc"></aside>
+  <div class="admin-main">
+    <div class="admin-top">
+      <div class="crumb"><span>Quản trị</span><i data-i="chevron-right" class="sm"></i><b>Tổ chức đào tạo</b></div>
+      <div class="row"><button class="icon-btn"><i data-i="bell"></i></button><div class="user-chip"><span class="avatar">QT</span><div><div class="n">Quản trị viên</div><div class="r">ADMIN</div></div></div></div>
+    </div>
+    <div class="admin-body">
+      <div class="page-h"><h1>Tổ chức đào tạo <span class="muted" style="font-size:18px;font-weight:600">9</span></h1><a class="btn btn-primary"><i data-i="plus"></i>Thêm tổ chức</a></div>
+      <div class="panel"><div class="toolbar-a" style="border-bottom:0"><div class="search-a"><i data-i="search"></i>Tìm tổ chức đào tạo</div><span class="dd">Trạng thái: Tất cả<i data-i="chevron-down" class="sm"></i></span></div></div>
+      <div class="orgs">
+        <div class="org"><div class="row"><span class="lg"><img src="../brand/logo-hpu2.png" alt=""></span><div><b>Trung tâm Tin học HPU2</b><div class="xs muted">/trung-tam-tin-hoc-hpu2</div></div></div><div class="meta2"><span><i data-i="book" class="sm"></i>14 khóa học</span><span><i data-i="mail" class="sm"></i>tinhoc@example.com</span><span><i data-i="globe" class="sm"></i>Chưa có website</span></div><div class="ft"><span class="chip success">Hoạt động</span><div class="acts"><a><i data-i="edit" class="sm"></i></a></div></div></div>
+        <div class="org"><div class="row"><span class="lg">CNTT</span><div><b>Khoa Công nghệ thông tin</b><div class="xs muted">/khoa-cong-nghe-thong-tin</div></div></div><div class="meta2"><span><i data-i="book" class="sm"></i>9 khóa học</span><span><i data-i="mail" class="sm"></i>cntt@example.com</span><span><i data-i="globe" class="sm"></i>Chưa có website</span></div><div class="ft"><span class="chip success">Hoạt động</span><div class="acts"><a><i data-i="edit" class="sm"></i></a></div></div></div>
+        <div class="org"><div class="row"><span class="lg">NN</span><div><b>Khoa Ngoại ngữ</b><div class="xs muted">/khoa-ngoai-ngu</div></div></div><div class="meta2"><span><i data-i="book" class="sm"></i>8 khóa học</span><span><i data-i="mail" class="sm"></i>ngoaingu@example.com</span><span><i data-i="globe" class="sm"></i>Chưa có website</span></div><div class="ft"><span class="chip success">Hoạt động</span><div class="acts"><a><i data-i="edit" class="sm"></i></a></div></div></div>
+        <div class="org"><div class="row"><span class="lg">SP</span><div><b>Khoa Sư phạm</b><div class="xs muted">/khoa-su-pham</div></div></div><div class="meta2"><span><i data-i="book" class="sm"></i>10 khóa học</span><span><i data-i="mail" class="sm"></i>supham@example.com</span><span><i data-i="globe" class="sm"></i>Chưa có website</span></div><div class="ft"><span class="chip success">Hoạt động</span><div class="acts"><a><i data-i="edit" class="sm"></i></a></div></div></div>
+        <div class="org"><div class="row"><span class="lg">ĐT</span><div><b>Phòng Đào tạo</b><div class="xs muted">/phong-dao-tao</div></div></div><div class="meta2"><span><i data-i="book" class="sm"></i>6 khóa học</span><span><i data-i="mail" class="sm"></i>daotao@example.com</span><span><i data-i="globe" class="sm"></i>Chưa có website</span></div><div class="ft"><span class="chip success">Hoạt động</span><div class="acts"><a><i data-i="edit" class="sm"></i></a></div></div></div>
+        <div class="org off"><div class="row"><span class="lg">TT</span><div><b>Trung tâm Bồi dưỡng thường xuyên</b><div class="xs muted">/trung-tam-boi-duong</div></div></div><div class="meta2"><span><i data-i="book" class="sm"></i>1 khóa học</span><span><i data-i="mail" class="sm"></i>boiduong@example.com</span><span><i data-i="globe" class="sm"></i>Chưa có website</span></div><div class="ft"><span class="chip neutral">Đã tắt</span><div class="acts"><a><i data-i="edit" class="sm"></i></a></div></div></div>
+      </div>
+      <div class="alert info"><i data-i="info"></i><span>Tổ chức đang có khóa học không xóa được, chỉ có thể tắt hoạt động. Tổ chức bị tắt không xuất hiện trong bộ lọc ở trang người học.</span></div>
+    </div>
+  </div>
+</div>
+<script src="assets/layout.js"></script>
+</body>
+</html>

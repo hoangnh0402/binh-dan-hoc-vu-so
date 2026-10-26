@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trang chủ — SCR-CRS-01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .hero { background: linear-gradient(120deg, #5e1210 0%, #962521 55%, #6e1a17 100%); color: #fff; position: relative; overflow: hidden; }
+  .hero::after { content: ""; position: absolute; right: -120px; top: -120px; width: 520px; height: 520px; border-radius: 50%; border: 60px solid rgba(255,255,255,.06); }
+  .hero .container { display: grid; grid-template-columns: 1.25fr 1fr; gap: 48px; align-items: center; padding-top: 64px; padding-bottom: 72px; position: relative; z-index: 1; }
+  .hero h1 { font-size: 44px; font-weight: 800; letter-spacing: -.02em; line-height: 1.15; }
+  .hero h1 em { font-style: normal; color: var(--gold); }
+  .hero p.lead { font-size: 18px; opacity: .92; margin-top: 16px; max-width: 560px; }
+  .hero .big-search { margin-top: 28px; display: flex; background: #fff; border-radius: 14px; padding: 6px; max-width: 600px; box-shadow: 0 12px 30px rgba(0,0,0,.18); }
+  .hero .big-search .in { flex: 1; display: flex; align-items: center; gap: 10px; padding: 0 14px; color: var(--ink-3); font-size: 16px; }
+  .hero .tags { margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap; font-size: 14px; align-items: center; }
+  .hero .tags .chip { background: rgba(255,255,255,.14); color: #fff; }
+  .seal { justify-self: center; position: relative; width: 380px; height: 380px; }
+  .seal .ring { position: absolute; inset: 0; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 24px 60px rgba(0,0,0,.25); }
+  .seal .ring img { width: 300px; height: 300px; }
+  .seal .float { position: absolute; background: #fff; color: var(--ink); border-radius: 14px; padding: 12px 16px; box-shadow: var(--shadow); display: flex; gap: 12px; align-items: center; font-size: 14px; }
+  .seal .float .ic { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: var(--red-tint); color: var(--red); }
+  .seal .f1 { left: -60px; bottom: 40px; }
+  .seal .f2 { right: -50px; top: 30px; }
+  .stats { margin-top: -40px; position: relative; z-index: 2; }
+  .stats .card { display: grid; grid-template-columns: repeat(4, 1fr); padding: 24px 8px; box-shadow: var(--shadow); }
+  .stats .s { text-align: center; border-right: 1px solid var(--line); }
+  .stats .s:last-child { border-right: 0; }
+  .stats .v { font-size: 32px; font-weight: 800; color: var(--red); }
+  .stats .k { font-size: 15px; color: var(--ink-2); font-weight: 600; }
+  section.block { padding-top: 64px; }
+  .cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .cat { border: 1px solid var(--line); border-radius: var(--r-lg); padding: 22px; display: flex; gap: 16px; align-items: flex-start; background: #fff; }
+  .cat .ic { width: 52px; height: 52px; border-radius: 14px; background: var(--red-tint); color: var(--red); display: flex; align-items: center; justify-content: center; flex: none; }
+  .cat h3 { font-size: 18px; font-weight: 700; }
+  .cat .sub { font-size: 14px; color: var(--ink-2); margin-top: 4px; }
+  .steps { background: var(--canvas); border-radius: var(--r-xl); padding: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .step .n { width: 48px; height: 48px; border-radius: 50%; background: var(--red); color: #fff; font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; }
+  .step h3 { font-size: 19px; margin-top: 16px; }
+  .step p { color: var(--ink-2); margin-top: 8px; }
+</style>
+</head>
+<body>
+<div data-header="guest" data-active="trang-chu"></div>
+
+<section class="hero">
+  <div class="container">
+    <div>
+      <span class="chip" style="background:rgba(255,255,255,.14);color:#fff"><i data-i="award" class="sm"></i>Miễn phí cho mọi người dân</span>
+      <h1 style="margin-top:18px">Học kỹ năng số cùng<br><em>Trường ĐHSP Hà Nội 2</em></h1>
+      <p class="lead">Khóa học ngắn, học theo lộ trình từng bài, có bài kiểm tra sau mỗi bài và bảng xếp hạng để cùng nhau tiến bộ.</p>
+      <div class="big-search">
+        <div class="in"><i data-i="search"></i>Bạn muốn học gì? Ví dụ: an toàn thông tin</div>
+        <a class="btn btn-primary btn-lg">Tìm khóa học</a>
+      </div>
+      <div class="tags"><span style="opacity:.85">Tìm nhiều:</span><span class="chip">Dịch vụ công trực tuyến</span><span class="chip">Tin học văn phòng</span><span class="chip">Tiếng Anh giao tiếp</span></div>
+    </div>
+    <div class="seal">
+      <div class="ring"><img src="../brand/logo-hpu2.png" alt="Logo Trường Đại học Sư phạm Hà Nội 2"></div>
+      <div class="float f1"><span class="ic"><i data-i="hourglass"></i></span><div><b>Hoàn thành trong 3 tuần</b><div class="xs muted">Lộ trình gọn, dễ theo</div></div></div>
+      <div class="float f2"><span class="ic"><i data-i="trophy"></i></span><div><b>Bảng xếp hạng</b><div class="xs muted">Theo từng khóa học</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="container stats">
+  <div class="card">
+    <div class="s"><div class="v">48</div><div class="k">Khóa học miễn phí</div></div>
+    <div class="s"><div class="v">12.560</div><div class="k">Người học</div></div>
+    <div class="s"><div class="v">9</div><div class="k">Tổ chức đào tạo</div></div>
+    <div class="s"><div class="v">4,8 / 5</div><div class="k">Đánh giá trung bình</div></div>
+  </div>
+</div>
+
+<section class="block container">
+  <div class="sec-title"><h2>Lĩnh vực đào tạo</h2><a href="02-danh-sach-khoa-hoc.html">Xem tất cả<i data-i="chevron-right" class="sm"></i></a></div>
+  <div class="cats">
+    <div class="cat"><span class="ic"><i data-i="monitor" class="lg"></i></span><div><h3>Kỹ năng số</h3><div class="sub">Máy tính, Internet, an toàn thông tin, dịch vụ công · 24 khóa</div></div></div>
+    <div class="cat"><span class="ic"><i data-i="message" class="lg"></i></span><div><h3>Ngoại ngữ</h3><div class="sub">Tiếng Anh giao tiếp, tiếng Anh cho công việc · 8 khóa</div></div></div>
+    <div class="cat"><span class="ic"><i data-i="book" class="lg"></i></span><div><h3>Sư phạm &amp; giáo dục</h3><div class="sub">Bài giảng điện tử, AI trong dạy học · 10 khóa</div></div></div>
+    <div class="cat"><span class="ic"><i data-i="users" class="lg"></i></span><div><h3>Kỹ năng mềm</h3><div class="sub">Học tập suốt đời, giao tiếp, làm việc nhóm · 6 khóa</div></div></div>
+  </div>
+</section>
+
+<section class="block container">
+  <div class="sec-title"><h2>Khóa học nổi bật</h2><a href="02-danh-sach-khoa-hoc.html">Xem tất cả<i data-i="chevron-right" class="sm"></i></a></div>
+  <div class="grid-4" id="featured"></div>
+</section>
+
+<section class="block container">
+  <div class="sec-title"><h2>Khóa học mới nhất</h2><a href="02-danh-sach-khoa-hoc.html">Xem tất cả<i data-i="chevron-right" class="sm"></i></a></div>
+  <div class="grid-4" id="newest"></div>
+</section>
+
+<section class="block container">
+  <div class="sec-title"><h2>Học như thế nào?</h2></div>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><h3>Đăng ký tài khoản &amp; khóa học</h3><p>Xác thực email bằng mã OTP, chọn khóa học phù hợp và bấm "Đăng ký học".</p></div>
+    <div class="step"><div class="n">2</div><h3>Học lần lượt trong 3 tuần</h3><p>Hoàn thành bài trước để mở bài sau. Hết thời hạn mà chưa xong, bạn sẽ phải học lại từ đầu.</p></div>
+    <div class="step"><div class="n">3</div><h3>Làm quiz &amp; lên bảng xếp hạng</h3><p>Điểm cao hơn xếp trên; bằng điểm thì ai làm nhanh hơn xếp trên.</p></div>
+  </div>
+</section>
+
+<div data-footer></div>
+<script src="assets/layout.js"></script>
+<script src="assets/components.js"></script>
+<script>
+  document.getElementById('featured').innerHTML = COURSES.slice(0, 4).map(function (c, i) { return courseCard(c, { hover: i === 1 }); }).join('');
+  document.getElementById('newest').innerHTML = COURSES.slice(4, 8).map(function (c) { return courseCard(c); }).join('');
+</script>
+</body>
+</html>

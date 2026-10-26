@@ -44,6 +44,7 @@ Sau cả 3 tiêu chí vẫn bằng nhau → **đồng hạng** (dùng `RANK()`; 
 - Chỉ người học có enrollment `IN_PROGRESS` hoặc `COMPLETED` và `total_score > 0`.
 - Không tính tài khoản `ADMIN`, tài khoản `LOCKED` hoặc đã xóa.
 - Điểm từ các lượt nộp **sau** `end_date` của khóa học không được cộng (BR-LRN-07).
+- Lượt ghi danh hết thời hạn học (`EXPIRED`) bị xóa bản ghi `rankings` và `quiz_best_attempts` của khóa đó (BR-LRN-10). Khi học lại, người học bắt đầu từ 0 điểm.
 
 ### Ví dụ
 
