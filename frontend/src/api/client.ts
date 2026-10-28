@@ -1,4 +1,5 @@
 import type { ApiErrorBody, TokenResponse } from './types';
+import { DEMO } from '@/demo/flag';
 
 /** Lỗi API theo định dạng SRS 08 §1.3. */
 export class ApiError extends Error {
@@ -52,6 +53,14 @@ export function setSession(s: TokenResponse | null) {
  * vì backend xoay vòng refresh token và coi việc dùng lại token cũ là dấu hiệu bị đánh cắp.
  */
 export function refreshSession(): Promise<TokenResponse | null> {
+  if (DEMO) {
+    // Chế độ DEMO: khôi phục phiên từ trạng thái lưu ở trình duyệt, không gọi mạng.
+    return import('@/demo/server').then(({ demoRefresh }) => {
+      const s = demoRefresh();
+      setSession(s);
+      return s;
+    });
+  }
   if (!refreshing) {
     refreshing = fetch('/api/v1/auth/refresh', { method: 'POST', credentials: 'same-origin' })
       .then(async (r) => {
@@ -78,6 +87,10 @@ interface Options {
 }
 
 export async function api<T>(path: string, opts: Options = {}): Promise<T> {
+  if (DEMO) {
+    const { handle } = await import('@/demo/server');
+    return (await handle(path, { method: opts.method, body: opts.body, form: opts.form })) as T;
+  }
   const doFetch = () => {
     const headers: Record<string, string> = {};
     if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
@@ -107,6 +120,10 @@ export async function api<T>(path: string, opts: Options = {}): Promise<T> {
 
 /** Tải tệp (CSV) kèm token. */
 export async function download(path: string, filename: string) {
+  if (DEMO) {
+    // Chế độ DEMO không có máy chủ để xuất tệp (tính năng dành cho quản trị).
+    throw new ApiError({ status: 501, code: 'DEMO_NO_DOWNLOAD', message: 'Chức năng tải tệp không khả dụng ở bản demo' });
+  }
   const res = await fetch(`/api/v1${path}`, { headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {} });
   if (!res.ok) throw new ApiError({ status: res.status, code: 'DOWNLOAD_FAILED', message: 'Không tải được tệp' });
   const blob = await res.blob();
