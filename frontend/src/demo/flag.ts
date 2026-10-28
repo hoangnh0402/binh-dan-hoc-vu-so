@@ -30,3 +30,12 @@ function detect(): boolean {
 }
 
 export const DEMO = detect();
+
+// Tài khoản ảo dùng sẵn cho bản demo (không có backend).
+// Thực tế ở chế độ demo, mọi email/mật khẩu đều đăng nhập được;
+// đây chỉ là tài khoản mẫu có tên đẹp, hiện sẵn trên trang đăng nhập.
+export const DEMO_ACCOUNT = {
+  email: 'hocvien@demo.vn',
+  password: 'demo1234',
+  fullName: 'Nguyễn Văn An',
+};
