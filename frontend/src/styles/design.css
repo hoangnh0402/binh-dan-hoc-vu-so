@@ -3,9 +3,9 @@
    Nguồn token: docs/design-ui/stitch_trang_ch_kh_a_h_c_tr_ng_h_c/edulearn_portal_system/DESIGN.md */
 
 :root {
-  --red: #962521;          /* đỏ HPU2, lấy từ logo */
-  --red-dark: #7a1c19;
-  --red-darker: #5e1210;
+  --red: #a72a28;          /* đỏ HPU2, lấy từ logo */
+  --red-dark: #8a221f;
+  --red-darker: #6b1a18;
   --red-tint: #fcefee;
   --red-tint-2: #ffdad6;
   --white: #ffffff;
@@ -129,8 +129,8 @@ p { margin: 0; }
 .thumb .big { position: absolute; right: -10px; bottom: -18px; width: 120px; height: 120px; opacity: .22; stroke-width: 1.5; }
 .thumb .t-label { font-weight: 800; font-size: 20px; line-height: 1.15; max-width: 75%; position: relative; }
 .thumb .status { position: absolute; top: 12px; left: 12px; }
-.thumb.t1 { background: linear-gradient(135deg, #962521, #c0392b); }
-.thumb.t2 { background: linear-gradient(135deg, #5e1210, #962521); }
+.thumb.t1 { background: linear-gradient(135deg, #a72a28, #c0392b); }
+.thumb.t2 { background: linear-gradient(135deg, #6b1a18, #a72a28); }
 .thumb.t3 { background: linear-gradient(135deg, #7a5900, #c99a1e); }
 .thumb.t4 { background: linear-gradient(135deg, #b4505a, #e2828a); }
 .thumb.t5 { background: linear-gradient(135deg, #3a2f2e, #6b5a58); }
@@ -243,7 +243,7 @@ p { margin: 0; }
 /* ---------- Màn xác thực (đăng nhập, đăng ký, quên mật khẩu) ---------- */
 .auth-page { background: var(--canvas); }
 .auth { display: grid; grid-template-columns: 1fr 1fr; min-height: 960px; }
-.art { background: linear-gradient(150deg, #5e1210, #962521 60%, #7a1c19); color: #fff; padding: 56px 64px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+.art { background: linear-gradient(150deg, #6b1a18, #a72a28 60%, #8a221f); color: #fff; padding: 56px 64px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
 .art::before { content: ""; position: absolute; width: 640px; height: 640px; border-radius: 50%; border: 80px solid rgba(255, 255, 255, .05); right: -260px; bottom: -200px; }
 .art .brand .name { color: #fff; font-size: 22px; }
 .art .brand .sub { color: #f3c9c4; }
@@ -307,7 +307,7 @@ p { margin: 0; }
 .panel { overflow: hidden; }
 
 /* ---------- Trang chi tiết khóa học (SCR-CRS-03) ---------- */
-.c-hero { background: linear-gradient(120deg, #5e1210, #962521 60%, #7a1c19); color: #fff; }
+.c-hero { background: linear-gradient(120deg, #6b1a18, #a72a28 60%, #8a221f); color: #fff; }
 .c-hero .container { padding-top: 28px; padding-bottom: 40px; }
 .c-hero .crumb { color: #f3c9c4; }
 .c-hero .crumb b { color: #fff; }
