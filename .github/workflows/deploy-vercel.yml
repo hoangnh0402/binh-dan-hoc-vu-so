@@ -1,0 +1,47 @@
+name: Deploy to Vercel (production)
+
+# Tự động build frontend (chế độ DEMO, không cần backend) và deploy lên Vercel
+# mỗi khi push lên các nhánh dưới đây. Link production: https://binh-dan-hoc-vu-so.vercel.app
+#
+# Cần cấu hình 3 secret trong GitHub (Settings → Secrets and variables → Actions):
+#   VERCEL_TOKEN       – token cá nhân tạo tại https://vercel.com/account/tokens
+#   VERCEL_ORG_ID      – lấy từ .vercel/project.json sau khi chạy `vercel link`
+#   VERCEL_PROJECT_ID  – lấy từ .vercel/project.json sau khi chạy `vercel link`
+# Xem hướng dẫn chi tiết tại deploy/VERCEL.md
+
+on:
+  push:
+    branches: [main, feat/trien-khai-web]
+  workflow_dispatch:
+
+concurrency:
+  group: vercel-production
+  cancel-in-progress: true
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout mã nguồn
+        uses: actions/checkout@v4
+
+      - name: Cài Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cài Vercel CLI
+        run: npm install -g vercel@39.1.1
+
+      - name: Pull cấu hình project (production)
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build (chế độ DEMO, không cần backend)
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy lên Vercel production
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
