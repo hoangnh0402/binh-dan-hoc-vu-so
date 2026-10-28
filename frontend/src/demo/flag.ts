@@ -9,17 +9,24 @@
 const KEY = 'bdhvs.demo';
 
 function detect(): boolean {
-  // (2) override qua URL, có nhớ lại
+  // (2) override qua URL, có nhớ lại (?demo=1 bật, ?demo=0 tắt)
   try {
     const p = new URLSearchParams(window.location.search).get('demo');
     if (p === '1' || p === 'true') localStorage.setItem(KEY, '1');
-    else if (p === '0' || p === 'false') localStorage.removeItem(KEY);
-    if (localStorage.getItem(KEY) === '1') return true;
+    else if (p === '0' || p === 'false') localStorage.setItem(KEY, '0');
+    const v = localStorage.getItem(KEY);
+    if (v === '1') return true;
+    if (v === '0') return false;
   } catch {
     /* bộ nhớ trình duyệt bị chặn */
   }
   // (1) biến môi trường lúc build
-  return import.meta.env.VITE_DEMO === '1';
+  if (import.meta.env.VITE_DEMO === '0') return false;
+  if (import.meta.env.VITE_DEMO === '1') return true;
+  // (0) Mặc định: bản production chưa cấu hình backend (VITE_API_TARGET) → bật demo
+  //     để trang chạy độc lập, không cố gọi API không tồn tại.
+  //     Khi đã có backend thật: đặt VITE_DEMO=0 hoặc cấu hình VITE_API_TARGET.
+  return import.meta.env.PROD && !import.meta.env.VITE_API_TARGET;
 }
 
 export const DEMO = detect();

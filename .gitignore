@@ -47,3 +47,6 @@ playwright-report/
 
 # TypeScript incremental build
 *.tsbuildinfo
+
+# Vercel
+.vercel/
