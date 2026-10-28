@@ -6,6 +6,7 @@ import { useAuth } from '@/auth/AuthContext';
 import { Icon } from '@/components/Icon';
 import { Checkbox, Field, PasswordInput, errorMessage, useCountdown, useToast } from '@/components/ui';
 import { formatClock } from '@/lib/format';
+import { DEMO, DEMO_ACCOUNT } from '@/demo/flag';
 
 function AuthShell({ title, points, children }: { title: ReactNode; points: [string, string][]; children: ReactNode }) {
   return (
@@ -80,28 +81,38 @@ export function LoginPage() {
   const nav = useNavigate();
   const loc = useLocation();
   const from = (loc.state as { from?: string } | null)?.from;
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState(DEMO ? DEMO_ACCOUNT.email : '');
+  const [password, setPassword] = useState(DEMO ? DEMO_ACCOUNT.password : '');
   const [remember, setRemember] = useState(true);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
 
-  const submit = async (e: FormEvent) => {
-    e.preventDefault();
+  const doLogin = async (mail: string, pass: string) => {
     setError('');
     setBusy(true);
     try {
-      const u = await login(email.trim(), password, remember);
+      const u = await login(mail.trim(), pass, remember);
       nav(from ?? (u.roles.includes('ADMIN') ? '/admin' : '/'), { replace: true });
     } catch (err) {
       if (err instanceof ApiError && err.code === 'ACCOUNT_NOT_VERIFIED') {
-        nav('/xac-thuc-otp', { state: { email: email.trim(), sent: true } });
+        nav('/xac-thuc-otp', { state: { email: mail.trim(), sent: true } });
         return;
       }
       setError(errorMessage(err));
     } finally {
       setBusy(false);
     }
+  };
+
+  const submit = (e: FormEvent) => {
+    e.preventDefault();
+    doLogin(email, password);
+  };
+
+  const quickDemo = () => {
+    setEmail(DEMO_ACCOUNT.email);
+    setPassword(DEMO_ACCOUNT.password);
+    doLogin(DEMO_ACCOUNT.email, DEMO_ACCOUNT.password);
   };
 
   return (
@@ -142,9 +153,24 @@ export function LoginPage() {
             Quên mật khẩu?
           </Link>
         </div>
+        {DEMO && (
+          <div className="alert info" style={{ fontSize: 14 }}>
+            <Icon name="info" size="sm" />
+            <span>
+              Bản dùng thử — tài khoản demo: <b>{DEMO_ACCOUNT.email}</b> / <b>{DEMO_ACCOUNT.password}</b>.
+              {' '}Bạn cũng có thể nhập bất kỳ email/mật khẩu nào.
+            </span>
+          </div>
+        )}
         <button className="btn btn-primary btn-lg btn-block" disabled={busy || !email || !password}>
           {busy ? 'Đang đăng nhập...' : 'Đăng nhập'}
         </button>
+        {DEMO && (
+          <button type="button" className="btn btn-outline btn-lg btn-block" disabled={busy} onClick={quickDemo}>
+            <Icon name="play" size="sm" />
+            Đăng nhập nhanh với tài khoản demo
+          </button>
+        )}
         <p className="small" style={{ textAlign: 'center' }}>
           Chưa có tài khoản? <Link className="bold" to="/dang-ky">Đăng ký miễn phí</Link>
         </p>

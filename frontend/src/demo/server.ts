@@ -28,6 +28,7 @@ import type {
   TokenResponse,
   UserSummary,
 } from '@/api/types';
+import { DEMO_ACCOUNT } from './flag';
 import {
   CATEGORIES,
   COURSES,
@@ -338,7 +339,7 @@ export async function handle(rawPath: string, opts: Opts = {}): Promise<any> {
     if (action === 'login') {
       const { email, password } = opts.body ?? {};
       if (!email || !password) err(422, 'VALIDATION_ERROR', 'Vui lòng nhập email và mật khẩu');
-      const name = state.pendingName || deriveName(email);
+      const name = email === DEMO_ACCOUNT.email ? DEMO_ACCOUNT.fullName : state.pendingName || deriveName(email);
       const u = makeUser(email, name);
       state.user = u;
       save();
