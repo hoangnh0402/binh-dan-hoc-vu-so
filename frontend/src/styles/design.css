@@ -206,7 +206,8 @@ p { margin: 0; }
 .footer .contact { display: flex; flex-direction: column; gap: 10px; font-size: 15px; margin-top: 16px; }
 .footer .contact span { display: flex; gap: 10px; align-items: flex-start; }
 .footer .brand-f { display: flex; gap: 12px; align-items: center; }
-.footer .brand-f .logo-bg { width: 60px; height: 60px; border-radius: 99px; background: #fff; display: flex; align-items: center; justify-content: center; }
+.footer .brand-f .logo-bg { width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; }
+.footer .brand-f .logo-bg img { width: 60px; height: 60px; }
 .footer .brand-f img { width: 52px; height: 52px; }
 .footer .brand-f .name { font-weight: 800; font-size: 20px; color: #fff; }
 .footer .brand-f .sub { font-size: 13px; opacity: .85; }
@@ -216,8 +217,8 @@ p { margin: 0; }
 .admin { display: grid; grid-template-columns: 264px 1fr; min-height: 100vh; background: var(--canvas); }
 .sidebar { background: var(--red-darker); color: #f6dcd9; padding: 20px 14px; display: flex; flex-direction: column; gap: 4px; }
 .sidebar .brand { padding: 4px 8px 20px; }
-.sidebar .brand .logo-bg { width: 44px; height: 44px; border-radius: 99px; background: #fff; display: flex; align-items: center; justify-content: center; }
-.sidebar .brand img { width: 38px; height: 38px; }
+.sidebar .brand .logo-bg { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+.sidebar .brand img { width: 44px; height: 44px; }
 .sidebar .brand .name { color: #fff; font-size: 16px; }
 .sidebar .brand .sub { color: #e9b9b4; }
 .sidebar .grp { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .6; padding: 16px 12px 6px; }
@@ -247,8 +248,8 @@ p { margin: 0; }
 .art::before { content: ""; position: absolute; width: 640px; height: 640px; border-radius: 50%; border: 80px solid rgba(255, 255, 255, .05); right: -260px; bottom: -200px; }
 .art .brand .name { color: #fff; font-size: 22px; }
 .art .brand .sub { color: #f3c9c4; }
-.art .logo-bg { width: 64px; height: 64px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; }
-.art .logo-bg img { width: 56px; height: 56px; }
+.art .logo-bg { width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; }
+.art .logo-bg img { width: 64px; height: 64px; }
 .art h1 { font-size: 40px; font-weight: 800; line-height: 1.2; letter-spacing: -.02em; }
 .art .pts { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; font-size: 17px; }
 .art .pts span { display: flex; gap: 12px; align-items: center; }
