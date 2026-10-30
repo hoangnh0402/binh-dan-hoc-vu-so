@@ -6,7 +6,7 @@ import { useAuth } from '@/auth/AuthContext';
 import { Icon } from '@/components/Icon';
 import { Checkbox, Field, PasswordInput, errorMessage, useCountdown, useToast } from '@/components/ui';
 import { formatClock } from '@/lib/format';
-import { DEMO, DEMO_ACCOUNT } from '@/demo/flag';
+import { DEMO, DEMO_ACCOUNT, DEMO_ADMIN } from '@/demo/flag';
 
 function AuthShell({ title, points, children }: { title: ReactNode; points: [string, string][]; children: ReactNode }) {
   return (
@@ -114,6 +114,11 @@ export function LoginPage() {
     setPassword(DEMO_ACCOUNT.password);
     doLogin(DEMO_ACCOUNT.email, DEMO_ACCOUNT.password);
   };
+  const quickAdmin = () => {
+    setEmail(DEMO_ADMIN.email);
+    setPassword(DEMO_ADMIN.password);
+    doLogin(DEMO_ADMIN.email, DEMO_ADMIN.password);
+  };
 
   return (
     <AuthShell
@@ -157,8 +162,9 @@ export function LoginPage() {
           <div className="alert info" style={{ fontSize: 14 }}>
             <Icon name="info" size="sm" />
             <span>
-              Bản dùng thử — tài khoản demo: <b>{DEMO_ACCOUNT.email}</b> / <b>{DEMO_ACCOUNT.password}</b>.
-              {' '}Bạn cũng có thể nhập bất kỳ email/mật khẩu nào.
+              Bản dùng thử. Người học: <b>{DEMO_ACCOUNT.email}</b> / <b>{DEMO_ACCOUNT.password}</b>.
+              {' '}Quản trị: <b>{DEMO_ADMIN.email}</b> / <b>{DEMO_ADMIN.password}</b>.
+              {' '}Hoặc nhập bất kỳ email/mật khẩu nào để vào với vai trò người học.
             </span>
           </div>
         )}
@@ -166,10 +172,16 @@ export function LoginPage() {
           {busy ? 'Đang đăng nhập...' : 'Đăng nhập'}
         </button>
         {DEMO && (
-          <button type="button" className="btn btn-outline btn-lg btn-block" disabled={busy} onClick={quickDemo}>
-            <Icon name="play" size="sm" />
-            Đăng nhập nhanh với tài khoản demo
-          </button>
+          <div className="row" style={{ gap: 10 }}>
+            <button type="button" className="btn btn-outline btn-lg" style={{ flex: 1 }} disabled={busy} onClick={quickDemo}>
+              <Icon name="play" size="sm" />
+              Vào học (demo)
+            </button>
+            <button type="button" className="btn btn-outline btn-lg" style={{ flex: 1 }} disabled={busy} onClick={quickAdmin}>
+              <Icon name="shield" size="sm" />
+              Vào Quản trị (demo)
+            </button>
+          </div>
         )}
         <p className="small" style={{ textAlign: 'center' }}>
           Chưa có tài khoản? <Link className="bold" to="/dang-ky">Đăng ký miễn phí</Link>

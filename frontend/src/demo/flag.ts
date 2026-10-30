@@ -39,3 +39,10 @@ export const DEMO_ACCOUNT = {
   password: 'demo1234',
   fullName: 'Nguyễn Văn An',
 };
+
+// Tài khoản quản trị demo — đăng nhập vào khu vực /admin.
+export const DEMO_ADMIN = {
+  email: 'admin@demo.vn',
+  password: 'admin1234',
+  fullName: 'Quản trị viên',
+};
