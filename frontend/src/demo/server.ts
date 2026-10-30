@@ -29,7 +29,6 @@ import type {
   UserSummary,
 } from '@/api/types';
 import { DEMO_ACCOUNT, DEMO_ADMIN } from './flag';
-import { handleAdmin } from './admin';
 import {
   CATEGORIES,
   COURSES,
@@ -427,6 +426,7 @@ export async function handle(rawPath: string, opts: Opts = {}): Promise<any> {
   if (seg[0] === 'admin') {
     const u = requireUser();
     if (!u.roles.includes('ADMIN')) err(403, 'FORBIDDEN', 'Bạn không có quyền quản trị');
+    const { handleAdmin } = await import('./admin');
     return handleAdmin(seg, method, query, { method, body: opts.body, form: opts.form }, { id: u.id, name: u.fullName });
   }
 

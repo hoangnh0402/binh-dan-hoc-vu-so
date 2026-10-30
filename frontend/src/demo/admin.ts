@@ -166,7 +166,10 @@ interface AdminState {
 // -------------------------------------------------------------------- persistence
 
 const KEY = 'bdhvs.demo.admin';
-let S: AdminState = load();
+// LƯU Ý: không khởi tạo S ở đây. load()/seed() dùng các const (daysAgo, daysAhead...)
+// khai báo bên dưới; nếu gọi load() tại điểm này sẽ dính lỗi TDZ lúc nạp module.
+// S được khởi tạo ở cuối file, sau khi mọi helper đã sẵn sàng.
+let S: AdminState;
 
 function load(): AdminState {
   try {
@@ -1003,3 +1006,6 @@ function toDataUrl(file: File): Promise<string> {
 function csv(s: string) {
   return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
 }
+
+// Khởi tạo kho dữ liệu admin SAU khi mọi helper (daysAgo, seed, ...) đã khai báo.
+S = load();
