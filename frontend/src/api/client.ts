@@ -121,8 +121,18 @@ export async function api<T>(path: string, opts: Options = {}): Promise<T> {
 /** Tải tệp (CSV) kèm token. */
 export async function download(path: string, filename: string) {
   if (DEMO) {
-    // Chế độ DEMO không có máy chủ để xuất tệp (tính năng dành cho quản trị).
-    throw new ApiError({ status: 501, code: 'DEMO_NO_DOWNLOAD', message: 'Chức năng tải tệp không khả dụng ở bản demo' });
+    // Chế độ DEMO: máy chủ giả lập trả về nội dung CSV dạng chuỗi, tự dựng tệp tải về.
+    const { handle } = await import('@/demo/server');
+    const data = await handle(path, {});
+    const text = typeof data === 'string' ? data : '';
+    const blob = new Blob(['﻿' + text], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+    return;
   }
   const res = await fetch(`/api/v1${path}`, { headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {} });
   if (!res.ok) throw new ApiError({ status: res.status, code: 'DOWNLOAD_FAILED', message: 'Không tải được tệp' });

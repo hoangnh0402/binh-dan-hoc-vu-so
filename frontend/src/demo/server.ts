@@ -28,7 +28,8 @@ import type {
   TokenResponse,
   UserSummary,
 } from '@/api/types';
-import { DEMO_ACCOUNT } from './flag';
+import { DEMO_ACCOUNT, DEMO_ADMIN } from './flag';
+import { handleAdmin } from './admin';
 import {
   CATEGORIES,
   COURSES,
@@ -124,8 +125,8 @@ function requireUser(): UserSummary {
   return state.user!;
 }
 
-function makeUser(email: string, fullName: string): UserSummary {
-  return { id: DEMO_USER_ID, fullName, email, roles: ['LEARNER'] };
+function makeUser(email: string, fullName: string, roles: string[] = ['USER']): UserSummary {
+  return { id: email === DEMO_ADMIN.email ? 1 : DEMO_USER_ID, fullName, email, roles };
 }
 function session(u: UserSummary): TokenResponse {
   return { accessToken: 'demo-token', expiresIn: 3600, user: u };
@@ -339,8 +340,9 @@ export async function handle(rawPath: string, opts: Opts = {}): Promise<any> {
     if (action === 'login') {
       const { email, password } = opts.body ?? {};
       if (!email || !password) err(422, 'VALIDATION_ERROR', 'Vui lòng nhập email và mật khẩu');
-      const name = email === DEMO_ACCOUNT.email ? DEMO_ACCOUNT.fullName : state.pendingName || deriveName(email);
-      const u = makeUser(email, name);
+      const isAdmin = email === DEMO_ADMIN.email;
+      const name = isAdmin ? DEMO_ADMIN.fullName : email === DEMO_ACCOUNT.email ? DEMO_ACCOUNT.fullName : state.pendingName || deriveName(email);
+      const u = makeUser(email, name, isAdmin ? ['ADMIN', 'USER'] : ['USER']);
       state.user = u;
       save();
       return session(u);
@@ -419,6 +421,13 @@ export async function handle(rawPath: string, opts: Opts = {}): Promise<any> {
         return undefined;
       }
     }
+  }
+
+  // ===== ADMIN =====
+  if (seg[0] === 'admin') {
+    const u = requireUser();
+    if (!u.roles.includes('ADMIN')) err(403, 'FORBIDDEN', 'Bạn không có quyền quản trị');
+    return handleAdmin(seg, method, query, { method, body: opts.body, form: opts.form }, { id: u.id, name: u.fullName });
   }
 
   // ===== LEARNING =====
