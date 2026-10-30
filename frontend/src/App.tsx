@@ -40,7 +40,8 @@ function GuestOnly({ children }: { children: ReactNode }) {
   if (!ready) return <Spinner />;
   // Vừa đăng nhập xong thì component này render trước lệnh nav() của LoginPage → phải chọn cùng đích.
   const from = (loc.state as { from?: string } | null)?.from;
-  return user ? <Navigate to={from ?? (isAdmin ? '/admin' : '/')} replace /> : <>{children}</>;
+  // Admin luôn vào thẳng khu vực quản trị.
+  return user ? <Navigate to={isAdmin ? '/admin' : (from ?? '/')} replace /> : <>{children}</>;
 }
 
 export default function App() {

@@ -92,7 +92,8 @@ export function LoginPage() {
     setBusy(true);
     try {
       const u = await login(mail.trim(), pass, remember);
-      nav(from ?? (u.roles.includes('ADMIN') ? '/admin' : '/'), { replace: true });
+      // Admin luôn vào thẳng khu vực quản trị, không rơi về trang học viên.
+      nav(u.roles.includes('ADMIN') ? '/admin' : (from ?? '/'), { replace: true });
     } catch (err) {
       if (err instanceof ApiError && err.code === 'ACCOUNT_NOT_VERIFIED') {
         nav('/xac-thuc-otp', { state: { email: mail.trim(), sent: true } });
