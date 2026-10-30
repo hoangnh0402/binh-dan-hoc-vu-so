@@ -1,5 +1,5 @@
 import { Suspense, lazy, type ReactNode } from 'react';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/auth/AuthContext';
 import { PublicLayout } from '@/components/Layout';
 import { Spinner } from '@/components/ui';
@@ -34,6 +34,14 @@ function RequireAuth({ children, admin }: { children: ReactNode; admin?: boolean
   return <>{children}</>;
 }
 
+/** Trang chủ: admin mở "/" sẽ vào thẳng /admin (trừ khi chủ động xem với ?view=learner). */
+function HomeLanding() {
+  const { isAdmin } = useAuth();
+  const [sp] = useSearchParams();
+  if (isAdmin && sp.get('view') !== 'learner') return <Navigate to="/admin" replace />;
+  return <HomePage />;
+}
+
 function GuestOnly({ children }: { children: ReactNode }) {
   const { user, ready, isAdmin } = useAuth();
   const loc = useLocation();
@@ -51,7 +59,7 @@ export default function App() {
     <Suspense fallback={<Spinner />}>
     <Routes>
       <Route element={<PublicLayout />}>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomeLanding />} />
         <Route path="/khoa-hoc" element={<CourseListPage />} />
         <Route path="/khoa-hoc/:slug" element={<CourseDetailPage />} />
         <Route path="/bang-xep-hang" element={<LeaderboardPage />} />

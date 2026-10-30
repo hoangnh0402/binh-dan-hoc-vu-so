@@ -50,7 +50,7 @@ export function AdminLayout() {
           ),
         )}
         <div className="grp">Khác</div>
-        <Link to="/">
+        <Link to="/?view=learner">
           <Icon name="home" />
           Về trang người học
         </Link>
