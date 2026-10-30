@@ -172,16 +172,16 @@ export function LoginPage() {
           {busy ? 'Đang đăng nhập...' : 'Đăng nhập'}
         </button>
         {DEMO && (
-          <div className="row" style={{ gap: 10 }}>
-            <button type="button" className="btn btn-outline btn-lg" style={{ flex: 1 }} disabled={busy} onClick={quickDemo}>
+          <>
+            <button type="button" className="btn btn-outline btn-block" disabled={busy} onClick={quickDemo}>
               <Icon name="play" size="sm" />
               Vào học (demo)
             </button>
-            <button type="button" className="btn btn-outline btn-lg" style={{ flex: 1 }} disabled={busy} onClick={quickAdmin}>
+            <button type="button" className="btn btn-outline btn-block" disabled={busy} onClick={quickAdmin}>
               <Icon name="shield" size="sm" />
               Vào Quản trị (demo)
             </button>
-          </div>
+          </>
         )}
         <p className="small" style={{ textAlign: 'center' }}>
           Chưa có tài khoản? <Link className="bold" to="/dang-ky">Đăng ký miễn phí</Link>
