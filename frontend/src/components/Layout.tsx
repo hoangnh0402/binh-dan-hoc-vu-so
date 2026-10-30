@@ -140,6 +140,12 @@ function Header() {
                 <Icon name="search" />
               </Link>
             )}
+            {isAdmin && (
+              <Link className="btn btn-primary btn-sm admin-entry" to="/admin">
+                <Icon name="settings" size="sm" />
+                Quản trị
+              </Link>
+            )}
             {user ? (
               <div className="user-menu" ref={ref}>
                 <button className="user-chip" onClick={() => setMenu(!menu)} aria-expanded={menu} aria-haspopup="menu">
