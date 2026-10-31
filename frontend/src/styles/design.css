@@ -243,8 +243,8 @@ p { margin: 0; }
 
 /* ---------- Màn xác thực (đăng nhập, đăng ký, quên mật khẩu) ---------- */
 .auth-page { background: var(--canvas); }
-.auth { display: grid; grid-template-columns: 1fr 1fr; min-height: 960px; }
-.art { background: linear-gradient(150deg, #6b1a18, #a72a28 60%, #8a221f); color: #fff; padding: 56px 64px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+.auth { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); height: 100vh; height: 100dvh; }
+.art { background: linear-gradient(150deg, #6b1a18, #a72a28 60%, #8a221f); color: #fff; padding: 48px 56px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
 .art::before { content: ""; position: absolute; width: 640px; height: 640px; border-radius: 50%; border: 80px solid rgba(255, 255, 255, .05); right: -260px; bottom: -200px; }
 .art .brand .name { color: #fff; font-size: 22px; }
 .art .brand .sub { color: #f3c9c4; }
@@ -253,15 +253,25 @@ p { margin: 0; }
 .art h1 { font-size: 40px; font-weight: 800; line-height: 1.2; letter-spacing: -.02em; }
 .art .pts { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; font-size: 17px; }
 .art .pts span { display: flex; gap: 12px; align-items: center; }
-.art .pts .ic { width: 40px; height: 40px; border-radius: 10px; background: rgba(255, 255, 255, .14); display: inline-flex; align-items: center; justify-content: center; }
-.form-side { display: flex; align-items: center; justify-content: center; padding: 48px; }
-.form-card { width: 480px; background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 40px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 20px; }
-.form-card.wide { width: 600px; }
+.art .pts .ic { flex: none; width: 40px; height: 40px; border-radius: 10px; background: rgba(255, 255, 255, .14); display: inline-flex; align-items: center; justify-content: center; }
+.form-side { display: flex; padding: 24px; min-height: 0; overflow-y: auto; }
+.form-card { width: 480px; max-width: 100%; background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 32px 40px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 16px; }
+.form-card.wide { width: 760px; }
+/* margin auto thay cho căn giữa flex: cửa sổ quá thấp thì cuộn được từ đầu form, không bị cắt mất phần trên. */
+.form-side .form-card { margin: auto; flex: none; }
+.auth .fg2 { row-gap: 16px; }
+.fg4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.pw-meter { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 20px; }
+.pw-meter .strength { flex: 1 1 120px; }
+.pw-meter .rules { flex-direction: row; flex-wrap: wrap; gap: 4px 14px; }
+.quick-demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+.demo-note { font-size: 14px; }
 .seg { display: grid; grid-template-columns: 1fr 1fr; background: #f5eeed; border-radius: 10px; padding: 4px; }
 .seg a { text-align: center; padding: 10px; border-radius: 8px; font-weight: 700; color: var(--ink-2); }
 .seg a.on { background: #fff; color: var(--red); box-shadow: 0 1px 4px rgba(0, 0, 0, .08); }
 .pw { position: relative; }
 .pw .icon { position: absolute; right: 14px; top: 14px; color: var(--ink-3); }
+.pw button .icon { position: static; }
 .stepper { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink-3); }
 .stepper .s { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
 .stepper .s i { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--line-2); display: inline-flex; align-items: center; justify-content: center; font-style: normal; font-size: 13px; font-weight: 800; }

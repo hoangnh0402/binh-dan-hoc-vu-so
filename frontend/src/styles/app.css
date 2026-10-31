@@ -344,6 +344,33 @@ section.block { padding-top: 64px; }
   .header .search { display: none; }
 }
 
+@media (max-width: 1180px) {
+  .auth { grid-template-columns: minmax(0, 1fr); }
+  .art { display: none; }
+}
+
+/* Màn hình laptop thấp: thu gọn để đăng nhập/đăng ký nằm trọn một trang, không phải cuộn. */
+@media (min-width: 761px) and (max-height: 860px) {
+  .art { padding: 32px 48px; }
+  .art h1 { font-size: 34px; }
+  .art .pts { gap: 12px; margin-top: 20px; font-size: 16px; }
+  .form-side { padding: 12px 24px; }
+  .form-side .form-card { padding: 18px 32px; gap: 11px; }
+  .auth .field { gap: 3px; }
+  .auth .field label { font-size: 14px; }
+  .auth .input { height: 40px; }
+  .auth .fg2, .auth .fg4 { gap: 11px 16px; }
+  .auth .btn-lg { height: 44px; }
+  .auth .btn { height: 40px; }
+  .auth .btn.btn-lg { height: 44px; }
+  .auth .seg a { padding: 6px; }
+  .auth .stepper .s i { width: 24px; height: 24px; }
+  .auth .form-title { font-size: 22px !important; }
+  .auth .alert { padding: 8px 12px; gap: 8px; }
+  .demo-note { font-size: 13px; }
+  .auth .check { font-size: 14px; }
+}
+
 @media (max-width: 1024px) {
   .container { padding: 0 20px; }
   .grid-4, .grid-3 { grid-template-columns: repeat(2, 1fr); }
@@ -402,11 +429,11 @@ section.block { padding-top: 64px; }
   .tabs a { white-space: nowrap; padding: 12px 12px; }
   .reviews-sum { grid-template-columns: 1fr; }
   .outc { grid-template-columns: 1fr; }
-  .auth { grid-template-columns: 1fr; min-height: auto; }
-  .art { display: none; }
-  .form-side { padding: 20px 16px; }
-  .form-card, .form-card.wide { width: 100%; padding: 24px 20px; }
+  .auth { height: auto; }
+  .form-side { padding: 20px 16px; overflow-y: visible; }
+  .form-card, .form-card.wide, .form-side .form-card { width: 100%; padding: 24px 20px; }
   .fg2, .fgrid, .admin-body .panel-b.fgrid { grid-template-columns: 1fr; }
+  .fg4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .otp-inputs input { width: 44px; height: 54px; font-size: 22px; }
   .lbar, .qbar { padding: 0 12px; gap: 10px; }
   .lbar .ct { font-size: 15px; }

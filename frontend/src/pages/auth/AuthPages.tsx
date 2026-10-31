@@ -142,8 +142,8 @@ export function LoginPage() {
           <Link to="/dang-ky">Đăng ký</Link>
         </div>
         <div>
-          <h2 style={{ fontSize: 26, fontWeight: 800 }}>Đăng nhập</h2>
-          <p className="muted" style={{ marginTop: 6 }}>Dùng email bạn đã đăng ký tài khoản.</p>
+          <h2 className="form-title" style={{ fontSize: 26, fontWeight: 800 }}>Đăng nhập</h2>
+          <p className="muted small" style={{ marginTop: 4 }}>Dùng email bạn đã đăng ký tài khoản.</p>
         </div>
         <Field label="Email" required>
           <input className="input" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus />
@@ -160,7 +160,7 @@ export function LoginPage() {
           </Link>
         </div>
         {DEMO && (
-          <div className="alert info" style={{ fontSize: 14 }}>
+          <div className="alert info demo-note">
             <Icon name="info" size="sm" />
             <span>
               Bản dùng thử. Người học: <b>{DEMO_ACCOUNT.email}</b> / <b>{DEMO_ACCOUNT.password}</b>.
@@ -173,7 +173,7 @@ export function LoginPage() {
           {busy ? 'Đang đăng nhập...' : 'Đăng nhập'}
         </button>
         {DEMO && (
-          <>
+          <div className="quick-demo">
             <button type="button" className="btn btn-outline btn-block" disabled={busy} onClick={quickDemo}>
               <Icon name="play" size="sm" />
               Vào học (demo)
@@ -182,7 +182,7 @@ export function LoginPage() {
               <Icon name="shield" size="sm" />
               Vào Quản trị (demo)
             </button>
-          </>
+          </div>
         )}
         <p className="small" style={{ textAlign: 'center' }}>
           Chưa có tài khoản? <Link className="bold" to="/dang-ky">Đăng ký miễn phí</Link>
@@ -275,26 +275,28 @@ export function RegisterPage() {
             {general}
           </div>
         )}
-        <Field label="Họ và tên" required error={errors.fullName}>
-          <input className={`input${errors.fullName ? ' invalid' : ''}`} value={f.fullName} onChange={set('fullName')} autoComplete="name" maxLength={100} />
-        </Field>
-        <Field label="Email" required error={errors.email} hint="Mã xác thực sẽ được gửi tới email này.">
-          <input className={`input${errors.email ? ' invalid' : ''}`} type="email" value={f.email} onChange={set('email')} autoComplete="email" />
-        </Field>
         <div className="fg2">
+          <Field label="Họ và tên" required error={errors.fullName}>
+            <input className={`input${errors.fullName ? ' invalid' : ''}`} value={f.fullName} onChange={set('fullName')} autoComplete="name" maxLength={100} />
+          </Field>
+          <Field label="Email" required error={errors.email} hint="Mã xác thực sẽ được gửi tới email này.">
+            <input className={`input${errors.email ? ' invalid' : ''}`} type="email" value={f.email} onChange={set('email')} autoComplete="email" />
+          </Field>
           <Field label="Mật khẩu" required error={errors.password}>
             <PasswordInput value={f.password} onChange={set('password')} autoComplete="new-password" invalid={!!errors.password} />
-            <PasswordStrength pw={f.password} email={f.email} />
           </Field>
           <Field label="Xác nhận mật khẩu" required error={errors.confirmPassword}>
             <PasswordInput value={f.confirmPassword} onChange={set('confirmPassword')} autoComplete="new-password" invalid={!!errors.confirmPassword} />
           </Field>
+          <div className="full pw-meter">
+            <PasswordStrength pw={f.password} email={f.email} />
+          </div>
         </div>
-        <div className="row" style={{ color: 'var(--ink-2)', fontWeight: 700, fontSize: 15 }}>
+        <div className="row" style={{ color: 'var(--ink-2)', fontWeight: 700, fontSize: 14 }}>
           Thông tin thêm (không bắt buộc)
           <span style={{ flex: 1, height: 1, background: 'var(--line)' }} />
         </div>
-        <div className="fg2">
+        <div className="fg4">
           <Field label="Năm sinh" error={errors.birthYear}>
             <select className="input" value={f.birthYear} onChange={set('birthYear')}>
               <option value="">— Chọn năm —</option>

@@ -293,7 +293,7 @@ export function PasswordInput(props: React.InputHTMLAttributes<HTMLInputElement>
   return (
     <div className="pw">
       <input {...rest} type={show ? 'text' : 'password'} className={`input${invalid ? ' invalid' : ''} ${className ?? ''}`} />
-      <button type="button" onClick={() => setShow(!show)} aria-label={show ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'} style={{ position: 'absolute', right: 8, top: 8, background: 'none', border: 0, padding: 6, color: 'var(--ink-3)' }}>
+      <button type="button" onClick={() => setShow(!show)} aria-label={show ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'} style={{ position: 'absolute', right: 8, top: 0, bottom: 0, display: 'flex', alignItems: 'center', background: 'none', border: 0, padding: 6, color: 'var(--ink-3)' }}>
         <Icon name="eye" />
       </button>
     </div>
