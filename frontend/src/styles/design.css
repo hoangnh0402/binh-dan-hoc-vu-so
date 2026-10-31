@@ -73,7 +73,8 @@ p { margin: 0; }
 .header { background: #fff; border-bottom: 1px solid var(--line); box-shadow: 0 4px 12px rgba(94, 18, 16, .05); }
 .header .container { display: flex; align-items: center; gap: 28px; height: 80px; }
 .brand { display: flex; align-items: center; gap: 12px; flex: none; }
-.brand img { width: 52px; height: 52px; }
+.brand img { flex: none; width: 52px; height: 52px; }
+.logo-bg { flex: none; }
 .brand .name { font-size: 20px; font-weight: 800; color: var(--red); letter-spacing: -.01em; line-height: 1.1; }
 .brand .sub { font-size: 11px; font-weight: 700; color: var(--ink-2); letter-spacing: .08em; text-transform: uppercase; margin-top: 3px; }
 .nav { display: flex; gap: 4px; }

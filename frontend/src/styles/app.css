@@ -157,7 +157,7 @@ section.block { padding-top: 64px; }
 /* ---------- Trang học ---------- */
 .learn { background: var(--canvas); min-height: 100vh; }
 .lbar { height: 64px; background: #fff; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 16px; padding: 0 24px; position: sticky; top: 0; z-index: 20; }
-.lbar img { width: 40px; height: 40px; }
+.lbar img { flex: none; width: 40px; height: 40px; max-width: none; }
 .lbar .ct { font-weight: 700; font-size: 17px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .warnbar { background: var(--warn-tint); border-bottom: 1px solid #f3d3a1; color: #6b3d00; padding: 12px 24px; display: flex; align-items: center; gap: 12px; font-size: 15px; }
 .warnbar.danger { background: #fff1f0; border-color: var(--error-tint); color: #7a0d0d; }
@@ -187,7 +187,7 @@ section.block { padding-top: 64px; }
 
 /* ---------- Quiz ---------- */
 .qbar { height: 72px; background: #fff; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 16px; padding: 0 32px; position: sticky; top: 0; z-index: 20; }
-.qbar img { width: 40px; height: 40px; }
+.qbar img { flex: none; width: 40px; height: 40px; max-width: none; }
 .timer { display: flex; align-items: center; gap: 10px; background: var(--red-tint); color: var(--red-dark); padding: 8px 16px; border-radius: 999px; font-weight: 800; font-size: 20px; font-variant-numeric: tabular-nums; }
 .timer.low { background: #fff1f0; color: var(--error); }
 .qgrid { display: grid; grid-template-columns: 1fr 320px; gap: 32px; max-width: 1240px; margin: 32px auto; padding: 0 32px; }
