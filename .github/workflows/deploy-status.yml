@@ -1,0 +1,61 @@
+# Vercel tự build và deploy khi push (tích hợp Git, xem deploy/VERCEL.md).
+# Workflow này không deploy, chỉ kiểm tra build và theo dõi tiến trình deploy của Vercel ngay trên tab Actions.
+name: Theo dõi deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: read
+
+jobs:
+  build:
+    name: Kiểm tra build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+        working-directory: frontend
+      - run: npm run build:demo
+        working-directory: frontend
+
+  vercel:
+    name: Chờ Vercel deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Theo dõi trạng thái Vercel của commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 60); do
+            s=$(gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/statuses" \
+              --jq '[.[] | select(.context == "Vercel")][0] // empty')
+            state=$(jq -r '.state // "chưa nhận"' <<< "${s:-{\}}")
+            url=$(jq -r '.target_url // ""' <<< "${s:-{\}}")
+            echo "[$(date +%H:%M:%S)] Vercel: $state"
+            case "$state" in
+              success)
+                echo "### Deploy thành công" >> "$GITHUB_STEP_SUMMARY"
+                echo "- Trang chạy thật: https://binh-dan-hoc-vu-so.vercel.app" >> "$GITHUB_STEP_SUMMARY"
+                echo "- Chi tiết trên Vercel: $url" >> "$GITHUB_STEP_SUMMARY"
+                exit 0 ;;
+              failure|error)
+                echo "### Deploy thất bại" >> "$GITHUB_STEP_SUMMARY"
+                echo "- Xem log trên Vercel: $url" >> "$GITHUB_STEP_SUMMARY"
+                exit 1 ;;
+            esac
+            sleep 10
+          done
+          echo "Quá 10 phút chưa thấy Vercel báo kết quả" >> "$GITHUB_STEP_SUMMARY"
+          exit 1
+      - name: Kiểm tra trang chạy thật
+        run: curl -fsS -o /dev/null -w 'HTTP %{http_code}\n' https://binh-dan-hoc-vu-so.vercel.app/

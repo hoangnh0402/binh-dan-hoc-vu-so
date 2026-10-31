@@ -1,7 +1,11 @@
 # Triển khai frontend lên Vercel
 
 CI/CD dùng **tích hợp Git sẵn của Vercel**: kết nối repo một lần, sau đó mỗi lần
-push là Vercel tự build và deploy. Không cần GitHub Actions, không cần secrets.
+push là Vercel tự build và deploy. Không cần secrets.
+
+Theo dõi deploy tại tab **Actions** của repo, workflow **Theo dõi deploy**
+(`.github/workflows/deploy-status.yml`): workflow này kiểm tra build và chờ Vercel
+báo kết quả của commit, không tự deploy nên không tạo bản deploy trùng.
 
 - **Link production mong muốn:** https://binh-dan-hoc-vu-so.vercel.app
 - Bản deploy chạy **chế độ DEMO** (frontend tự phục vụ dữ liệu, không cần backend).
