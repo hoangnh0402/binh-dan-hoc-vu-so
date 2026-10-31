@@ -43,7 +43,7 @@ export const ENTITY_LABEL: Record<string, string> = {
 };
 export function actionChip(a: string) {
   const cls = ['DELETE', 'LOCK', 'HIDE'].includes(a) ? 'error' : ['PUBLISH', 'RESTORE'].includes(a) ? 'solid' : a === 'RECALCULATE_RANKING' ? 'gold' : a === 'UNLOCK' || a === 'SHOW' ? 'success' : '';
-  return <span className={`chip ${cls}`}>{ACTION_LABEL[a] ?? a}</span>;
+  return <span className={`chip action ${cls}`}>{ACTION_LABEL[a] ?? a}</span>;
 }
 
 /** SCR-ADM-01 — FR-ADM-21. */

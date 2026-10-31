@@ -54,24 +54,6 @@ export default function HomePage() {
             <div className="ring">
               <img src="/logo-256.png" alt="Logo Trường Đại học Sư phạm Hà Nội 2" />
             </div>
-            <div className="float f1">
-              <span className="ic">
-                <Icon name="hourglass" />
-              </span>
-              <div>
-                <b>Hoàn thành trong 3 tuần</b>
-                <div className="xs muted">Lộ trình gọn, dễ theo</div>
-              </div>
-            </div>
-            <div className="float f2">
-              <span className="ic">
-                <Icon name="trophy" />
-              </span>
-              <div>
-                <b>Bảng xếp hạng</b>
-                <div className="xs muted">Theo từng khóa học</div>
-              </div>
-            </div>
           </div>
         </div>
       </section>

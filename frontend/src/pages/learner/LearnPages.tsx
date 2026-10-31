@@ -735,7 +735,7 @@ export function QuizResultPage() {
             </div>
           </div>
           <div>
-            <span className={`chip ${r.passed ? 'success' : 'error'}`} style={{ height: 34, fontSize: 15 }}>
+            <span className={`chip ${r.passed ? 'success' : 'error'}`}>
               <Icon name={r.passed ? 'check-circle' : 'x'} size="sm" />
               {r.passed ? 'Đạt' : 'Chưa đạt'} — yêu cầu {r.passScorePercent}%
             </span>

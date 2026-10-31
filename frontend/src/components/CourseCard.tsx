@@ -105,12 +105,21 @@ export function CourseCard({ c }: { c: Card }) {
   return (
     <article className="course-card">
       <Link to={to} style={{ color: 'inherit' }} aria-label={c.title}>
-        <Thumb url={c.thumbnailUrl} label={c.parentCategoryName} id={c.id} status={<TimeStatusChip status={c.timeStatus} />} />
+        <Thumb
+          url={c.thumbnailUrl}
+          label={c.parentCategoryName}
+          id={c.id}
+          status={
+            <>
+              <TimeStatusChip status={c.timeStatus} />
+              <span className="chip neutral">{LEVEL_LABEL[c.level]}</span>
+            </>
+          }
+        />
       </Link>
       <div className="body">
         <div className="row" style={{ gap: 6, flexWrap: 'nowrap' }}>
           <span className="chip ellipsis" title={c.categoryName}>{c.categoryName}</span>
-          <span className="chip neutral" style={{ flexShrink: 0 }}>{LEVEL_LABEL[c.level]}</span>
           {c.ratingCount > 0 && (
             <span className="rating" style={{ marginLeft: 'auto', flexShrink: 0 }}>
               <Icon name="star" size="sm" />

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type FormEvent, type MouseEvent, type ReactNode } from 'react';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { ApiError, api } from '@/api/client';
 import type { TokenResponse } from '@/api/types';
@@ -8,7 +8,51 @@ import { Checkbox, Field, PasswordInput, errorMessage, useCountdown, useToast } 
 import { formatClock } from '@/lib/format';
 import { DEMO, DEMO_ACCOUNT, DEMO_ADMIN } from '@/demo/flag';
 
+/** Báo cho View Transition biết trang mới đã vào DOM (điều hướng chạy trong startTransition nên flushSync không có tác dụng). */
+let finishAuthSwap: (() => void) | null = null;
+
+/** Liên kết giữa Đăng nhập và Đăng ký, có hiệu ứng chuyển trang nếu trình duyệt hỗ trợ. */
+function AuthLink({ to, className, children }: { to: '/dang-nhap' | '/dang-ky'; className?: string; children: ReactNode }) {
+  const nav = useNavigate();
+  const onClick = (e: MouseEvent) => {
+    if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+    if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    e.preventDefault();
+    const root = document.documentElement;
+    root.dataset.authDir = to === '/dang-ky' ? 'forward' : 'back';
+    const vt = document.startViewTransition(
+      () =>
+        new Promise<void>((resolve) => {
+          finishAuthSwap = resolve;
+          nav(to);
+          setTimeout(resolve, 1000);
+        }),
+    );
+    vt.finished.finally(() => delete root.dataset.authDir);
+  };
+  return (
+    <Link className={className} to={to} onClick={onClick}>
+      {children}
+    </Link>
+  );
+}
+
+function AuthTabs({ active }: { active: 'login' | 'register' }) {
+  return (
+    <div className={`seg${active === 'register' ? ' reg' : ''}`}>
+      <span className="seg-pill" aria-hidden />
+      {active === 'login' ? <a className="on" aria-current="page">Đăng nhập</a> : <AuthLink to="/dang-nhap">Đăng nhập</AuthLink>}
+      {active === 'register' ? <a className="on" aria-current="page">Đăng ký</a> : <AuthLink to="/dang-ky">Đăng ký</AuthLink>}
+    </div>
+  );
+}
+
 function AuthShell({ title, points, children }: { title: ReactNode; points: [string, string][]; children: ReactNode }) {
+  useLayoutEffect(() => {
+    finishAuthSwap?.();
+    finishAuthSwap = null;
+  }, []);
+
   return (
     <div className="auth auth-page">
       <section className="art">
@@ -21,7 +65,7 @@ function AuthShell({ title, points, children }: { title: ReactNode; points: [str
             <div className="sub">Trường Đại học Sư phạm Hà Nội 2</div>
           </div>
         </Link>
-        <div style={{ position: 'relative' }}>
+        <div className="art-copy">
           <h1>{title}</h1>
           <div className="pts">
             {points.map(([ic, t]) => (
@@ -38,7 +82,9 @@ function AuthShell({ title, points, children }: { title: ReactNode; points: [str
           © 2026 Trường Đại học Sư phạm Hà Nội 2
         </div>
       </section>
-      <section className="form-side">{children}</section>
+      <section className="form-side">
+        <div className="auth-frame">{children}</div>
+      </section>
     </div>
   );
 }
@@ -137,10 +183,7 @@ export function LoginPage() {
       ]}
     >
       <form className="form-card" onSubmit={submit} noValidate>
-        <div className="seg">
-          <a className="on">Đăng nhập</a>
-          <Link to="/dang-ky">Đăng ký</Link>
-        </div>
+        <AuthTabs active="login" />
         <div>
           <h2 className="form-title" style={{ fontSize: 26, fontWeight: 800 }}>Đăng nhập</h2>
           <p className="muted small" style={{ marginTop: 4 }}>Dùng email bạn đã đăng ký tài khoản.</p>
@@ -185,7 +228,7 @@ export function LoginPage() {
           </div>
         )}
         <p className="small" style={{ textAlign: 'center' }}>
-          Chưa có tài khoản? <Link className="bold" to="/dang-ky">Đăng ký miễn phí</Link>
+          Chưa có tài khoản? <AuthLink className="bold" to="/dang-ky">Đăng ký miễn phí</AuthLink>
         </p>
       </form>
     </AuthShell>
@@ -252,10 +295,7 @@ export function RegisterPage() {
       ]}
     >
       <form className="form-card wide" onSubmit={submit} noValidate>
-        <div className="seg">
-          <Link to="/dang-nhap">Đăng nhập</Link>
-          <a className="on">Đăng ký</a>
-        </div>
+        <AuthTabs active="register" />
         <div className="stepper">
           <span className="s on">
             <i>1</i>Thông tin
@@ -340,7 +380,7 @@ export function RegisterPage() {
           {busy ? 'Đang gửi...' : 'Đăng ký và nhận mã xác thực'}
         </button>
         <p className="small" style={{ textAlign: 'center' }}>
-          Đã có tài khoản? <Link className="bold" to="/dang-nhap">Đăng nhập</Link>
+          Đã có tài khoản? <AuthLink className="bold" to="/dang-nhap">Đăng nhập</AuthLink>
         </p>
       </form>
     </AuthShell>

@@ -105,14 +105,16 @@ p { margin: 0; }
 .btn[disabled] { background: var(--line); color: var(--ink-3); }
 
 /* ---------- Chips, badges ---------- */
-.chip { display: inline-flex; align-items: center; gap: 6px; height: 28px; white-space: nowrap; padding: 0 12px; border-radius: 999px; font-size: 13px; font-weight: 600; background: var(--red-tint); color: var(--red-dark); }
+/* min-width chung để các nhãn cùng loại bằng nhau, không dài ngắn theo chữ. */
+.chip { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 28px; min-width: 120px; white-space: nowrap; padding: 0 12px; border-radius: 999px; font-size: 13px; font-weight: 600; background: var(--red-tint); color: var(--red-dark); }
 .chip.gold { background: var(--gold-tint); color: var(--gold-ink); }
 .chip.neutral { background: #f5eeed; color: var(--ink-2); }
 .chip.success { background: var(--success-tint); color: var(--success); }
 .chip.warn { background: var(--warn-tint); color: var(--warn); }
 .chip.error { background: var(--error-tint); color: var(--error); }
 .chip.solid { background: var(--red); color: #fff; }
-.chip.outline { background: #fff; border: 1px solid var(--line-2); color: var(--ink); }
+.chip.outline { min-width: 140px; background: #fff; border: 1px solid var(--line-2); color: var(--ink); }
+.chip.action { min-width: 170px; }
 .chip.outline.on { border-color: var(--red); background: var(--red-tint); color: var(--red-dark); }
 
 /* ---------- Section title (giống tiêu đề khối trên hpu2.edu.vn) ---------- */
@@ -128,7 +130,7 @@ p { margin: 0; }
 .thumb { aspect-ratio: 16 / 9; position: relative; display: flex; align-items: flex-end; padding: 16px; color: #fff; overflow: hidden; }
 .thumb .big { position: absolute; right: -10px; bottom: -18px; width: 120px; height: 120px; opacity: .22; stroke-width: 1.5; }
 .thumb .t-label { font-weight: 800; font-size: 20px; line-height: 1.15; max-width: 75%; position: relative; }
-.thumb .status { position: absolute; top: 12px; left: 12px; }
+.thumb .status { position: absolute; top: 12px; left: 12px; right: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
 .thumb.t1 { background: linear-gradient(135deg, #a72a28, #c0392b); }
 .thumb.t2 { background: linear-gradient(135deg, #6b1a18, #a72a28); }
 .thumb.t3 { background: linear-gradient(135deg, #7a5900, #c99a1e); }
@@ -142,7 +144,7 @@ p { margin: 0; }
 .meta span { display: inline-flex; align-items: center; gap: 5px; }
 .rating { display: inline-flex; align-items: center; gap: 4px; font-weight: 700; font-size: 14px; color: var(--ink); }
 .rating .icon { color: var(--gold); }
-.course-card .foot { border-top: 1px solid var(--line); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
+.course-card .foot { border-top: 1px solid var(--line); padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: space-between; }
 
 /* ---------- Progress ---------- */
 .progress { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; }
@@ -250,6 +252,7 @@ p { margin: 0; }
 .art .brand .sub { color: #f3c9c4; }
 .art .logo-bg { width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; }
 .art .logo-bg img { width: 64px; height: 64px; }
+.art-copy { position: relative; view-transition-name: auth-art; }
 .art h1 { font-size: 40px; font-weight: 800; line-height: 1.2; letter-spacing: -.02em; }
 .art .pts { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; font-size: 17px; }
 .art .pts span { display: flex; gap: 12px; align-items: center; }
@@ -258,7 +261,8 @@ p { margin: 0; }
 .form-card { width: 480px; max-width: 100%; background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 32px 40px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 16px; }
 .form-card.wide { width: 760px; }
 /* margin auto thay cho căn giữa flex: cửa sổ quá thấp thì cuộn được từ đầu form, không bị cắt mất phần trên. */
-.form-side .form-card { margin: auto; flex: none; }
+.auth-frame { margin: auto; min-width: 0; background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); box-shadow: var(--shadow); view-transition-name: auth-card; }
+.auth-frame .form-card { background: none; border: 0; box-shadow: none; view-transition-name: auth-content; }
 .auth .fg2 { row-gap: 16px; }
 .fg4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .pw-meter { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 20px; }
@@ -266,9 +270,13 @@ p { margin: 0; }
 .pw-meter .rules { flex-direction: row; flex-wrap: wrap; gap: 4px 14px; }
 .quick-demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
 .demo-note { font-size: 14px; }
-.seg { display: grid; grid-template-columns: 1fr 1fr; background: #f5eeed; border-radius: 10px; padding: 4px; }
-.seg a { text-align: center; padding: 10px; border-radius: 8px; font-weight: 700; color: var(--ink-2); }
-.seg a.on { background: #fff; color: var(--red); box-shadow: 0 1px 4px rgba(0, 0, 0, .08); }
+.seg { position: relative; display: grid; grid-template-columns: 1fr 1fr; background: #f5eeed; border-radius: 10px; padding: 4px; view-transition-name: auth-seg; }
+.seg a { position: relative; text-align: center; padding: 10px; border-radius: 8px; font-weight: 700; color: var(--ink-2); }
+.seg a:first-of-type { view-transition-name: auth-tab-login; }
+.seg a:last-of-type { view-transition-name: auth-tab-register; }
+.seg a.on { color: var(--red); }
+.seg-pill { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0, 0, 0, .08); view-transition-name: auth-seg-pill; }
+.seg.reg .seg-pill { left: 50%; }
 .pw { position: relative; }
 .pw .icon { position: absolute; right: 14px; top: 14px; color: var(--ink-3); }
 .pw button .icon { position: static; }
@@ -287,6 +295,24 @@ p { margin: 0; }
 .rules { display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
 .rules span { display: flex; gap: 6px; align-items: center; color: var(--ink-3); }
 .rules span.ok { color: var(--success); }
+
+/* Chuyển trang đăng nhập ⇄ đăng ký: khung co giãn, viên chọn tab trượt, nội dung trượt theo hướng chuyển. */
+:root { --auth-dir: 1; }
+:root[data-auth-dir="back"] { --auth-dir: -1; }
+::view-transition-group(*) { animation-duration: .38s; animation-timing-function: cubic-bezier(.4, 0, .2, 1); }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .3s; }
+::view-transition-old(auth-card), ::view-transition-new(auth-card),
+::view-transition-old(auth-seg), ::view-transition-new(auth-seg),
+::view-transition-old(auth-seg-pill), ::view-transition-new(auth-seg-pill) { width: 100%; height: 100%; }
+::view-transition-old(auth-content), ::view-transition-new(auth-content),
+::view-transition-old(auth-art), ::view-transition-new(auth-art),
+::view-transition-old(auth-tab-login), ::view-transition-new(auth-tab-login),
+::view-transition-old(auth-tab-register), ::view-transition-new(auth-tab-register) { width: 100%; height: 100%; object-fit: none; }
+::view-transition-old(auth-content), ::view-transition-new(auth-content) { object-position: top center; }
+::view-transition-old(auth-content), ::view-transition-old(auth-art) { animation: auth-out .16s ease-in both; }
+::view-transition-new(auth-content), ::view-transition-new(auth-art) { animation: auth-in .26s ease-out .12s both; }
+@keyframes auth-out { to { opacity: 0; transform: translateX(calc(var(--auth-dir) * -16px)); } }
+@keyframes auth-in { from { opacity: 0; transform: translateX(calc(var(--auth-dir) * 16px)); } }
 
 /* ---------- Admin: thanh công cụ danh sách, phân trang, menu thao tác ---------- */
 .toolbar-a { display: flex; gap: 12px; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
